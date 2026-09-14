@@ -1,0 +1,148 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Growen design system — warm cream / charcoal / oxblood.
+ * Sans (Archivo) = system information. Serif italic (Instrument Serif) = human commentary.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-border: var(--ink-border);
+  --color-oxblood: var(--oxblood);
+  --color-oxblood-soft: var(--oxblood-soft);
+  --color-signal: var(--signal);
+  --color-cream: var(--cream);
+  --color-cream-deep: var(--cream-deep);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --cream: #F1ECE6;
+  --cream-deep: #DDD5CD;
+  --ink: #2E2E2E;
+  --ink-foreground: #F1ECE6;
+  --ink-muted: #B3AAA3;
+  --ink-border: rgb(241 236 230 / 14%);
+  --oxblood: #7D4047;
+  --oxblood-soft: #A85F66;
+  --signal: #C58B90;
+
+  --background: var(--cream);
+  --foreground: #2E2E2E;
+  --card: #F8F5F1;
+  --card-foreground: #2E2E2E;
+  --popover: #F8F5F1;
+  --popover-foreground: #2E2E2E;
+  --primary: var(--oxblood);
+  --primary-foreground: #F1ECE6;
+  --secondary: var(--cream-deep);
+  --secondary-foreground: #2E2E2E;
+  --muted: var(--cream-deep);
+  --muted-foreground: #6B625C;
+  --accent: var(--cream-deep);
+  --accent-foreground: #2E2E2E;
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: #F1ECE6;
+  --border: rgb(46 46 46 / 14%);
+  --input: rgb(46 46 46 / 16%);
+  --ring: var(--oxblood);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+}
+
+@utility eyebrow {
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@utility voice {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+@utility section-dark {
+  background-color: var(--ink);
+  color: var(--ink-foreground);
+}
+
+@utility marquee-track {
+  animation: marquee-scroll 32s linear infinite;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes stage-content-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stage-card {
+  animation: stage-content-in 420ms ease-out both;
+}
