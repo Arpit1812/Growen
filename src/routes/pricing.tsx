@@ -31,69 +31,81 @@ export const Route = createFileRoute("/pricing")({
 const TIERS = [
   {
     name: "Starter",
-    coverage: "50% signal coverage",
-    blurb: "The foundation and first scoring layer of your revenue signal engine.",
-    price: "From $5K",
-    sub: "one-time build · $500–800/mo retainer",
-    roi: "3.5×+",
-    timeline: "5–7 week build",
+    coverage: "50% Signal Coverage",
+    blurb: "Catch the signals. Route them. Stop losing them.",
+    bestFor: "Teams that have the data but still rely heavily on manual follow-up.",
+    price: "From $5,000",
+    sub: "Build the foundation.",
     popular: false,
     features: [
-      "CRM setup & migration as system of record",
-      "Automated signal capture & routing",
-      "Rules-based PQL / lead scoring (v1)",
-      "5-touch automated follow-up",
-      "Light domain clustering",
-      "Scored pipeline reporting dashboard",
-      "1 ICP / persona definition",
-      "Team training & playbook handover",
+      "CRM foundation",
+      "Signal capture",
+      "Signal routing",
+      "Rules-based scoring",
+      "Automated follow-up",
+      "Pipeline visibility",
     ],
   },
   {
     name: "Growth",
-    coverage: "75% signal coverage",
-    blurb: "Complete the intelligence layer and put it to work automatically.",
-    price: "From $10K",
-    sub: "one-time build · $1,200–1,500/mo retainer",
-    roi: "5×+",
-    timeline: "10–14 week build",
+    coverage: "75% Signal Coverage",
+    blurb: "Score the right accounts. Add context. Trigger the next action.",
+    bestFor: "Teams ready to move from organised data to proactive revenue workflows.",
+    price: "From $10,000+",
+    sub: "Turn signals into a system.",
     popular: true,
     features: [
       "Everything in Starter, plus:",
-      "Firmographic & contact enrichment",
-      "Full domain clustering",
-      "AI-assisted outreach (human checkpoint)",
-      "Referral program automation",
-      "Account health & expansion detection",
-      "2–3 ICP / persona definitions",
-      "Attribution & pipeline forecasting",
+      "Deeper scoring",
+      "Account enrichment",
+      "Domain clustering",
+      "AI-assisted engagement",
+      "Expansion signals",
+      "Referral automation",
     ],
   },
   {
     name: "Scale",
-    coverage: "100% signal coverage",
-    blurb: "The complete Growen Revenue Signal Engine — all five layers as one.",
-    price: "From $30K",
-    sub: "one-time build · $2,500–4,000/mo retainer",
-    roi: "10×+",
-    timeline: "18–24 week engagement",
+    coverage: "100% Signal Coverage",
+    blurb: "Connect the stack. Automate the action. Surface expansion before renewal.",
+    bestFor: "Companies with complex systems, multiple teams and a revenue process that has outgrown current operations.",
+    price: "From $30,000+",
+    sub: "The whole engine. All five layers, one system.",
     popular: false,
     features: [
       "Everything in Growth, plus:",
-      "Data warehouse & Customer 360",
-      "AI SDR / autonomous outbound agent",
-      "Buying committee mapping",
-      "Multi-method forecasting model",
-      "Conversation intelligence integration",
-      "Commercial ops automation (CPQ)",
+      "Customer 360",
+      "Data infrastructure",
+      "Advanced automation",
+      "Research workflows",
+      "Account health",
+      "Expansion detection",
+      "Buying-committee intelligence",
+      "Forecasting",
+      "Conversation intelligence",
     ],
   },
 ];
 
-const RETAINERS: Record<string, string[]> = {
-  Starter: ["10–12 hours of system administration", "Monthly performance and scoring review", "Two minor automation adjustments", "2-business-day email and Slack support"],
-  Growth: ["15–20 hours of revenue-systems engineering", "Scoring and enrichment tuning", "One sequence test each month", "1-business-day priority support"],
-  Scale: ["30+ hours of fractional systems-team support", "All-layer health and AI-agent monitoring", "Quarterly executive business review", "Same-business-day dedicated Slack support"],
+const RETAINERS: Record<string, { price: string; intro: string; bestFor: string; items: string[] }> = {
+  Starter: {
+    price: "$500–$800 / month",
+    intro: "For keeping the foundation healthy.",
+    bestFor: "Stable systems that need ongoing maintenance and small improvements.",
+    items: ["10–12 hours/month of system administration", "Monthly performance review", "Scoring-model review", "Up to 2 minor automation adjustments/month", "CRM hygiene check", "Email / Slack support", "2-business-day response SLA"],
+  },
+  Growth: {
+    price: "$1,200–$1,500 / month",
+    intro: "For teams actively improving their revenue engine.",
+    bestFor: "Teams continuously optimizing signals, scoring and workflows.",
+    items: ["15–20 hours/month of revenue-systems engineering", "Scoring + enrichment review", "Weekly enrichment refresh for active accounts", "Monthly sequence / messaging experiment", "Quarterly ICP / persona refinement", "Monthly reporting review", "Quarterly strategy session", "Priority support", "1-business-day response SLA"],
+  },
+  Scale: {
+    price: "$1,500–$2,500 / month",
+    intro: "For companies treating revenue infrastructure as an ongoing engineering function.",
+    bestFor: "Complex revenue systems that need continuous engineering and optimization.",
+    items: ["30 hours/month of dedicated systems engineering", "Full revenue-system health monitoring", "Data pipeline and integration monitoring", "AI-agent quality monitoring", "Scoring drift monitoring", "Forecast recalibration", "Buying-committee data refresh", "Ongoing AI-agent tuning", "Dedicated Slack channel", "Same-business-day response", "Quarterly Executive Business Review"],
+  },
 };
 
 type Level = "full" | "partial" | "none";
@@ -150,13 +162,14 @@ function Pricing() {
             <span className="voice font-normal">you install.</span>
           </h1>
           <p className="mt-6 max-w-xl leading-relaxed text-ink-muted">
-            Starter, Growth and Scale install 50%, 75% or 100% of your Growen Revenue Signal
-            Engine, packaged with stated price, timeline and ROI.
+            Same architecture. Three depths. Start with the signals that matter. Expand when the
+            system proves its value.
           </p>
           <p className="mt-4 max-w-xl text-sm text-ink-foreground/70">
             <span className="font-display font-bold">Note:</span> 50% / 75% / 100% describe{" "}
-            <span className="font-display font-bold">signal coverage, and not tasks automated</span>{" "}
-            — how much of your revenue signal surface the engine sees and acts on.
+            <span className="font-display font-bold">signal coverage, not tasks automated.</span>{" "}
+            It describes how much of the Growen Signal Engine is installed and running across your
+            revenue system.
           </p>
         </div>
       </section>
@@ -204,29 +217,14 @@ function Pricing() {
                 {t.blurb}
               </p>
 
-              <p className="mt-8 font-display text-4xl font-extrabold text-oxblood-soft">
-                {t.price}
-              </p>
-              <p className={`mt-1 text-xs ${t.popular ? "text-ink-muted" : "text-muted-foreground"}`}>
-                {t.sub}
+              <p className={`mt-6 text-sm leading-relaxed ${t.popular ? "text-ink-muted" : "text-muted-foreground"}`}>
+                <strong className={t.popular ? "text-ink-foreground" : "text-foreground"}>Best for</strong>
+                <br />
+                {t.bestFor}
               </p>
 
-              <div
-                className={`mt-6 flex gap-10 border-t pt-5 ${
-                  t.popular ? "border-ink-border" : "border-border"
-                }`}
-              >
-                <div>
-                  <p className="eyebrow opacity-60">Year-1 ROI</p>
-                  <p className="mt-1 font-display text-lg font-extrabold">{t.roi}</p>
-                </div>
-                <div>
-                  <p className="eyebrow opacity-60">Timeline</p>
-                  <p className="mt-1 font-display text-lg font-extrabold">{t.timeline}</p>
-                </div>
-              </div>
-
-              <ul className="mt-7 space-y-3 text-sm">
+              <p className={`mt-7 text-xs font-bold uppercase tracking-[0.14em] ${t.popular ? "text-ink-muted" : "text-muted-foreground"}`}>Includes</p>
+              <ul className="mt-3 space-y-3 text-sm">
                 {t.features.map((f) => (
                   <li key={f} className="flex gap-3">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-signal" />
@@ -235,13 +233,13 @@ function Pricing() {
                 ))}
               </ul>
 
-              <div className={`mt-7 border-t pt-5 ${t.popular ? "border-ink-border" : "border-border"}`}>
-                <p className="eyebrow opacity-60">Ongoing retainer</p>
-                <ul className="mt-3 space-y-2 text-xs leading-relaxed">
-                  {RETAINERS[t.name].map((item) => (
-                    <li key={item} className="flex gap-2"><Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-signal" />{item}</li>
-                  ))}
-                </ul>
+              <div className="mt-auto pt-8">
+                <p className="font-display text-4xl font-extrabold text-oxblood-soft">
+                  {t.price}
+                </p>
+                <p className={`mt-1 text-xs ${t.popular ? "text-ink-muted" : "text-muted-foreground"}`}>
+                  {t.sub}
+                </p>
               </div>
 
               <Link
@@ -249,7 +247,7 @@ function Pricing() {
                 className={`mt-9 inline-flex items-center justify-center rounded-full px-6 py-3.5 font-display font-bold transition-colors ${
                   t.popular
                     ? "bg-primary text-primary-foreground hover:bg-oxblood-soft"
-                    : "border border-foreground/20 hover:bg-muted"
+                    : "bg-primary text-primary-foreground hover:bg-oxblood-soft"
                 }`}
               >
                 Request an audit
@@ -258,9 +256,35 @@ function Pricing() {
           ))}
         </div>
         <p className="mx-auto mt-8 max-w-7xl text-sm text-muted-foreground">
-          Not sure which tier? The standalone Month 1 Diagnostic ($2,500–$5,000) is creditable
-          toward any tier.
+          Signal coverage ≠ tasks automated. It describes how much of the Growen Signal Engine is
+          installed and running across your revenue system.
         </p>
+      </section>
+
+      <section className="section-dark px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <p className="eyebrow text-oxblood-soft">Ongoing Systems Retainers</p>
+          <h2 className="mt-5 max-w-3xl text-4xl leading-tight text-ink-foreground sm:text-5xl">
+            Keep your revenue <span className="voice font-normal">compounding.</span>
+          </h2>
+          <p className="mt-6 max-w-2xl leading-relaxed text-ink-muted">
+            Code rots. APIs change. Conversion models drift. The retainer is not an IT helpdesk
+            fee — it's active optimization keeping your revenue compounding month over month.
+          </p>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {Object.entries(RETAINERS).map(([name, retainer]) => (
+              <div key={name} className="flex h-full flex-col rounded-2xl border border-ink-border bg-ink p-8 text-ink-foreground">
+                <p className="eyebrow text-oxblood-soft">{name} retainer</p>
+                <p className="mt-4 font-display text-2xl font-extrabold">{retainer.price}</p>
+                <p className="mt-3 text-sm text-ink-muted">{retainer.intro}</p>
+                <ul className="mt-6 space-y-3 text-sm leading-relaxed text-ink-muted">
+                  {retainer.items.map((item) => <li key={item} className="flex gap-3"><Check className="mt-0.5 h-4 w-4 shrink-0 text-signal" />{item}</li>)}
+                </ul>
+                <p className="mt-auto border-t border-ink-border pt-5 text-sm leading-relaxed text-ink-muted"><strong className="text-ink-foreground">Best for:</strong> {retainer.bestFor}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section className="bg-cream-deep px-6 py-24">
@@ -269,14 +293,14 @@ function Pricing() {
           <p className="mt-3 text-muted-foreground">Every division in one clear comparison.</p>
           <div className="mt-10 overflow-x-auto rounded-2xl border border-border bg-card">
             <div className="min-w-[680px]">
-              <div className="grid grid-cols-[1fr_100px_100px_100px] items-center border-b border-border bg-muted/40 px-7 py-5">
+              <div className="grid grid-cols-[minmax(0,1fr)_140px_140px_140px] items-center gap-4 border-b border-border bg-muted/40 px-7 py-5">
                 <span className="eyebrow text-muted-foreground">Capability</span><span className="eyebrow text-center">Starter 50%</span><span className="eyebrow text-center">Growth 75%</span><span className="eyebrow text-center">Scale 100%</span>
               </div>
               <Accordion type="single" collapsible defaultValue="Foundation & data">
                 {GROUPS.map((g) => <AccordionItem key={g.group} value={g.group} className="border-border">
                   <AccordionTrigger className="bg-cream-deep/45 px-7 py-5 font-display text-lg font-extrabold hover:no-underline">{g.group}</AccordionTrigger>
                   <AccordionContent className="pb-0">
-                    {g.rows.map(([label, s, gr, sc]) => <div key={label} className="grid grid-cols-[1fr_100px_100px_100px] items-center border-b border-border/60 px-7 py-4 text-sm last:border-b-0"><span>{label}</span><Mark level={s} /><Mark level={gr} /><Mark level={sc} /></div>)}
+                    {g.rows.map(([label, s, gr, sc]) => <div key={label} className="grid grid-cols-[minmax(0,1fr)_140px_140px_140px] items-center gap-4 border-b border-border/60 px-7 py-4 text-sm last:border-b-0"><span>{label}</span><Mark level={s} /><Mark level={gr} /><Mark level={sc} /></div>)}
                   </AccordionContent>
                 </AccordionItem>)}
               </Accordion>

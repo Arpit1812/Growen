@@ -31,69 +31,129 @@ const STAGES = [
   {
     id: "capture",
     tip: "Collect signals from product usage, website activity, billing events and support tickets.",
+    subtitle: "Catch what your systems already know.",
     name: "CAPTURE",
-    signal: "A trial account invites 4 teammates in 48 hours.",
-    action: "Product events unify into one account record in the CRM.",
-    outcome: "No expansion moment is invisible to Sales again.",
+    signal: "A trial account invites four teammates in 48 hours.",
+    action: "Turn activity into an account-level signal.",
+    outcome: "One account. One owner. Immediate visibility.",
   },
   {
     id: "score",
     tip: "Prioritise leads by behaviour: high usage, rapid growth or key events.",
+    subtitle: "Not every signal matters equally.",
     name: "SCORE",
-    signal: "Usage climbs 3× while the champion opens the pricing page.",
-    action: "The account is scored PQL-high and flagged in the pipeline.",
-    outcome: "Reps work the 12 accounts that matter, not 400.",
+    signal: "Usage jumps 3× while the champion reads your pricing page.",
+    action: "Usage + firmographic score pushes it into high-intent — in real time, not on Monday.",
+    outcome: "Your team works the accounts that matter — not the entire queue.",
   },
   {
     id: "route",
     tip: "Auto-assign hot leads to an AE or trigger a CSM alert.",
+    subtitle: "Right signal. Right person. Right moment.",
     name: "ROUTE",
-    signal: "An enterprise domain has 9 self-serve users across 3 teams.",
-    action: "Domain clustering merges them and routes one owner instantly.",
-    outcome: "Lead response drops from days to minutes.",
+    signal: "Nine users from the same company.",
+    action: "Group the activity. Identify the account. Assign the owner.",
+    outcome: "Nine leads become one deal. Days become minutes.",
   },
   {
     id: "engage",
     tip: "Engage prospects with timely email, in-app messages or Slack notifications.",
+    subtitle: "Act while intent is still high.",
     name: "ENGAGE",
-    signal: "Onboarding stalls at step 2 for a $40K account.",
-    action: "A five-touch sequence fires with a human checkpoint before send.",
-    outcome: "Stalled deals restart without a rep noticing manually.",
+    signal: "Onboarding stalls at step two on a $40K account.",
+    action: "A five-touch sequence fires automatically.",
+    outcome: "Stalled deals restart. Nobody had to notice.",
   },
   {
     id: "expand",
     tip: "Flag an account ready for an upsell, renewal or referral.",
+    subtitle: "Don't wait for renewal to discover growth.",
     name: "EXPAND",
-    signal: "Seat usage exceeds contract 60 days before renewal.",
-    action: "An expansion task with the usage evidence lands on the AM's desk.",
-    outcome: "Renewals are negotiated early, from a position of data.",
+    signal: "Usage crosses the contracted limit 60 days before renewal.",
+    action: "Expansion task with usage evidence lands on the AM's desk.",
+    outcome: "Renewal becomes an expansion conversation.",
   },
 ];
 
 const GAP = [
   {
     n: "01",
-    title: "A trial team hits 80% of plan limits",
-    body: "The event lands in the product database. Nobody in Sales ever sees it, and the upgrade conversation never happens.",
+    title: "Trial team hits 80% of plan limits",
+    points: [
+      "Event lands in the product database.",
+      "Sales never sees it.",
+      "Upgrade conversation never happens.",
+    ],
   },
   {
     n: "02",
-    title: "A champion changes jobs",
-    body: "Your best user shows up at a new company. No alert, no play — a warm account is treated as cold outbound six months later.",
+    title: "Champion changes jobs",
+    points: [
+      "Your best user appears at a new company.",
+      "No alert. No play.",
+      "A warm account becomes cold outbound six months later.",
+    ],
   },
   {
     n: "03",
-    title: "Support logs three angry tickets",
-    body: "Churn risk is written down in a tool the renewal owner doesn't open. The signal arrives after the cancellation email.",
+    title: "Support tickets spike on one account",
+    points: [
+      "Health is dropping in real time.",
+      "CS and Sales stay in separate tools.",
+      "You find out via the cancellation email.",
+    ],
   },
   {
     n: "04",
     title: "Nine users share one email domain",
-    body: "They're nine separate leads in the CRM instead of one enterprise account worth a real conversation.",
+    points: [
+      "Clear buying-committee signal.",
+      "Your CRM still sees nine separate leads.",
+      "You're pitching individuals instead of an enterprise.",
+    ],
   },
 ];
 
 const INDUSTRIES = ["Developer Tools", "Fleet Software", "API-driven SaaS", "Transportation Management"];
+
+const APPROACH_PHASES = [
+  {
+    id: "audit",
+    number: "PHASE 01",
+    label: "AUDIT",
+    intro: "Map the system. Find the leaks.",
+    points: [
+      "We dig into your systems, data, workflows and teams to understand how revenue information actually moves through the business.",
+      "We look at product, CRM, billing, support, marketing, data and teams.",
+      "We identify the highest-value opportunities based on revenue impact, effort and urgency.",
+    ],
+    output: "A clear map of your current revenue infrastructure — and where signals disappear.",
+  },
+  {
+    id: "build",
+    number: "PHASE 02",
+    label: "BUILD",
+    intro: "Turn the diagnosis into an architecture.",
+    points: [
+      "We define what data moves, where it moves, how accounts are scored and who receives the signal.",
+      "We decide what should be automated, what should remain human and what needs to be built.",
+      "We configure and connect the systems you already use without unnecessary rebuilds.",
+    ],
+    output: "Your Revenue Infrastructure Blueprint and a working revenue system your team can actually use.",
+  },
+  {
+    id: "optimize",
+    number: "PHASE 03",
+    label: "OPTIMIZE",
+    intro: "Measure. Improve. Repeat.",
+    points: [
+      "We monitor whether your signals are useful, whether the right people are acting and where the system breaks.",
+      "We improve scoring, routing, workflows and automation using actual operating results.",
+      "We keep the engine compounding as the market, product and pipeline evolve.",
+    ],
+    output: "A healthier system — and a team that knows how to operate it.",
+  },
+];
 
 function StageBoard() {
   const [active, setActive] = useState(STAGES[0]!.id);
@@ -142,7 +202,7 @@ function StageBoard() {
                     isActive ? "opacity-100" : "opacity-0 group-hover:opacity-60"
                   }`}
                 >
-                  {s.tip}
+                  {s.subtitle}
                 </span>
               </button>
             );
@@ -188,6 +248,9 @@ function StageBoard() {
 }
 
 function Index() {
+  const [activeApproach, setActiveApproach] = useState(APPROACH_PHASES[0]!.id);
+  const activePhase = APPROACH_PHASES.find((phase) => phase.id === activeApproach)!;
+
   return (
     <div className="min-h-screen bg-cream">
       <Header />
@@ -200,19 +263,24 @@ function Index() {
               Revenue infrastructure · For B2B tech
             </p>
             <h1 className="mt-6 text-5xl leading-[0.95] text-ink-foreground sm:text-6xl lg:text-7xl">
-              Build the infrastructure connecting{" "}
-              <span className="voice font-normal text-oxblood-soft">signals</span> to revenue.
+              Build the infrastructure that turns{" "}
+              <span className="voice font-normal text-oxblood-soft">signals</span> into revenue.
             </h1>
             <p className="mt-7 max-w-xl text-lg leading-relaxed text-ink-muted">
-              Your product, customer and operating systems already generate valuable signals. We
-              connect them, automate the right actions and help turn more of them into revenue.
+              Your systems already generate the signals. We connect them to action — and revenue.
             </p>
-            <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 font-display font-bold text-primary-foreground transition-colors hover:bg-oxblood-soft"
-              >
-                Request Revenue Infra Audit <ArrowRight className="h-4 w-4" />
+            <div className="mt-9 flex flex-col items-start gap-3">
+              <div className="flex flex-wrap items-center gap-3">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 font-display font-bold text-primary-foreground transition-colors hover:bg-oxblood-soft"
+                >
+                  Request a Diagnostic Audit <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+              <p className="text-sm text-ink-muted">14-day diagnostic. Clear gaps. Prioritised blueprint.</p>
+              <Link to="/" hash="how-it-works" className="text-sm underline underline-offset-4 text-ink-foreground/80">
+                See How It Works ↓
               </Link>
             </div>
           </div>
@@ -306,15 +374,29 @@ function Index() {
       {/* WHO / WHAT / WHY — light */}
       <section className="bg-cream-deep px-6 py-28">
         <div className="mx-auto max-w-7xl">
-          <p className="eyebrow text-oxblood">The core problem</p>
-          <h2 className="mt-12 text-5xl leading-[1.05] text-foreground sm:text-6xl lg:text-7xl">
-            The data exists.<br />The tools exist.<br />The teams exist.<br />
-            <span className="voice text-oxblood">The connection doesn't.</span>
-          </h2>
-          <p className="mt-12 max-w-3xl text-lg leading-relaxed text-muted-foreground">
-            Growen is the revenue infrastructure layer for B2B tech. We engineer the system that
-            connects your product, CRM and operating tools — <strong className="text-foreground">so every buying signal turns into action, and more of it turns into revenue.</strong>
-          </p>
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+            <div>
+              <p className="eyebrow text-oxblood">The core problem</p>
+              <h2 className="mt-12 text-5xl leading-[1.05] text-foreground sm:text-6xl lg:text-7xl">
+                The data exists.<br />The tools exist.<br />The teams exist.<br />
+                <span className="voice text-oxblood">The connection doesn't.</span>
+              </h2>
+              <p className="mt-12 max-w-3xl text-lg leading-relaxed text-muted-foreground">
+                Growen is the revenue infrastructure layer for B2B tech. We engineer the system that
+                connects your product, CRM and operating tools — <strong className="text-foreground">so every buying signal turns into action, and more of it turns into revenue.</strong>
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-oxblood/15 bg-white/40 p-6 shadow-sm sm:p-8">
+              <p className="eyebrow text-oxblood">Signal leak</p>
+              <p className="mt-5 text-4xl font-extrabold leading-none text-oxblood sm:text-5xl">
+                73%
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+                of the signals your stack produces are never seen by a human.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -328,34 +410,38 @@ function Index() {
                 <span className="voice font-normal">Not another tool.</span>
               </h2>
               <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
-                We're engineers with commercial judgement. We map your stack, wire your systems
-                together and ship the automations that put the right account in front of the right
-                person at the right moment.
+                We build the missing layer between your systems and your revenue team. We're
+                engineers with commercial judgement.
               </p>
             </div>
 
             <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
               {[
                 {
-                  q: "Who is Growen for?",
-                  a: "B2B tech companies from $500K to $20M ARR with 10–100 employees running a product-led or expansion-led motion, with data spread across product, CRM, billing and support.",
+                  title: "01 — YOUR STACK",
+                  meta: "Keep your tools. Fix the gaps.",
+                  body: "CRM. Product analytics. Billing. Support. Marketing. We connect what you already have before asking you to buy something new.",
                 },
                 {
-                  q: "What do we build?",
-                  a: "CRM as system of record, product-event pipelines, PQL scoring, domain clustering, routing rules, automated follow-up, health and expansion alerting, reporting dashboards.",
+                  title: "02 — YOUR SIGNALS",
+                  meta: "This is revenue you already paid for.",
+                  body: "Usage spikes. New users. Champion changes. Buying intent. Account risk. We turn those signals into something your team can actually use.",
                 },
                 {
-                  q: "What problem do we solve?",
-                  a: "Your signals never reach the people who can act on them — so revenue leaks quietly through manual gaps and slow response.",
+                  title: "03 — YOUR TEAM",
+                  meta: "Your engineers build the product. We build the revenue layer.",
+                  body: "No unnecessary rebuilds. No endless manual workflows. Just the infrastructure your commercial teams need.",
                 },
                 {
-                  q: "Why should you care?",
-                  a: "Every week a buying signal sits unread is pipeline you already paid to create and then lost. This is recovered revenue, not new spend.",
+                  title: "04 — THE RESULT",
+                  meta: "Less chasing. More knowing.",
+                  body: "Know which account matters. Why it matters. Who should act. And what should happen next.",
                 },
               ].map((item) => (
-                <div key={item.q} className="bg-card p-8">
-                  <h3 className="text-lg">{item.q}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.a}</p>
+                <div key={item.title} className="bg-card p-8">
+                  <h3 className="text-lg font-display font-bold text-foreground">{item.title}</h3>
+                  <p className="mt-3 text-sm font-medium text-oxblood">{item.meta}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
                 </div>
               ))}
             </div>
@@ -369,16 +455,26 @@ function Index() {
           <div>
             <p className="eyebrow text-oxblood">The gap</p>
             <h2 className="mt-5 text-4xl leading-tight">
-              Four signals your company generated this week.{" "}
-              <span className="voice font-normal text-oxblood">Nobody acted on them.</span>
+              The signal arrives.{" "}
+              <span className="voice font-normal text-oxblood">The action is missing.</span>
             </h2>
+            <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
+              Four signals your company generated this week. Nobody acted on them. These aren't
+              hypotheticals. <span className="voice text-lg font-normal text-oxblood">This is a normal Tuesday.</span>
+            </p>
           </div>
           <div className="grid gap-x-12 gap-y-10 sm:grid-cols-2">
             {GAP.map((g) => (
               <div key={g.n} className="border-t border-border pt-5">
                 <p className="voice text-xl text-oxblood">{g.n}</p>
                 <h3 className="mt-3 text-lg">{g.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{g.body}</p>
+                <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
+                  {g.points.map((point) => (
+                    <li key={point} className="list-disc pl-5 marker:text-oxblood">
+                      {point}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
@@ -392,10 +488,13 @@ function Index() {
           <h2 className="mt-5 max-w-4xl text-5xl leading-[1.05] sm:text-6xl">
             From scattered tools to a system that <span className="voice font-normal text-oxblood">compounds.</span>
           </h2>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
+            Same stack. Same team. Completely different outcome.
+          </p>
 
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
             <div className="rounded-3xl border border-border bg-cream-deep/45 p-8 sm:p-12">
-              <p className="eyebrow inline-block bg-oxblood/10 px-2 py-1 text-oxblood">Before</p>
+              <p className="inline-block bg-oxblood/10 px-2 py-1 font-display text-sm font-extrabold uppercase tracking-[0.14em] text-oxblood">Before</p>
               <ol className="mt-8 space-y-4">
                 {[
                   ["Fragmented data", "Product events in one warehouse, deals in the CRM, tickets somewhere else."],
@@ -403,19 +502,22 @@ function Index() {
                   ["Missed signals", "Upgrade intent and churn risk are discovered after the fact."],
                   ["Slow action", "Days between a buying moment and the first human response."],
                 ].map(([t, d]) => (
-                  <li key={t} className="flex items-center gap-4">
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-oxblood/20 text-lg text-oxblood">×</span>
-                    <div>
+                  <li key={t} className="group flex items-start gap-4">
+                    <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-oxblood/20 text-lg text-oxblood">×</span>
+                    <div className="min-w-0 flex-1">
                       <p className="font-display text-lg font-bold">{t}</p>
+                      <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0">
+                        {d}
+                      </p>
                     </div>
-                    <span className="ml-auto text-muted-foreground/60">→</span>
+                    <span className="ml-auto mt-2 text-muted-foreground/60">→</span>
                   </li>
                 ))}
               </ol>
             </div>
 
-            <div className="rounded-3xl border border-[#e9dfdb] bg-[#e9dfdb] p-8 text-foreground sm:p-12">
-              <p className="eyebrow text-oxblood-soft">After — with Growen</p>
+            <div className="rounded-3xl border border-[#cdb9b4] bg-[#d7c8c3] p-8 text-foreground sm:p-12">
+              <p className="font-display text-sm font-extrabold uppercase tracking-[0.14em] text-oxblood">After — with Growen</p>
               <ol className="mt-8 space-y-4">
                 {[
                   ["Connected systems", "One account record joining product usage, billing, CRM and support."],
@@ -423,12 +525,15 @@ function Index() {
                   ["Prioritised action", "A ranked daily queue: who to contact, why, and with what evidence."],
                   ["Revenue impact", "Faster response, earlier expansion, fewer silent churns — measured on a dashboard."],
                 ].map(([t, d]) => (
-                  <li key={t} className="flex items-center gap-4">
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-oxblood-soft text-ink-foreground"><Check className="h-5 w-5" /></span>
-                    <div>
+                  <li key={t} className="group flex items-start gap-4">
+                    <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-oxblood-soft text-ink-foreground"><Check className="h-5 w-5" /></span>
+                    <div className="min-w-0 flex-1">
                       <p className="font-display text-lg font-bold">{t}</p>
+                      <p className="mt-2 max-w-md text-sm leading-relaxed text-ink-foreground/80 opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0">
+                        {d}
+                      </p>
                     </div>
-                    <span className="ml-auto text-ink-muted">→</span>
+                    <span className="ml-auto mt-2 text-ink-muted">→</span>
                   </li>
                 ))}
               </ol>
@@ -442,12 +547,12 @@ function Index() {
         <div className="mx-auto max-w-7xl">
           <p className="eyebrow text-oxblood-soft">The Growen Signal Engine</p>
           <h2 className="mt-5 max-w-3xl text-4xl leading-tight text-ink-foreground sm:text-5xl">
-            One architecture. Five stages.{" "}
-            <span className="voice font-normal">From signal to revenue.</span>
+            Five stages. One job:{" "}
+            <span className="voice font-normal">turn signals into action.</span>
           </h2>
           <p className="mt-5 max-w-xl text-ink-muted">
-            Every stage does the same thing: take a real signal, apply a system action, produce a
-            business outcome.
+            One architecture. Five stages. Every real signal gets a system action and a business
+            outcome.
           </p>
           <StageBoard />
         </div>
@@ -458,16 +563,19 @@ function Index() {
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="eyebrow text-oxblood">Illustrative impact</p>
+              <p className="eyebrow text-oxblood">Illustrative</p>
               <h2 className="mt-5 max-w-xl text-4xl leading-tight">
                 We don't just automate.{" "}
-                <span className="voice font-normal text-oxblood">We measure.</span>
+                <span className="voice font-normal text-oxblood">We measure what changed.</span>
               </h2>
             </div>
             <Link to="/contact" className="text-sm underline underline-offset-4">
               Request the audit that proves it
             </Link>
           </div>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
+            Industry benchmarks move when systems talk to each other.
+          </p>
 
           <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
             {[
@@ -494,49 +602,69 @@ function Index() {
 
       {/* INSIGHTS / ABOUT — dark */}
       <section id="insights" className="scroll-mt-28 section-dark px-6 py-24">
-        <div className="mx-auto max-w-7xl grid gap-14 lg:grid-cols-[1.1fr_0.9fr]">
-          <div id="about">
-            <p className="eyebrow text-oxblood-soft">Our approach</p>
-            <h2 className="mt-5 text-4xl leading-tight text-ink-foreground">
-              Engineers with business sense —{" "}
-              <span className="voice font-normal">we architect your revenue engine.</span>
-            </h2>
-            <p className="mt-6 max-w-xl leading-relaxed text-ink-muted">
-              Every engagement starts with a focused 14 Day Revenue Infra Audit. We move from
-              diagnostic to design, build, activation and expansion with a clear blueprint at every
-              hand-off.
-            </p>
-            <ol className="mt-12 space-y-9">
-              {[
-                ["01", "Diagnose", "We map your product, CRM, billing, support and marketing signals, then document where data is captured and where the hand-offs break."],
-                ["02", "Design", "We trace the signal-to-revenue journey, define the account and scoring model, and identify the highest-leverage system connections."],
-                ["03", "Prioritise", "We score the gaps by revenue impact, effort and urgency, turning a messy stack into a ranked plan your team can act on."],
-                ["04", "Blueprint", "You receive the prioritised 14 Day Audit blueprint, recommended tier, timeline and next actions for the build, activation and expansion phases."],
-              ].map(([n, t, d]) => (
-                <li key={n} className="flex gap-6">
-                  <span className="voice text-2xl text-oxblood-soft">{n}</span>
-                  <div>
-                    <h3 className="text-lg text-ink-foreground">{t}</h3>
-                    <p className="mt-2 max-w-lg text-sm leading-relaxed text-ink-muted">{d}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
+        <div className="mx-auto max-w-7xl">
+          <p className="eyebrow text-oxblood-soft">Our approach</p>
+          <h2 className="mt-5 text-4xl leading-tight text-ink-foreground">
+            Audit. Build. Optimize.{" "}
+            <span className="voice font-normal">In that order, every time.</span>
+          </h2>
+          <p className="mt-6 max-w-xl leading-relaxed text-ink-muted">
+            Every engagement follows the same three phases — because guessing is expensive, and
+            skipping steps is how revenue systems turn into spaghetti.
+          </p>
 
-          <div>
-            <img
-              src={team}
-              alt="Growen engineers working on revenue system architecture"
-              loading="lazy"
-              width={1200}
-              height={900}
-              className="w-full rounded-2xl object-cover"
-            />
-            <blockquote className="voice mt-6 rounded-2xl border border-ink-border bg-ink-foreground/[0.04] p-7 text-xl leading-snug text-ink-foreground">
-              "You could build it yourself. But hiring an architect means fewer mistakes and a
-              stronger foundation."
-            </blockquote>
+          <div className="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+            <div className="space-y-3 lg:self-center" id="about">
+              {APPROACH_PHASES.map((phase) => {
+                const isActive = activeApproach === phase.id;
+
+                return (
+                  <button
+                    key={phase.id}
+                    type="button"
+                    onMouseEnter={() => setActiveApproach(phase.id)}
+                    onFocus={() => setActiveApproach(phase.id)}
+                    className={`w-full rounded-2xl border p-5 text-left transition-colors duration-300 ease-out ${
+                      isActive
+                        ? "border-oxblood-soft/60 bg-ink-foreground/[0.06]"
+                        : "border-ink-border bg-transparent hover:border-oxblood-soft/40 hover:bg-ink-foreground/[0.03]"
+                    }`}
+                  >
+                    <div className="flex items-start gap-4">
+                      <span className="voice text-xl text-oxblood-soft">{phase.number}</span>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-lg font-display font-bold text-ink-foreground">
+                          {phase.label}
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-ink-muted">{phase.intro}</p>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="rounded-3xl border border-ink-border bg-ink/95 p-7 text-ink-foreground shadow-xl lg:min-h-[31rem]">
+              <p className="eyebrow text-oxblood-soft">{activePhase.number}</p>
+              <h3 className="mt-5 text-3xl font-display font-extrabold text-ink-foreground">
+                {activePhase.label}
+              </h3>
+              <p className="mt-3 text-lg leading-relaxed text-ink-muted">{activePhase.intro}</p>
+
+              <ul className="mt-7 space-y-4 text-sm leading-relaxed text-ink-muted">
+                {activePhase.points.map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-oxblood-soft" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-8 rounded-2xl border border-ink-border bg-ink-foreground/[0.04] p-4">
+                <p className="eyebrow text-oxblood-soft">Output</p>
+                <p className="mt-3 text-sm leading-relaxed text-ink-muted">{activePhase.output}</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -591,7 +719,7 @@ function Index() {
             </div>
             <Link
               to="/contact"
-              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-ink px-7 py-4 font-display font-bold text-ink-foreground transition-transform hover:-translate-y-0.5"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-ink px-7 py-4 font-display font-bold text-ink-foreground transition-transform hover:-translate-y-0.5 lg:w-1/2 lg:justify-center"
             >
               Request Revenue Infra Audit <ArrowUpRight className="h-4 w-4" />
             </Link>
