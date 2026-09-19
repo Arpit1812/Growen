@@ -188,7 +188,7 @@ function Pricing() {
           {TIERS.map((t) => (
             <div
               key={t.name}
-              className={`relative flex h-full flex-col rounded-2xl border p-8 ${
+              className={`interactive-lift relative flex h-full flex-col rounded-2xl border p-8 ${
                 t.popular
                   ? "border-oxblood bg-ink text-ink-foreground shadow-2xl lg:-mt-6 lg:pb-12"
                   : "border-border bg-card"
@@ -273,7 +273,7 @@ function Pricing() {
           </p>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {Object.entries(RETAINERS).map(([name, retainer]) => (
-              <div key={name} className="flex h-full flex-col rounded-2xl border border-ink-border bg-ink p-8 text-ink-foreground">
+              <div key={name} className="interactive-lift flex h-full flex-col rounded-2xl border border-ink-border bg-ink p-8 text-ink-foreground">
                 <p className="eyebrow text-oxblood-soft">{name} retainer</p>
                 <p className="mt-4 font-display text-2xl font-extrabold">{retainer.price}</p>
                 <p className="mt-3 text-sm text-ink-muted">{retainer.intro}</p>

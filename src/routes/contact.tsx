@@ -258,7 +258,16 @@ function Contact() {
                       <button
                         type="button"
                         key={x}
-                        onClick={() => setMaturity(i + 1)}
+                        onClick={() => {
+                          setMaturity(i + 1);
+                          if (errors.maturity) {
+                            setErrors((current) => {
+                              const next = { ...current };
+                              delete next.maturity;
+                              return next;
+                            });
+                          }
+                        }}
                         className={`rounded-xl border p-2 text-left text-xs ${maturity === i + 1 ? "border-oxblood bg-primary text-primary-foreground" : "border-border bg-card"}`}
                       >
                         0{i + 1}

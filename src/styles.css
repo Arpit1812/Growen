@@ -146,5 +146,56 @@
 }
 
 .stage-card {
-  animation: stage-content-in 420ms ease-out both;
+  animation: stage-content-horizontal 420ms ease-out both;
+}
+
+.interactive-lift {
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.interactive-lift:hover,
+.interactive-lift:focus-within {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgb(46 46 46 / 12%);
+}
+
+@keyframes stage-content-horizontal {
+  from { opacity: 0; transform: translateX(14px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes signal-flow {
+  0%, 100% { transform: translateX(0); opacity: 0.6; }
+  50% { transform: translateX(8px); opacity: 1; }
+}
+
+.signal-flow-dot {
+  animation: signal-flow 1.8s ease-in-out infinite;
+}
+
+.signal-flow-dot:nth-child(2) { animation-delay: 180ms; }
+.signal-flow-dot:nth-child(3) { animation-delay: 360ms; }
+
+.outcome-highlight {
+  position: relative;
+  z-index: 0;
+}
+
+.outcome-highlight::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0.25rem 0.5rem 0.2rem 0.75rem;
+  content: "";
+  background: rgb(196 139 144 / 18%);
+  border-radius: 42% 58% 46% 54%;
+  transform: rotate(-1deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

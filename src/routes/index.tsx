@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight, Check, MessageCircle, Sparkles } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -114,7 +114,12 @@ const GAP = [
   },
 ];
 
-const INDUSTRIES = ["Developer Tools", "Fleet Software", "API-driven SaaS", "Transportation Management"];
+const INDUSTRIES = [
+  ["Developer Tools", "Product usage -> account intent -> sales action"],
+  ["Fleet Software", "Usage change -> account risk -> customer response"],
+  ["API-driven SaaS", "API adoption -> expansion signal -> owner alert"],
+  ["Transportation Management", "Operational shift -> buying signal -> routed action"],
+];
 
 const APPROACH_PHASES = [
   {
@@ -179,7 +184,7 @@ function StageBoard() {
                 <span
                   className={`relative grid h-11 w-11 place-items-center rounded-full border transition-all duration-300 ${
                     isActive
-                      ? "border-oxblood-soft bg-oxblood-soft text-ink"
+                      ? "border-oxblood-soft bg-oxblood-soft text-ink shadow-[0_0_0_4px_rgba(196,119,128,0.22)]"
                       : isPast
                         ? "border-oxblood-soft/50 bg-ink text-oxblood-soft"
                         : "border-ink-border bg-ink text-ink-muted group-hover:border-oxblood-soft/60"
@@ -187,12 +192,12 @@ function StageBoard() {
                 >
                   <span className="font-display text-xs font-extrabold">0{i + 1}</span>
                   {isActive && (
-                    <span className="absolute inset-0 animate-ping rounded-full border border-oxblood-soft/60" />
+                    <span className="absolute -inset-1 animate-ping rounded-full border-2 border-oxblood-soft/80" />
                   )}
                 </span>
                 <span
                   className={`mt-4 block font-display text-sm font-extrabold tracking-[0.16em] transition-colors ${
-                    isActive ? "text-ink-foreground" : "text-ink-muted group-hover:text-ink-foreground"
+                    isActive ? "scale-[1.08] text-ink-foreground" : "text-ink-muted group-hover:text-ink-foreground"
                   }`}
                 >
                   {s.name}
@@ -222,7 +227,7 @@ function StageBoard() {
             style={{ animationDelay: `${i * 90}ms` }}
             className={`stage-card relative rounded-2xl border p-7 ${
               i === 2
-                ? "border-oxblood-soft/40 bg-oxblood/25"
+                ? "border-oxblood-soft/40 bg-oxblood/25 shadow-[0_0_22px_rgba(196,119,128,0.1)]"
                 : "border-ink-border bg-ink-foreground/[0.04]"
             }`}
           >
@@ -250,6 +255,27 @@ function StageBoard() {
 function Index() {
   const [activeApproach, setActiveApproach] = useState(APPROACH_PHASES[0]!.id);
   const activePhase = APPROACH_PHASES.find((phase) => phase.id === activeApproach)!;
+  const impactRef = useRef<HTMLElement>(null);
+  const [impactProgress, setImpactProgress] = useState(0);
+
+  useEffect(() => {
+    const element = impactRef.current;
+    if (!element) return;
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (entry?.isIntersecting) {
+        let progress = 0;
+        const timer = window.setInterval(() => {
+          progress = Math.min(progress + 0.08, 1);
+          setImpactProgress(progress);
+          if (progress === 1) window.clearInterval(timer);
+        }, 35);
+        observer.disconnect();
+      }
+    }, { threshold: 0.3 });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="min-h-screen bg-cream">
@@ -285,7 +311,7 @@ function Index() {
             </div>
           </div>
 
-          <div className="relative rounded-2xl border border-ink-border bg-ink-foreground/[0.04] p-2 shadow-2xl">
+          <div className="interactive-lift relative rounded-2xl border border-ink-border bg-ink-foreground/[0.04] p-2 shadow-2xl">
             <img
               src={dashboard}
               alt="Growen revenue signal dashboard showing pipeline, at-risk revenue and signal trends"
@@ -308,6 +334,11 @@ function Index() {
               <span>
                 <span className="eyebrow block text-oxblood-soft">Account high intent</span>
                 <span className="mt-1 block text-xs text-ink-foreground">Trial activity + pricing visit</span>
+                <span className="mt-2 flex items-center gap-1" aria-label="Signal moving through the pipeline">
+                  <span className="signal-flow-dot h-1.5 w-1.5 rounded-full bg-signal" />
+                  <span className="signal-flow-dot h-1.5 w-1.5 rounded-full bg-signal" />
+                  <span className="signal-flow-dot h-1.5 w-1.5 rounded-full bg-signal" />
+                </span>
               </span>
             </div>
           </div>
@@ -316,9 +347,12 @@ function Index() {
         <div id="industries" className="scroll-mt-28 border-t border-ink-border">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-10 gap-y-3 px-6 py-5">
             <span className="eyebrow text-ink-muted">Built for</span>
-            {INDUSTRIES.map((i) => (
-              <span key={i} className="eyebrow text-ink-foreground/70">
-                {i}
+            {INDUSTRIES.map(([name, journey]) => (
+              <span key={name} className="group relative cursor-default">
+                <span className="eyebrow text-ink-foreground/70 transition-colors group-hover:text-ink-foreground">{name}</span>
+                <span className="pointer-events-none absolute bottom-full left-1/2 mb-3 w-52 -translate-x-1/2 translate-y-1 rounded-lg border border-ink-border bg-ink px-3 py-2 text-[11px] leading-relaxed text-ink-foreground opacity-0 shadow-xl transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+                  {journey}
+                </span>
               </span>
             ))}
           </div>
@@ -450,7 +484,7 @@ function Index() {
       </section>
 
       {/* THE GAP — light */}
-      <section className="bg-cream-deep px-6 py-24">
+      <section ref={impactRef} className="bg-cream-deep px-6 py-24">
         <div className="mx-auto max-w-7xl grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <p className="eyebrow text-oxblood">The gap</p>
@@ -465,12 +499,12 @@ function Index() {
           </div>
           <div className="grid gap-x-12 gap-y-10 sm:grid-cols-2">
             {GAP.map((g) => (
-              <div key={g.n} className="border-t border-border pt-5">
+              <div key={g.n} className="interactive-lift border-t border-border pt-5">
                 <p className="voice text-xl text-oxblood">{g.n}</p>
                 <h3 className="mt-3 text-lg">{g.title}</h3>
                 <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
-                  {g.points.map((point) => (
-                    <li key={point} className="list-disc pl-5 marker:text-oxblood">
+                  {g.points.map((point, pointIndex) => (
+                    <li key={point} className={`list-disc pl-5 marker:text-oxblood ${pointIndex === 2 ? "outcome-highlight" : ""}`}>
                       {point}
                     </li>
                   ))}
@@ -493,7 +527,7 @@ function Index() {
           </p>
 
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
-            <div className="rounded-3xl border border-border bg-cream-deep/45 p-8 sm:p-12">
+            <div className="interactive-lift rounded-3xl border border-border bg-cream-deep/45 p-8 sm:p-12">
               <p className="inline-block bg-oxblood/10 px-2 py-1 font-display text-sm font-extrabold uppercase tracking-[0.14em] text-oxblood">Before</p>
               <ol className="mt-8 space-y-4">
                 {[
@@ -516,7 +550,7 @@ function Index() {
               </ol>
             </div>
 
-            <div className="rounded-3xl border border-[#cdb9b4] bg-[#d7c8c3] p-8 text-foreground sm:p-12">
+            <div className="interactive-lift rounded-3xl border border-[#cdb9b4] bg-[#d7c8c3] p-8 text-foreground sm:p-12">
               <p className="font-display text-sm font-extrabold uppercase tracking-[0.14em] text-oxblood">After — with Growen</p>
               <ol className="mt-8 space-y-4">
                 {[
@@ -579,13 +613,13 @@ function Index() {
 
           <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
             {[
-              ["42%", "Faster lead response", "Typical opportunity identified in audit"],
-              ["$400K", "Pipeline from renewals", "Modelled from current usage data"],
-              ["10–27×", "Illustrative Year-1 ROI", "Same-tier build, modelled"],
-              ["30%", "Churn reduction", "Example outcome, early-warning scoring"],
-            ].map(([stat, label, note]) => (
-              <div key={label} className="bg-card p-8">
-                <p className="font-display text-4xl font-extrabold text-oxblood">{stat}</p>
+              ["42", "", "%", "Faster lead response", "Typical opportunity identified in audit"],
+              ["400", "$", "K", "Pipeline from renewals", "Modelled from current usage data"],
+              ["27", "10–", "×", "Illustrative Year-1 ROI", "Same-tier build, modelled"],
+              ["30", "", "%", "Churn reduction", "Example outcome, early-warning scoring"],
+            ].map(([stat, prefix, suffix, label, note]) => (
+              <div key={label} className="interactive-lift bg-card p-8">
+                <p className="font-display text-4xl font-extrabold text-oxblood">{prefix}{Math.round(Number(stat) * impactProgress)}{suffix}</p>
                 <p className="mt-3 font-display font-bold">{label}</p>
                 <p className="mt-1 text-xs text-muted-foreground">{note}</p>
               </div>
