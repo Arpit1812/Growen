@@ -4,6 +4,12 @@ import { ArrowRight, ArrowUpRight, Check, MessageCircle, Sparkles } from "lucide
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Marquee } from "@/components/site/Marquee";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import dashboard from "@/assets/dashboard.jpg";
 import team from "@/assets/team.jpg";
 
@@ -421,7 +427,7 @@ function Index() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-oxblood/15 bg-white/40 p-6 shadow-sm sm:p-8">
+            <div className="self-center rounded-2xl border border-oxblood/15 bg-white/40 p-6 shadow-sm sm:p-8">
               <p className="eyebrow text-oxblood">Signal leak</p>
               <p className="mt-5 text-4xl font-extrabold leading-none text-oxblood sm:text-5xl">
                 73%
@@ -449,7 +455,12 @@ function Index() {
               </p>
             </div>
 
-            <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
+            <Accordion
+              type="single"
+              collapsible
+              defaultValue="01 — YOUR STACK"
+              className="grid gap-4 sm:grid-cols-2"
+            >
               {[
                 {
                   title: "01 — YOUR STACK",
@@ -472,13 +483,19 @@ function Index() {
                   body: "Know which account matters. Why it matters. Who should act. And what should happen next.",
                 },
               ].map((item) => (
-                <div key={item.title} className="bg-card p-8">
-                  <h3 className="text-lg font-display font-bold text-foreground">{item.title}</h3>
-                  <p className="mt-3 text-sm font-medium text-oxblood">{item.meta}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
-                </div>
+                <AccordionItem key={item.title} value={item.title} className="interactive-lift rounded-2xl border border-border bg-card px-7">
+                  <AccordionTrigger className="py-6 text-lg font-display font-bold text-foreground hover:no-underline">
+                    <span className="min-w-0 pr-4 text-left">
+                      <span className="block">{item.title}</span>
+                      <span className="mt-2 block text-sm font-medium text-oxblood">{item.meta}</span>
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-6">
+                    <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
           </div>
         </div>
       </section>
@@ -499,10 +516,10 @@ function Index() {
           </div>
           <div className="grid gap-x-12 gap-y-10 sm:grid-cols-2">
             {GAP.map((g) => (
-              <div key={g.n} className="interactive-lift border-t border-border pt-5">
+              <div key={g.n} className="gap-card interactive-lift rounded-2xl border border-cream-deep/70 bg-cream-deep/45 p-6 shadow-[0_2px_8px_rgb(125_64_71_/_6%)]">
                 <p className="voice text-xl text-oxblood">{g.n}</p>
                 <h3 className="mt-3 text-lg">{g.title}</h3>
-                <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
+                <ul className="mt-4 space-y-2 text-sm leading-relaxed text-muted-foreground">
                   {g.points.map((point, pointIndex) => (
                     <li key={point} className={`list-disc pl-5 marker:text-oxblood ${pointIndex === 2 ? "outcome-highlight" : ""}`}>
                       {point}
@@ -527,9 +544,9 @@ function Index() {
           </p>
 
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
-            <div className="interactive-lift rounded-3xl border border-border bg-cream-deep/45 p-8 sm:p-12">
+            <div className="interactive-lift min-h-[29rem] rounded-3xl border border-border bg-cream-deep/45 p-8 sm:p-12">
               <p className="inline-block bg-oxblood/10 px-2 py-1 font-display text-sm font-extrabold uppercase tracking-[0.14em] text-oxblood">Before</p>
-              <ol className="mt-8 space-y-4">
+              <ol className="mt-8 space-y-2">
                 {[
                   ["Fragmented data", "Product events in one warehouse, deals in the CRM, tickets somewhere else."],
                   ["Manual workflows", "A rep exports a CSV every Monday to guess who to call."],
@@ -540,7 +557,7 @@ function Index() {
                     <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-oxblood/20 text-lg text-oxblood">×</span>
                     <div className="min-w-0 flex-1">
                       <p className="font-display text-lg font-bold">{t}</p>
-                      <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0">
+                      <p className="mt-2 max-h-0 max-w-md overflow-hidden text-sm leading-relaxed text-muted-foreground opacity-0 transition-all duration-200 group-hover:max-h-24 group-hover:opacity-100 group-hover:translate-y-0">
                         {d}
                       </p>
                     </div>
@@ -550,9 +567,9 @@ function Index() {
               </ol>
             </div>
 
-            <div className="interactive-lift rounded-3xl border border-[#cdb9b4] bg-[#d7c8c3] p-8 text-foreground sm:p-12">
+            <div className="interactive-lift min-h-[29rem] rounded-3xl border border-[#b69c96] bg-[#c5b1ab] p-8 text-foreground sm:p-12">
               <p className="font-display text-sm font-extrabold uppercase tracking-[0.14em] text-oxblood">After — with Growen</p>
-              <ol className="mt-8 space-y-4">
+              <ol className="mt-8 space-y-2">
                 {[
                   ["Connected systems", "One account record joining product usage, billing, CRM and support."],
                   ["Automated signal flow", "Events stream in and score themselves against your ICP in real time."],
@@ -560,10 +577,10 @@ function Index() {
                   ["Revenue impact", "Faster response, earlier expansion, fewer silent churns — measured on a dashboard."],
                 ].map(([t, d]) => (
                   <li key={t} className="group flex items-start gap-4">
-                    <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-oxblood-soft text-ink-foreground"><Check className="h-5 w-5" /></span>
+                    <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-oxblood text-ink-foreground"><Check className="h-5 w-5" /></span>
                     <div className="min-w-0 flex-1">
                       <p className="font-display text-lg font-bold">{t}</p>
-                      <p className="mt-2 max-w-md text-sm leading-relaxed text-ink-foreground/80 opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0">
+                      <p className="mt-2 max-h-0 max-w-md overflow-hidden text-sm leading-relaxed text-ink-foreground/80 opacity-0 transition-all duration-200 group-hover:max-h-24 group-hover:opacity-100 group-hover:translate-y-0">
                         {d}
                       </p>
                     </div>
