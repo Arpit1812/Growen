@@ -258,6 +258,36 @@ function StageBoard() {
   );
 }
 
+function BuiltForStrip() {
+  return (
+    <div id="industries" className="scroll-mt-28 relative z-30 border-t border-ink-border">
+      <div className="mx-auto grid max-w-7xl grid-cols-2 items-center gap-x-4 gap-y-4 px-6 py-5 md:grid-cols-[auto_repeat(4,minmax(0,1fr))] md:gap-x-8">
+        <span className="eyebrow col-span-2 whitespace-nowrap text-ink-muted md:col-span-1">Built for</span>
+        {INDUSTRIES.map(([name, journey], index) => (
+          <div key={name} className="group/industry relative min-w-0">
+            <button
+              type="button"
+              aria-describedby={`industry-preview-${index}`}
+              className="block min-h-8 w-full text-left"
+            >
+              <span className="eyebrow block text-pretty text-ink-foreground/70 transition-colors group-hover/industry:text-ink-foreground group-focus-visible/industry:text-ink-foreground">
+                {name}
+              </span>
+            </button>
+            <span
+              id={`industry-preview-${index}`}
+              role="tooltip"
+              className="pointer-events-none absolute left-1/2 top-full z-40 mt-3 w-64 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-2 rounded-xl border border-ink-border bg-ink px-4 py-3 text-xs leading-relaxed text-ink-foreground opacity-0 shadow-xl transition-all duration-200 ease-out group-hover/industry:pointer-events-auto group-hover/industry:translate-y-0 group-hover/industry:opacity-100 group-focus-within/industry:pointer-events-auto group-focus-within/industry:translate-y-0 group-focus-within/industry:opacity-100"
+            >
+              {journey}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Index() {
   const [activeApproach, setActiveApproach] = useState(APPROACH_PHASES[0]!.id);
   const activePhase = APPROACH_PHASES.find((phase) => phase.id === activeApproach)!;
@@ -288,7 +318,7 @@ function Index() {
       <Header />
 
       {/* HERO — dark: inside the system */}
-      <section className="section-dark relative overflow-hidden">
+      <section className="section-dark relative overflow-x-clip">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 py-24 lg:grid-cols-[1fr_1.05fr] lg:py-28">
           <div>
             <p className="eyebrow text-oxblood-soft">
@@ -350,19 +380,7 @@ function Index() {
           </div>
         </div>
 
-        <div id="industries" className="scroll-mt-28 border-t border-ink-border">
-          <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-10 gap-y-3 px-6 py-5">
-            <span className="eyebrow text-ink-muted">Built for</span>
-            {INDUSTRIES.map(([name, journey]) => (
-              <span key={name} className="group relative cursor-default">
-                <span className="eyebrow text-ink-foreground/70 transition-colors group-hover:text-ink-foreground">{name}</span>
-                <span className="pointer-events-none absolute bottom-full left-1/2 mb-3 w-52 -translate-x-1/2 translate-y-1 rounded-lg border border-ink-border bg-ink px-3 py-2 text-[11px] leading-relaxed text-ink-foreground opacity-0 shadow-xl transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
-                  {journey}
-                </span>
-              </span>
-            ))}
-          </div>
-        </div>
+        <BuiltForStrip />
       </section>
 
       {/* PROBLEM STATEMENT — light */}
@@ -450,8 +468,10 @@ function Index() {
                 <span className="voice font-normal">Not another tool.</span>
               </h2>
               <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
-                We build the missing layer between your systems and your revenue team. We're
-                engineers with commercial judgement.
+                We build the missing layer between your systems and your revenue team.{" "}
+                <strong className="font-bold text-oxblood underline underline-offset-4">
+                  We&apos;re engineers with commercial judgement.
+                </strong>
               </p>
             </div>
 
@@ -507,11 +527,13 @@ function Index() {
             <p className="eyebrow text-oxblood">The gap</p>
             <h2 className="mt-5 text-4xl leading-tight">
               The signal arrives.{" "}
-              <span className="voice font-normal text-oxblood">The action is missing.</span>
+              <br />
+              <span className="voice font-bold text-oxblood">The action is missing.</span>
             </h2>
             <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
               Four signals your company generated this week. Nobody acted on them. These aren't
-              hypotheticals. <span className="voice text-lg font-normal text-oxblood">This is a normal Tuesday.</span>
+              hypotheticals.<br />
+              <span className="voice text-lg font-bold text-oxblood underline underline-offset-4">This is a normal Tuesday.</span>
             </p>
           </div>
           <div className="grid gap-x-12 gap-y-10 sm:grid-cols-2">
@@ -545,7 +567,7 @@ function Index() {
 
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
             <div className="interactive-lift min-h-[29rem] rounded-3xl border border-border bg-cream-deep/45 p-8 sm:p-12">
-              <p className="inline-block bg-oxblood/10 px-2 py-1 font-display text-sm font-extrabold uppercase tracking-[0.14em] text-oxblood">Before</p>
+              <p className="inline-block bg-oxblood/10 px-2 py-1 font-display text-lg font-extrabold uppercase tracking-[0.14em] text-oxblood sm:text-xl">Before</p>
               <ol className="mt-8 space-y-2">
                 {[
                   ["Fragmented data", "Product events in one warehouse, deals in the CRM, tickets somewhere else."],
@@ -568,7 +590,7 @@ function Index() {
             </div>
 
             <div className="interactive-lift min-h-[29rem] rounded-3xl border border-[#b69c96] bg-[#c5b1ab] p-8 text-foreground sm:p-12">
-              <p className="font-display text-sm font-extrabold uppercase tracking-[0.14em] text-oxblood">After — with Growen</p>
+              <p className="font-display text-lg font-extrabold uppercase tracking-[0.14em] text-oxblood sm:text-xl">After — with Growen</p>
               <ol className="mt-8 space-y-2">
                 {[
                   ["Connected systems", "One account record joining product usage, billing, CRM and support."],
@@ -598,12 +620,12 @@ function Index() {
         <div className="mx-auto max-w-7xl">
           <p className="eyebrow text-oxblood-soft">The Growen Signal Engine</p>
           <h2 className="mt-5 max-w-3xl text-4xl leading-tight text-ink-foreground sm:text-5xl">
-            Five stages. One job:{" "}
-            <span className="voice font-normal">turn signals into action.</span>
+            Five stages. One job:
+            <br />
+            <span className="voice font-normal">turn signals into revenue.</span>
           </h2>
           <p className="mt-5 max-w-xl text-ink-muted">
-            One architecture. Five stages. Every real signal gets a system action and a business
-            outcome.
+            Every real signal gets a system action and a business outcome.
           </p>
           <StageBoard />
         </div>
@@ -616,7 +638,8 @@ function Index() {
             <div>
               <p className="eyebrow text-oxblood">Illustrative</p>
               <h2 className="mt-5 max-w-xl text-4xl leading-tight">
-                We don't just automate.{" "}
+                We don't just automate.
+                <br />
                 <span className="voice font-normal text-oxblood">We measure what changed.</span>
               </h2>
             </div>
@@ -630,15 +653,17 @@ function Index() {
 
           <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
             {[
-              ["42", "", "%", "Faster lead response", "Typical opportunity identified in audit"],
-              ["400", "$", "K", "Pipeline from renewals", "Modelled from current usage data"],
-              ["27", "10–", "×", "Illustrative Year-1 ROI", "Same-tier build, modelled"],
-              ["30", "", "%", "Churn reduction", "Example outcome, early-warning scoring"],
-            ].map(([stat, prefix, suffix, label, note]) => (
-              <div key={label} className="interactive-lift bg-card p-8">
-                <p className="font-display text-4xl font-extrabold text-oxblood">{prefix}{Math.round(Number(stat) * impactProgress)}{suffix}</p>
-                <p className="mt-3 font-display font-bold">{label}</p>
-                <p className="mt-1 text-xs text-muted-foreground">{note}</p>
+              { category: "SIGNAL COVERAGE", target: 2, prefix: "", suffix: " million", detail: "signals captured", compact: false },
+              { category: "RESPONSE TIME", target: 1, prefix: "<", suffix: "m", detail: "", compact: false },
+              { category: "OPPORTUNITY", target: 80, prefix: "", suffix: "%", detail: "of the leads were invisible", compact: false },
+              { category: "REVENUE", target: 30, prefix: "Increased by ", suffix: "% on an average.", detail: "", compact: true },
+            ].map((metric) => (
+              <div key={metric.category} className="interactive-lift bg-card p-8">
+                <p className="eyebrow text-oxblood">{metric.category}</p>
+                <p className={`font-display font-extrabold text-oxblood ${metric.compact ? "text-xl leading-snug sm:text-2xl" : "text-4xl"}`}>
+                  {metric.prefix}{Math.round(metric.target * impactProgress)}{metric.suffix}
+                </p>
+                {metric.detail && <p className="mt-1 text-sm font-bold text-foreground">{metric.detail}</p>}
               </div>
             ))}
           </div>
@@ -661,7 +686,7 @@ function Index() {
           </h2>
           <p className="mt-6 max-w-xl leading-relaxed text-ink-muted">
             Every engagement follows the same three phases — because guessing is expensive, and
-            skipping steps is how revenue systems turn into spaghetti.
+            shortcuts create fragile systems.
           </p>
 
           <div className="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">

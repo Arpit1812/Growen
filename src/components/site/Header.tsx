@@ -49,14 +49,14 @@ export function Header() {
                 key={item.label}
                 to="/"
                 hash={item.hash}
-                className="text-base font-medium text-foreground/80 transition-colors hover:text-foreground"
+                className={`font-medium text-black transition-colors hover:text-foreground ${scrolled ? "text-base" : "text-lg"}`}
               >
                 {item.label}
               </Link>
             ))}
             <Link
               to="/pricing"
-              className="text-base font-medium text-foreground/80 transition-colors hover:text-foreground"
+              className={`font-medium text-black transition-colors hover:text-foreground ${scrolled ? "text-base" : "text-lg"}`}
             >
               Pricing
             </Link>

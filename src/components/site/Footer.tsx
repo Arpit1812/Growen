@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, MessageCircle, PhoneCall } from "lucide-react";
+import { CalendarDays, Instagram, Linkedin, Mail, MessageCircle, PhoneCall } from "lucide-react";
 import { Logo } from "./Header";
 
 export function Footer() {
@@ -74,12 +74,25 @@ export function Footer() {
             <p className="eyebrow text-ink-muted">Contact us</p>
             <div className="mt-4 flex gap-3">
               {[
+                [CalendarDays, "Book a Conversation"],
                 [PhoneCall, "Callback"],
                 [MessageCircle, "WhatsApp"],
                 [Mail, "Email"],
-              ].map(([Icon, label]) => <Link key={label as string} to="/contact" className="group grid h-10 w-10 place-items-center rounded-full border border-ink-border text-ink-muted transition-colors hover:border-oxblood-soft hover:text-ink-foreground" aria-label={label as string}><Icon className="h-4 w-4" /></Link>)}
+              ].map(([Icon, label]) => (
+                <Link key={label as string} to="/contact" className="group relative grid h-10 w-10 place-items-center rounded-full border border-ink-border text-ink-muted transition-colors hover:border-oxblood-soft hover:text-ink-foreground" aria-label={label as string}>
+                  <Icon className="h-4 w-4" />
+                  <span className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-ink-border bg-ink px-2.5 py-1.5 text-[11px] text-ink-foreground opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">{label as string}</span>
+                </Link>
+              ))}
             </div>
-            <p className="mt-4 text-xs text-ink-muted">Request a callback, WhatsApp or email reply within 2 business days.</p>
+            <div className="mt-4 flex gap-3 border-t border-ink-border/70 pt-4">
+              <span title="LinkedIn profile URL needed" aria-label="LinkedIn profile URL needed" className="grid h-9 w-9 place-items-center rounded-full border border-ink-border text-ink-muted">
+                <Linkedin className="h-4 w-4" />
+              </span>
+              <span title="Instagram profile URL needed" aria-label="Instagram profile URL needed" className="grid h-9 w-9 place-items-center rounded-full border border-ink-border text-ink-muted">
+                <Instagram className="h-4 w-4" />
+              </span>
+            </div>
           </div>
         </div>
 

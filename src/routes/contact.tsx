@@ -118,6 +118,9 @@ function Contact() {
     requiredFields.forEach(([key, message]) => {
       if (!data[key]) nextErrors[key] = message;
     });
+    if (data.work_email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(data.work_email))) {
+      nextErrors.work_email = "Enter a valid work email address.";
+    }
     const productUrl = String(data.product_url || "").trim();
     if (!productUrl) {
       nextErrors.product_url = "Please add your product or website link.";
@@ -162,10 +165,10 @@ function Contact() {
               Your systems are already generating the signals. We&apos;ll map where they go, where
               they die, and what it&apos;s costing you.
             </p>
-            <p className="mt-10 border-t border-ink-border pt-7 text-sm font-bold text-ink-foreground">
+            <p className="mt-10 text-sm italic font-normal text-ink-foreground/90">
               If we don&apos;t find anything worth fixing, we&apos;ll tell you that too.
             </p>
-            <ul className="mt-12 space-y-3 border-t border-ink-border pt-7 text-sm text-ink-foreground/90">
+            <ul className="mt-6 space-y-3 text-sm text-ink-foreground/90">
               {[
                 "Signal-to-revenue map — every source, every hand-off, every break",
                 "Prioritized leak register — what's leaking, what's worth fixing, what can wait",

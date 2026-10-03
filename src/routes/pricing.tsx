@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Fragment } from "react";
 import { Check, Minus, CircleDot } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -34,7 +35,8 @@ const TIERS = [
     coverage: "50% Signal Coverage",
     blurb: "Catch the signals. Route them. Stop losing them.",
     bestFor: "Teams that have the data but still rely heavily on manual follow-up.",
-    price: "From $5,000",
+    priceLabel: "Starting at",
+    price: "$5,000",
     sub: "Build the foundation.",
     popular: false,
     features: [
@@ -51,13 +53,13 @@ const TIERS = [
     coverage: "75% Signal Coverage",
     blurb: "Score the right accounts. Add context. Trigger the next action.",
     bestFor: "Teams ready to move from organised data to proactive revenue workflows.",
-    price: "From $10,000+",
+    priceLabel: "Starting at",
+    price: "$10,000",
     sub: "Turn signals into a system.",
     popular: true,
     features: [
       "Everything in Starter, plus:",
-      "Deeper scoring",
-      "Account enrichment",
+      "Deeper scoring and account enrichment",
       "Domain clustering",
       "AI-assisted engagement",
       "Expansion signals",
@@ -69,19 +71,16 @@ const TIERS = [
     coverage: "100% Signal Coverage",
     blurb: "Connect the stack. Automate the action. Surface expansion before renewal.",
     bestFor: "Companies with complex systems, multiple teams and a revenue process that has outgrown current operations.",
-    price: "From $30,000+",
+    priceLabel: "Starting at",
+    price: "$30,000",
     sub: "The whole engine. All five layers, one system.",
     popular: false,
     features: [
       "Everything in Growth, plus:",
-      "Customer 360",
-      "Data infrastructure",
-      "Advanced automation",
-      "Research workflows",
-      "Account health",
-      "Expansion detection",
-      "Buying-committee intelligence",
-      "Forecasting",
+      "Customer 360 and data infrastructure",
+      "Advanced automation and research workflows",
+      "Account health and expansion detection",
+      "Buying-committee intelligence and forecasting",
       "Conversation intelligence",
     ],
   },
@@ -144,9 +143,18 @@ const GROUPS: { group: string; rows: [string, Level, Level, Level][] }[] = [
 ];
 
 function Mark({ level }: { level: Level }) {
-  if (level === "full") return <Check className="mx-auto h-4 w-4 text-signal" />;
-  if (level === "partial") return <CircleDot className="mx-auto h-4 w-4 text-oxblood" />;
-  return <Minus className="mx-auto h-4 w-4 text-muted-foreground/50" />;
+  if (level === "full") return <Check className="mx-auto h-4 w-4 text-[#31734b]" />;
+  if (level === "partial") return <CircleDot className="mx-auto h-4 w-4 text-[#98701a]" />;
+  return <Minus className="mx-auto h-4 w-4 text-[#a43f3f]" />;
+}
+
+function polishedAmpersand(text: string) {
+  return text.split("&").map((part, index) => (
+    <Fragment key={`${part}-${index}`}>
+      {index > 0 && <span className="mx-[0.18em] text-oxblood" style={{ font: "inherit" }}>&</span>}
+      {part.trim()}
+    </Fragment>
+  ));
 }
 
 function Pricing() {
@@ -214,7 +222,11 @@ function Pricing() {
                   t.popular ? "text-ink-muted" : "text-muted-foreground"
                 }`}
               >
-                {t.blurb}
+                {t.name === "Growth" ? (
+                  <>Score the right accounts. Add context.<br />Trigger the next action.</>
+                ) : t.name === "Scale" ? (
+                  <>Connect the stack. Automate the action.<br />Surface expansion before renewal.</>
+                ) : t.blurb}
               </p>
 
               <p className={`mt-6 text-sm leading-relaxed ${t.popular ? "text-ink-muted" : "text-muted-foreground"}`}>
@@ -223,19 +235,28 @@ function Pricing() {
                 {t.bestFor}
               </p>
 
-              <p className={`mt-7 text-xs font-bold uppercase tracking-[0.14em] ${t.popular ? "text-ink-muted" : "text-muted-foreground"}`}>Includes</p>
-              <ul className="mt-3 space-y-3 text-sm">
-                {t.features.map((f) => (
-                  <li key={f} className="flex gap-3">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-signal" />
-                    <span className={t.popular ? "text-ink-foreground/90" : ""}>{f}</span>
-                  </li>
-                ))}
-              </ul>
+              <Accordion type="single" collapsible className={`mt-7 border-t ${t.popular ? "border-ink-border" : "border-border"}`}>
+                <AccordionItem value={`includes-${t.name}`} className="border-b-0">
+                  <AccordionTrigger className={`py-4 text-xs font-bold uppercase tracking-[0.14em] hover:no-underline ${t.popular ? "text-ink-muted" : "text-muted-foreground"}`}>
+                    Includes
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <ul className="space-y-3 pb-2 text-sm">
+                      {t.features.map((feature) => (
+                        <li key={feature} className="flex gap-3">
+                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-signal" />
+                          <span className={t.popular ? "text-ink-foreground/90" : ""}>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
 
               <div className="mt-auto pt-8">
-                <p className="font-display text-4xl font-extrabold text-oxblood-soft">
-                  {t.price}
+                <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-display text-3xl font-extrabold text-oxblood-soft">
+                  <span className="text-base font-bold">{t.priceLabel}</span>
+                  <span>{t.price}</span>
                 </p>
                 <p className={`mt-1 text-xs ${t.popular ? "text-ink-muted" : "text-muted-foreground"}`}>
                   {t.sub}
@@ -256,7 +277,12 @@ function Pricing() {
           ))}
         </div>
         <p className="mx-auto mt-8 max-w-7xl text-sm text-muted-foreground">
-          Signal coverage ≠ tasks automated. It describes how much of the Growen Signal Engine is
+          Final scope depends on systems, signal volume and implementation complexity.
+        </p>
+        <p className="mx-auto mt-8 max-w-7xl text-sm text-muted-foreground">
+          <strong className="font-bold text-black">Signal coverage ≠ tasks automated.</strong>
+          <br />
+          It describes how much of the Growen Signal Engine is
           installed and running across your revenue system.
         </p>
       </section>
@@ -268,22 +294,27 @@ function Pricing() {
             Keep your revenue <span className="voice font-normal">compounding.</span>
           </h2>
           <p className="mt-6 max-w-2xl leading-relaxed text-ink-muted">
-            Code rots. APIs change. Conversion models drift. The retainer is not an IT helpdesk
-            fee — it's active optimization keeping your revenue compounding month over month.
+            Code rots. APIs change. Conversion models drift. <strong className="font-bold text-white">The retainer is not an IT helpdesk fee</strong> — it&apos;s active optimization keeping your revenue compounding month over month.
           </p>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <Accordion type="multiple" className="mt-12 grid items-start gap-6 md:grid-cols-3">
             {Object.entries(RETAINERS).map(([name, retainer]) => (
-              <div key={name} className="interactive-lift flex h-full flex-col rounded-2xl border border-ink-border bg-ink p-8 text-ink-foreground">
-                <p className="eyebrow text-oxblood-soft">{name} retainer</p>
-                <p className="mt-4 font-display text-2xl font-extrabold">{retainer.price}</p>
-                <p className="mt-3 text-sm text-ink-muted">{retainer.intro}</p>
-                <ul className="mt-6 space-y-3 text-sm leading-relaxed text-ink-muted">
-                  {retainer.items.map((item) => <li key={item} className="flex gap-3"><Check className="mt-0.5 h-4 w-4 shrink-0 text-signal" />{item}</li>)}
-                </ul>
-                <p className="mt-auto border-t border-ink-border pt-5 text-sm leading-relaxed text-ink-muted"><strong className="text-ink-foreground">Best for:</strong> {retainer.bestFor}</p>
-              </div>
+              <AccordionItem key={name} value={name} className="interactive-lift self-start rounded-2xl border border-ink-border bg-ink px-8 text-ink-foreground">
+                <AccordionTrigger className="items-start py-7 text-left hover:no-underline">
+                  <span className="pr-4">
+                    <span className="eyebrow block text-oxblood-soft">{name} retainer</span>
+                    <span className="mt-4 block font-display text-2xl font-extrabold">{retainer.price}</span>
+                    <span className="mt-3 block text-sm font-normal leading-relaxed text-ink-muted">{retainer.intro}</span>
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="pb-7 text-ink-muted">
+                  <ul className="space-y-3 text-sm leading-relaxed">
+                    {retainer.items.map((item) => <li key={item} className="flex gap-3"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#31734b]" />{item}</li>)}
+                  </ul>
+                  <p className="mt-6 border-t border-ink-border pt-5 text-sm leading-relaxed"><strong className="text-ink-foreground">Best for:</strong> {retainer.bestFor}</p>
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </div>
+          </Accordion>
         </div>
       </section>
 
@@ -292,15 +323,17 @@ function Pricing() {
           <h2 className="text-4xl">Capability comparison</h2>
           <p className="mt-3 text-muted-foreground">Every division in one clear comparison.</p>
           <div className="mt-10 overflow-x-auto rounded-2xl border border-border bg-card">
-            <div className="min-w-[680px]">
-              <div className="grid grid-cols-[minmax(0,1fr)_140px_140px_140px] items-center gap-4 border-b border-border bg-muted/40 px-7 py-5">
-                <span className="eyebrow text-muted-foreground">Capability</span><span className="eyebrow text-center">Starter 50%</span><span className="eyebrow text-center">Growth 75%</span><span className="eyebrow text-center">Scale 100%</span>
+            <div className="min-w-[800px]">
+              <div className="grid grid-cols-[minmax(250px,1fr)_140px_140px_140px] items-center gap-4 border-b border-border bg-muted/40 px-7 py-5">
+                <span className="eyebrow whitespace-nowrap text-muted-foreground">Capability</span><span className="eyebrow whitespace-nowrap text-center">Starter 50%</span><span className="eyebrow whitespace-nowrap text-center">Growth 75%</span><span className="eyebrow whitespace-nowrap text-center">Scale 100%</span>
               </div>
               <Accordion type="single" collapsible defaultValue="Foundation & data">
                 {GROUPS.map((g) => <AccordionItem key={g.group} value={g.group} className="border-border">
-                  <AccordionTrigger className="bg-cream-deep/45 px-7 py-5 font-display text-lg font-extrabold hover:no-underline">{g.group}</AccordionTrigger>
+                  <AccordionTrigger className="whitespace-nowrap bg-cream-deep/45 px-7 py-5 font-display text-lg font-extrabold hover:no-underline">
+                    <span className="whitespace-nowrap">{polishedAmpersand(g.group)}</span>
+                  </AccordionTrigger>
                   <AccordionContent className="pb-0">
-                    {g.rows.map(([label, s, gr, sc]) => <div key={label} className="grid grid-cols-[minmax(0,1fr)_140px_140px_140px] items-center gap-4 border-b border-border/60 px-7 py-4 text-sm last:border-b-0"><span>{label}</span><Mark level={s} /><Mark level={gr} /><Mark level={sc} /></div>)}
+                    {g.rows.map(([label, s, gr, sc]) => <div key={label} className="grid grid-cols-[minmax(250px,1fr)_140px_140px_140px] items-center gap-4 border-b border-border/60 px-7 py-4 text-sm last:border-b-0"><span>{polishedAmpersand(label)}</span><Mark level={s} /><Mark level={gr} /><Mark level={sc} /></div>)}
                   </AccordionContent>
                 </AccordionItem>)}
               </Accordion>
@@ -309,13 +342,13 @@ function Pricing() {
 
           <div className="mt-6 flex flex-wrap gap-6 text-xs text-muted-foreground">
             <span className="flex items-center gap-2">
-              <Check className="h-4 w-4 text-signal" /> Fully included
+              <Check className="h-4 w-4 text-[#31734b]" /> Fully included
             </span>
             <span className="flex items-center gap-2">
-              <CircleDot className="h-4 w-4 text-oxblood" /> Lighter / checkpointed
+              <CircleDot className="h-4 w-4 text-[#98701a]" /> Semi-automated (Human checkpoint)
             </span>
             <span className="flex items-center gap-2">
-              <Minus className="h-4 w-4" /> Not at this tier
+              <Minus className="h-4 w-4 text-[#a43f3f]" /> Not at this tier
             </span>
           </div>
         </div>
