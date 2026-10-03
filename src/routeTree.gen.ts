@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuditRouteImport } from './routes/audit'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as LegalRouteImport } from './routes/legal'
 import { Route as PricingRouteImport } from './routes/pricing'
@@ -17,6 +18,11 @@ import { Route as PricingRouteImport } from './routes/pricing'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuditRoute = AuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -37,12 +43,14 @@ const PricingRoute = PricingRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/audit': typeof AuditRoute
   '/contact': typeof ContactRoute
   '/legal': typeof LegalRoute
   '/pricing': typeof PricingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/audit': typeof AuditRoute
   '/contact': typeof ContactRoute
   '/legal': typeof LegalRoute
   '/pricing': typeof PricingRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/audit': typeof AuditRoute
   '/contact': typeof ContactRoute
   '/legal': typeof LegalRoute
   '/pricing': typeof PricingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contact' | '/legal' | '/pricing'
+  fullPaths: '/' | '/audit' | '/contact' | '/legal' | '/pricing'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contact' | '/legal' | '/pricing'
-  id: '__root__' | '/' | '/contact' | '/legal' | '/pricing'
+  to: '/' | '/audit' | '/contact' | '/legal' | '/pricing'
+  id: '__root__' | '/' | '/audit' | '/contact' | '/legal' | '/pricing'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuditRoute: typeof AuditRoute
   ContactRoute: typeof ContactRoute
   LegalRoute: typeof LegalRoute
   PricingRoute: typeof PricingRoute
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audit': {
+      id: '/audit'
+      path: '/audit'
+      fullPath: '/audit'
+      preLoaderRoute: typeof AuditRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuditRoute: AuditRoute,
   ContactRoute: ContactRoute,
   LegalRoute: LegalRoute,
   PricingRoute: PricingRoute,

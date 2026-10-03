@@ -67,7 +67,7 @@ export function Header() {
               scrolled ? "px-5 py-2.5 text-sm" : "px-6 py-3 text-sm"
             }`}
           >
-            Request Revenue Infra Audit
+            Book a call
           </Link>
         </div>
       </header>

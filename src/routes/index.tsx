@@ -127,45 +127,6 @@ const INDUSTRIES = [
   ["Transportation Management", "Operational shift -> buying signal -> routed action"],
 ];
 
-const APPROACH_PHASES = [
-  {
-    id: "audit",
-    number: "PHASE 01",
-    label: "AUDIT",
-    intro: "Map the system. Find the leaks.",
-    points: [
-      "We dig into your systems, data, workflows and teams to understand how revenue information actually moves through the business.",
-      "We look at product, CRM, billing, support, marketing, data and teams.",
-      "We identify the highest-value opportunities based on revenue impact, effort and urgency.",
-    ],
-    output: "A clear map of your current revenue infrastructure — and where signals disappear.",
-  },
-  {
-    id: "build",
-    number: "PHASE 02",
-    label: "BUILD",
-    intro: "Turn the diagnosis into an architecture.",
-    points: [
-      "We define what data moves, where it moves, how accounts are scored and who receives the signal.",
-      "We decide what should be automated, what should remain human and what needs to be built.",
-      "We configure and connect the systems you already use without unnecessary rebuilds.",
-    ],
-    output: "Your Revenue Infrastructure Blueprint and a working revenue system your team can actually use.",
-  },
-  {
-    id: "optimize",
-    number: "PHASE 03",
-    label: "OPTIMIZE",
-    intro: "Measure. Improve. Repeat.",
-    points: [
-      "We monitor whether your signals are useful, whether the right people are acting and where the system breaks.",
-      "We improve scoring, routing, workflows and automation using actual operating results.",
-      "We keep the engine compounding as the market, product and pipeline evolve.",
-    ],
-    output: "A healthier system — and a team that knows how to operate it.",
-  },
-];
-
 function StageBoard() {
   const [active, setActive] = useState(STAGES[0]!.id);
   const stage = STAGES.find((s) => s.id === active)!;
@@ -289,8 +250,6 @@ function BuiltForStrip() {
 }
 
 function Index() {
-  const [activeApproach, setActiveApproach] = useState(APPROACH_PHASES[0]!.id);
-  const activePhase = APPROACH_PHASES.find((phase) => phase.id === activeApproach)!;
   const impactRef = useRef<HTMLElement>(null);
   const [impactProgress, setImpactProgress] = useState(0);
 
@@ -337,7 +296,13 @@ function Index() {
                   to="/contact"
                   className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 font-display font-bold text-primary-foreground transition-colors hover:bg-oxblood-soft"
                 >
-                  Request a Diagnostic Audit <ArrowRight className="h-4 w-4" />
+                  Book a call <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  to="/audit"
+                  className="inline-flex items-center gap-2 rounded-full border border-oxblood-soft/60 px-7 py-4 font-display font-bold text-ink-foreground transition-colors hover:bg-ink-foreground/10"
+                >
+                  Get 14-Day Audit <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
               <p className="text-sm text-ink-muted">14-day diagnostic. Clear gaps. Prioritised blueprint.</p>
@@ -644,7 +609,7 @@ function Index() {
               </h2>
             </div>
             <Link to="/contact" className="text-sm underline underline-offset-4">
-              Request the audit that proves it
+              Book a call
             </Link>
           </div>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
@@ -675,75 +640,6 @@ function Index() {
       </section>
 
       <Marquee />
-
-      {/* INSIGHTS / ABOUT — dark */}
-      <section id="insights" className="scroll-mt-28 section-dark px-6 py-24">
-        <div className="mx-auto max-w-7xl">
-          <p className="eyebrow text-oxblood-soft">Our approach</p>
-          <h2 className="mt-5 text-4xl leading-tight text-ink-foreground">
-            Audit. Build. Optimize.{" "}
-            <span className="voice font-normal">In that order, every time.</span>
-          </h2>
-          <p className="mt-6 max-w-xl leading-relaxed text-ink-muted">
-            Every engagement follows the same three phases — because guessing is expensive, and
-            shortcuts create fragile systems.
-          </p>
-
-          <div className="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-            <div className="space-y-3 lg:self-center" id="about">
-              {APPROACH_PHASES.map((phase) => {
-                const isActive = activeApproach === phase.id;
-
-                return (
-                  <button
-                    key={phase.id}
-                    type="button"
-                    onMouseEnter={() => setActiveApproach(phase.id)}
-                    onFocus={() => setActiveApproach(phase.id)}
-                    className={`w-full rounded-2xl border p-5 text-left transition-colors duration-300 ease-out ${
-                      isActive
-                        ? "border-oxblood-soft/60 bg-ink-foreground/[0.06]"
-                        : "border-ink-border bg-transparent hover:border-oxblood-soft/40 hover:bg-ink-foreground/[0.03]"
-                    }`}
-                  >
-                    <div className="flex items-start gap-4">
-                      <span className="voice text-xl text-oxblood-soft">{phase.number}</span>
-                      <div className="min-w-0 flex-1">
-                        <h3 className="text-lg font-display font-bold text-ink-foreground">
-                          {phase.label}
-                        </h3>
-                        <p className="mt-2 text-sm leading-relaxed text-ink-muted">{phase.intro}</p>
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="rounded-3xl border border-ink-border bg-ink/95 p-7 text-ink-foreground shadow-xl lg:min-h-[31rem]">
-              <p className="eyebrow text-oxblood-soft">{activePhase.number}</p>
-              <h3 className="mt-5 text-3xl font-display font-extrabold text-ink-foreground">
-                {activePhase.label}
-              </h3>
-              <p className="mt-3 text-lg leading-relaxed text-ink-muted">{activePhase.intro}</p>
-
-              <ul className="mt-7 space-y-4 text-sm leading-relaxed text-ink-muted">
-                {activePhase.points.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-oxblood-soft" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-8 rounded-2xl border border-ink-border bg-ink-foreground/[0.04] p-4">
-                <p className="eyebrow text-oxblood-soft">Output</p>
-                <p className="mt-3 text-sm leading-relaxed text-ink-muted">{activePhase.output}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA — oxblood */}
       <section className="hidden" aria-hidden="true">
@@ -797,7 +693,7 @@ function Index() {
               to="/contact"
               className="inline-flex shrink-0 items-center gap-2 rounded-full bg-ink px-7 py-4 font-display font-bold text-ink-foreground transition-transform hover:-translate-y-0.5 lg:w-1/2 lg:justify-center"
             >
-              Request Revenue Infra Audit <ArrowUpRight className="h-4 w-4" />
+              Book a call <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

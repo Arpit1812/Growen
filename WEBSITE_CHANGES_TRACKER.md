@@ -69,3 +69,11 @@ Status key: `Done` = implemented and validated; `In progress` = currently being 
 - [x] Upgrade Vercel-flagged `@tanstack/react-start` to advisory-patched `1.168.60`, with compatible `@tanstack/react-router@1.170.41` and `@tanstack/router-plugin@1.168.42`; synchronize `package-lock.json` and `bun.lock`. — Done
 - [x] Resolve the remaining `brace-expansion` advisory through compatible transitive updates. `npm audit` reports 0 vulnerabilities. — Done
 - [x] Verify production build after dependency updates. — Done
+
+## 14-Day Audit Page
+- [x] Add `/audit` page with the supplied Calendly booking widget and six concise fit/process/outcome points. — Done
+- [x] Reduce excess surrounding space in the first Audit section while preserving the supplied 700px calendar widget. — Done
+- [x] Add a second Audit section with a large “14-day audit” title and a Calendly modal trigger. — Done
+- [x] Migrate the homepage Our Approach process into a third Audit section with three horizontal phase selectors and phase-specific cards; remove the former homepage process block. — Done
+- [x] Add homepage “Get 14-Day Audit” CTA linking to `/audit`. — Done
+- [x] Rename audit-request CTAs to “Book a call”. — Done; existing booking links continue to `/contact`.
