@@ -64,3 +64,8 @@ Status key: `Done` = implemented and validated; `In progress` = currently being 
 - The unspecified “Pricing Cleanups”.
 - LinkedIn and Instagram profile URLs to activate the footer social icons.
 - Dedicated scheduling URL if “Book a Conversation” should open a calendar rather than the Contact page.
+
+## Deployment Security
+- [x] Upgrade Vercel-flagged `@tanstack/react-start` from `1.168.32` to patched `1.168.33`; synchronize `package-lock.json` and `bun.lock`. — Done
+- [x] Resolve the remaining `brace-expansion` advisory through compatible transitive updates. `npm audit` reports 0 vulnerabilities. — Done
+- [x] Verify production build after dependency updates. — Done
