@@ -66,6 +66,6 @@ Status key: `Done` = implemented and validated; `In progress` = currently being 
 - Dedicated scheduling URL if “Book a Conversation” should open a calendar rather than the Contact page.
 
 ## Deployment Security
-- [x] Upgrade Vercel-flagged `@tanstack/react-start` from `1.168.32` to patched `1.168.33`; synchronize `package-lock.json` and `bun.lock`. — Done
+- [x] Upgrade Vercel-flagged `@tanstack/react-start` to advisory-patched `1.168.60`, with compatible `@tanstack/react-router@1.170.41` and `@tanstack/router-plugin@1.168.42`; synchronize `package-lock.json` and `bun.lock`. — Done
 - [x] Resolve the remaining `brace-expansion` advisory through compatible transitive updates. `npm audit` reports 0 vulnerabilities. — Done
 - [x] Verify production build after dependency updates. — Done
