@@ -162,8 +162,7 @@ function Contact() {
               <span className="voice font-normal">We&apos;ll find it.</span>
             </h1>
             <p className="mt-6 leading-relaxed text-ink-muted">
-              Your systems are already generating the signals. We&apos;ll map where they go, where
-              they die, and what it&apos;s costing you.
+              Start with a few quick details. We&apos;ll tell you whether a deeper audit is worth doing.
             </p>
             <p className="mt-10 text-sm italic font-normal text-ink-foreground/90">
               If we don&apos;t find anything worth fixing, we&apos;ll tell you that too.

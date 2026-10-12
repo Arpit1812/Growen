@@ -164,7 +164,7 @@ function Pricing() {
 
       <section className="section-dark px-6 py-24">
         <div className="mx-auto max-w-7xl">
-          <p className="eyebrow text-oxblood-soft">Productized tiers</p>
+          <p className="eyebrow text-oxblood-soft">Engagement tiers</p>
           <h1 className="mt-6 max-w-3xl text-5xl leading-[0.98] text-ink-foreground sm:text-6xl">
             Choose how much of the engine{" "}
             <span className="voice font-normal">you install.</span>
@@ -173,12 +173,7 @@ function Pricing() {
             Same architecture. Three depths. Start with the signals that matter. Expand when the
             system proves its value.
           </p>
-          <p className="mt-4 max-w-xl text-sm text-ink-foreground/70">
-            <span className="font-display font-bold">Note:</span> 50% / 75% / 100% describe{" "}
-            <span className="font-display font-bold">signal coverage, not tasks automated.</span>{" "}
-            It describes how much of the Growen Signal Engine is installed and running across your
-            revenue system.
-          </p>
+          <p className="mt-4 max-w-xl text-sm text-ink-foreground/70">Signal coverage refers to how much of your revenue workflow Growen connects and automates.</p>
         </div>
       </section>
 
@@ -294,7 +289,7 @@ function Pricing() {
             Keep your revenue <span className="voice font-normal">compounding.</span>
           </h2>
           <p className="mt-6 max-w-2xl leading-relaxed text-ink-muted">
-            Code rots. APIs change. Conversion models drift. <strong className="font-bold text-white">The retainer is not an IT helpdesk fee</strong> — it&apos;s active optimization keeping your revenue compounding month over month.
+            Code rots. APIs change. Conversion models drift. Your revenue workflows don&apos;t stop changing after launch. We continuously monitor, improve, and maintain the systems we&apos;ve built as your business evolves.
           </p>
           <Accordion type="multiple" className="mt-12 grid items-start gap-6 md:grid-cols-3">
             {Object.entries(RETAINERS).map(([name, retainer]) => (
@@ -308,7 +303,7 @@ function Pricing() {
                 </AccordionTrigger>
                 <AccordionContent className="pb-7 text-ink-muted">
                   <ul className="space-y-3 text-sm leading-relaxed">
-                    {retainer.items.map((item) => <li key={item} className="flex gap-3"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#31734b]" />{item}</li>)}
+                    {retainer.items.map((item) => <li key={item} className="flex gap-3"><Check className="mt-0.5 h-4 w-4 shrink-0 text-signal" />{item}</li>)}
                   </ul>
                   <p className="mt-6 border-t border-ink-border pt-5 text-sm leading-relaxed"><strong className="text-ink-foreground">Best for:</strong> {retainer.bestFor}</p>
                 </AccordionContent>

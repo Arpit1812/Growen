@@ -36,7 +36,7 @@ const AUDIT_POINTS = [
   "Leave with scored findings, tier fit and next steps",
 ];
 
-const APPROACH_PHASES = [
+export const APPROACH_PHASES = [
   {
     id: "audit",
     number: "PHASE 01",
@@ -114,6 +114,45 @@ const APPROACH_PHASES = [
   },
 ];
 
+function AuditDiagnosticSection() {
+  const deliverables = [
+    ["01", "System map", "Where your product, CRM, billing, support, marketing and customer data live — and how they currently connect."],
+    ["02", "Signal & leak register", "The signals you’re capturing, the ones you’re missing, and where valuable information gets lost between systems."],
+    ["03", "Opportunity prioritization", "A ranked view of the highest-value opportunities based on potential revenue impact, effort and urgency."],
+    ["04", "Revenue infrastructure blueprint", "A practical plan showing what we would connect, automate or rebuild — and what we would leave alone."],
+    ["05", "Execution roadmap", "What should happen first, what can wait and what the expected implementation path looks like."],
+  ];
+  const measures = [
+    ["Revenue maturity model", "Where are you today?", "Manual → Connected → Automated → Intelligent → Compounding"],
+    ["Signal health index", "Are your revenue signals reaching the people who need them?", "Signal capture · Signal quality · Signal freshness · Routing · Actionability"],
+    ["Automation coverage score", "How much of your revenue workflow runs without manual intervention?", "Capture · Enrichment · Scoring · Routing · Engagement · Expansion"],
+    ["Revenue infrastructure benchmark", "How does your revenue system compare with companies at similar scale?", "System connectivity · Signal coverage · Automation · Data quality · Revenue visibility · Operational maturity"],
+  ];
+  return <section className="section-dark px-6 py-20 sm:py-24">
+    <div className="mx-auto max-w-7xl">
+      <p className="eyebrow text-oxblood-soft">Start with the diagnostic.</p>
+      <div className="mt-5 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div><h2 className="max-w-4xl text-4xl leading-tight text-ink-foreground sm:text-5xl">14-Day Revenue Infrastructure Audit <span className="voice font-normal">$100</span></h2><p className="mt-3 text-sm text-oxblood-soft">(Recommended entry point for all implementation work)</p></div>
+        <p className="max-w-xl leading-relaxed text-ink-muted">A focused review of your revenue infrastructure, systems, data and workflows — and what it would take to close the gap.</p>
+      </div>
+      <p className="mt-12 eyebrow text-oxblood-soft">What you get</p>
+      <div className="mt-5 grid gap-px overflow-hidden rounded-2xl border border-ink-border bg-ink-border md:grid-cols-2">
+        {deliverables.map(([number, title, body]) => <article key={title} className="bg-ink p-7 sm:p-8"><p className="eyebrow text-oxblood-soft">{number}</p><h3 className="mt-3 text-2xl text-ink-foreground">{title}</h3><p className="mt-4 leading-relaxed text-ink-muted">{body}</p></article>)}
+        <aside className="bg-oxblood/25 p-7 sm:p-8"><p className="eyebrow text-ink-foreground/70">The credit</p><p className="mt-3 text-xl font-bold leading-relaxed text-ink-foreground">The $100 is credited toward any tier you choose. The scores are yours either way.</p></aside>
+      </div>
+      <div className="mt-20 border-t border-ink-border pt-12">
+        <p className="eyebrow text-oxblood-soft">How mature is your revenue infrastructure?</p>
+        <h2 className="mt-5 max-w-3xl text-4xl leading-tight text-ink-foreground sm:text-5xl">Most companies don&apos;t know.</h2>
+        <p className="mt-5 max-w-3xl leading-relaxed text-ink-muted">That&apos;s why we don&apos;t start by selling you more automation. We measure where your system actually stands.</p>
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          {measures.map(([title, question, items], index) => <article key={title} className="rounded-2xl border border-ink-border bg-ink-foreground/[0.035] p-7 sm:p-8"><p className="eyebrow text-oxblood-soft">0{index + 1}</p><h3 className="mt-3 text-2xl text-ink-foreground">{title}</h3><p className="mt-4 leading-relaxed text-ink-muted">{question}</p><p className="mt-5 border-t border-ink-border pt-4 text-sm leading-relaxed text-ink-foreground">{items}</p></article>)}
+        </div>
+      </div>
+      <p className="voice mt-14 max-w-3xl text-3xl leading-tight text-ink-foreground sm:text-4xl">Your systems shouldn&apos;t just be automated. <span className="text-oxblood-soft">They should be measurable.</span></p>
+    </div>
+  </section>;
+}
+
 function Audit() {
   const [activePhaseId, setActivePhaseId] = useState(APPROACH_PHASES[0]!.id);
   const activePhase = APPROACH_PHASES.find((phase) => phase.id === activePhaseId)!;
@@ -185,7 +224,8 @@ function Audit() {
           </div>
         </section>
 
-        <section className="section-dark px-6 py-20 sm:py-24">
+        <AuditDiagnosticSection />
+        {false && <section className="section-dark px-6 py-20 sm:py-24">
           <div className="mx-auto max-w-7xl">
             <p className="eyebrow text-oxblood-soft">Our approach</p>
             <h2 className="mt-5 max-w-4xl text-4xl leading-tight text-ink-foreground sm:text-5xl">
@@ -247,7 +287,7 @@ function Audit() {
               Understand → Prioritize → Architect → Engineer → Compound
             </p>
           </div>
-        </section>
+        </section>}
         <div
           aria-hidden="true"
           className="h-0.5 w-full bg-oxblood shadow-[0_0_10px_2px_rgba(143,65,77,0.24),0_0_28px_8px_rgba(143,65,77,0.12)]"

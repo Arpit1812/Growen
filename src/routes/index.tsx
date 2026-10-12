@@ -4,6 +4,7 @@ import { ArrowRight, ArrowUpRight, Check, MessageCircle, Sparkles } from "lucide
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Marquee } from "@/components/site/Marquee";
+import { GlowingSeparator } from "@/components/site/GlowingSeparator";
 import {
   Accordion,
   AccordionContent,
@@ -12,6 +13,7 @@ import {
 } from "@/components/ui/accordion";
 import dashboard from "@/assets/dashboard.jpg";
 import team from "@/assets/team.jpg";
+import { APPROACH_PHASES } from "./audit";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -36,7 +38,7 @@ export const Route = createFileRoute("/")({
 const STAGES = [
   {
     id: "capture",
-    tip: "Collect signals from product usage, website activity, billing events and support tickets.",
+    tip: "Find important activity.",
     subtitle: "Catch what your systems already know.",
     name: "CAPTURE",
     signal: "A trial account invites four teammates in 48 hours.",
@@ -45,7 +47,7 @@ const STAGES = [
   },
   {
     id: "score",
-    tip: "Prioritise leads by behaviour: high usage, rapid growth or key events.",
+    tip: "Decide what matters.",
     subtitle: "Not every signal matters equally.",
     name: "SCORE",
     signal: "Usage jumps 3× while the champion reads your pricing page.",
@@ -54,7 +56,7 @@ const STAGES = [
   },
   {
     id: "route",
-    tip: "Auto-assign hot leads to an AE or trigger a CSM alert.",
+    tip: "Get it to the right person.",
     subtitle: "Right signal. Right person. Right moment.",
     name: "ROUTE",
     signal: "Nine users from the same company.",
@@ -63,7 +65,7 @@ const STAGES = [
   },
   {
     id: "engage",
-    tip: "Engage prospects with timely email, in-app messages or Slack notifications.",
+    tip: "Trigger the next action.",
     subtitle: "Act while intent is still high.",
     name: "ENGAGE",
     signal: "Onboarding stalls at step two on a $40K account.",
@@ -72,7 +74,7 @@ const STAGES = [
   },
   {
     id: "expand",
-    tip: "Flag an account ready for an upsell, renewal or referral.",
+    tip: "Turn activity into growth.",
     subtitle: "Don't wait for renewal to discover growth.",
     name: "EXPAND",
     signal: "Usage crosses the contracted limit 60 days before renewal.",
@@ -249,6 +251,30 @@ function BuiltForStrip() {
   );
 }
 
+function ApproachSection() {
+  const [activePhaseId, setActivePhaseId] = useState(APPROACH_PHASES[0]!.id);
+  const activePhase = APPROACH_PHASES.find((phase) => phase.id === activePhaseId)!;
+  return <section id="insights" className="section-dark px-6 py-20 sm:py-24">
+    <div className="mx-auto max-w-7xl">
+      <p className="eyebrow text-oxblood-soft">Our approach</p>
+      <h2 className="mt-5 max-w-4xl text-4xl leading-tight text-ink-foreground sm:text-5xl">
+        Audit. Build. Optimize. <span className="voice font-normal">In that order, every time.</span>
+      </h2>
+      <p className="mt-5 max-w-3xl leading-relaxed text-ink-muted">
+        Every engagement follows the same three phases — because guessing is expensive, and skipping steps is how revenue systems turn into spaghetti.
+        <br />We audit first. We build what the audit tells us to. We optimize what we built.
+      </p>
+      <div className="mt-12 grid grid-cols-3 border-y border-ink-border">
+        {APPROACH_PHASES.map((phase) => { const isActive = activePhaseId === phase.id; return <button key={phase.id} type="button" aria-pressed={isActive} onClick={() => setActivePhaseId(phase.id)} onMouseEnter={() => setActivePhaseId(phase.id)} onFocus={() => setActivePhaseId(phase.id)} className={`group relative px-3 py-5 text-left transition-colors sm:px-6 sm:py-6 ${isActive ? "text-ink-foreground" : "text-ink-muted hover:text-ink-foreground"}`}><span className="eyebrow block text-oxblood-soft">{phase.number}</span><span className="mt-2 block font-display text-sm font-extrabold sm:text-lg">{phase.label}</span><span className="mt-1 hidden text-xs leading-relaxed text-ink-muted sm:block">{phase.intro}</span><span className={`absolute inset-x-3 bottom-0 h-0.5 transition-colors sm:inset-x-6 ${isActive ? "bg-oxblood-soft" : "bg-transparent group-hover:bg-ink-border"}`} /></button>; })}
+      </div>
+      <div key={activePhase.id} className="mt-8 grid gap-5 md:grid-cols-2" aria-live="polite">
+        {activePhase.parts.map((part) => <article key={part.label} className="stage-card rounded-2xl border border-ink-border bg-ink-foreground/[0.035] p-6 sm:p-8"><p className="eyebrow text-oxblood-soft">{part.label}</p><h3 className="mt-3 text-2xl font-display font-extrabold text-ink-foreground">{part.title}</h3><p className="mt-4 leading-relaxed text-ink-muted">{part.body}</p>{part.lead && <p className="mt-5 font-display font-bold text-ink-foreground">{part.lead}</p>}<ul className="mt-3 space-y-2 text-sm leading-relaxed text-ink-muted">{part.items.map((item) => <li key={item} className="flex gap-3"><Check className="mt-0.5 h-4 w-4 shrink-0 text-oxblood-soft" aria-hidden="true" /><span>{item}</span></li>)}</ul>{part.after && <p className="mt-5 leading-relaxed text-ink-muted">{part.after}</p>}<div className="mt-7 border-t border-ink-border pt-5"><p className="eyebrow text-oxblood-soft">Output</p><p className="mt-2 font-medium leading-relaxed text-ink-foreground">{part.output}</p></div></article>)}
+      </div>
+      <p className="mt-10 text-center font-display text-lg font-bold text-ink-foreground sm:text-xl">Understand → Prioritize → Architect → Engineer → Compound</p>
+    </div>
+  </section>;
+}
+
 function Index() {
   const impactRef = useRef<HTMLElement>(null);
   const [impactProgress, setImpactProgress] = useState(0);
@@ -291,19 +317,25 @@ function Index() {
               Your systems already generate the signals. We connect them to action — and revenue.
             </p>
             <div className="mt-9 flex flex-col items-start gap-3">
-              <div className="flex flex-wrap items-center gap-3">
-                <Link
+              <div className="flex flex-wrap items-start gap-3">
+                <div>
+                  <Link
                   to="/contact"
                   className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 font-display font-bold text-primary-foreground transition-colors hover:bg-oxblood-soft"
                 >
                   Book a call <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
+                  </Link>
+                  <p className="mt-2 text-center text-xs text-ink-muted">30-minute conversation</p>
+                </div>
+                <div>
+                  <Link
                   to="/audit"
                   className="inline-flex items-center gap-2 rounded-full border border-oxblood-soft/60 px-7 py-4 font-display font-bold text-ink-foreground transition-colors hover:bg-ink-foreground/10"
                 >
-                  Get 14-Day Audit <ArrowRight className="h-4 w-4" />
-                </Link>
+                  Get the 14-Day Audit <ArrowRight className="h-4 w-4" />
+                  </Link>
+                  <p className="mt-2 text-center text-xs text-ink-muted">14-day diagnostic</p>
+                </div>
               </div>
               <p className="text-sm text-ink-muted">14-day diagnostic. Clear gaps. Prioritised blueprint.</p>
               <Link to="/" hash="how-it-works" className="text-sm underline underline-offset-4 text-ink-foreground/80">
@@ -427,14 +459,14 @@ function Index() {
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
-              <p className="eyebrow text-oxblood">What Growen is</p>
+              <p className="eyebrow text-oxblood">What we do</p>
               <h2 className="mt-5 text-4xl leading-tight sm:text-5xl">
                 Revenue engineering for B2B teams.{" "}
                 <span className="voice font-normal">Not another tool.</span>
               </h2>
               <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
                 We build the missing layer between your systems and your revenue team.{" "}
-                <strong className="font-bold text-oxblood underline underline-offset-4">
+                <strong className="font-bold text-oxblood">
                   We&apos;re engineers with commercial judgement.
                 </strong>
               </p>
@@ -498,7 +530,7 @@ function Index() {
             <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
               Four signals your company generated this week. Nobody acted on them. These aren't
               hypotheticals.<br />
-              <span className="voice text-lg font-bold text-oxblood underline underline-offset-4">This is a normal Tuesday.</span>
+              <span className="voice text-lg font-bold text-oxblood">This is a normal Tuesday.</span>
             </p>
           </div>
           <div className="grid gap-x-12 gap-y-10 sm:grid-cols-2">
@@ -531,7 +563,7 @@ function Index() {
           </p>
 
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
-            <div className="interactive-lift min-h-[29rem] rounded-3xl border border-border bg-cream-deep/45 p-8 sm:p-12">
+            <div className="interactive-lift rounded-3xl border border-border bg-cream-deep/45 p-8 sm:p-12">
               <p className="inline-block bg-oxblood/10 px-2 py-1 font-display text-lg font-extrabold uppercase tracking-[0.14em] text-oxblood sm:text-xl">Before</p>
               <ol className="mt-8 space-y-2">
                 {[
@@ -554,7 +586,7 @@ function Index() {
               </ol>
             </div>
 
-            <div className="interactive-lift min-h-[29rem] rounded-3xl border border-[#b69c96] bg-[#c5b1ab] p-8 text-foreground sm:p-12">
+            <div className="interactive-lift rounded-3xl border border-[#b69c96] bg-[#c5b1ab] p-8 text-foreground sm:p-12">
               <p className="font-display text-lg font-extrabold uppercase tracking-[0.14em] text-oxblood sm:text-xl">After — with Growen</p>
               <ol className="mt-8 space-y-2">
                 {[
@@ -567,7 +599,7 @@ function Index() {
                     <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-oxblood text-ink-foreground"><Check className="h-5 w-5" /></span>
                     <div className="min-w-0 flex-1">
                       <p className="font-display text-lg font-bold">{t}</p>
-                      <p className="mt-2 max-h-0 max-w-md overflow-hidden text-sm leading-relaxed text-ink-foreground/80 opacity-0 transition-all duration-200 group-hover:max-h-24 group-hover:opacity-100 group-hover:translate-y-0">
+                      <p className="mt-2 max-h-0 max-w-md overflow-hidden text-sm leading-relaxed text-foreground opacity-0 transition-all duration-200 group-hover:max-h-24 group-hover:opacity-100 group-hover:translate-y-0">
                         {d}
                       </p>
                     </div>
@@ -580,14 +612,13 @@ function Index() {
         </div>
       </section>
 
+      <GlowingSeparator />
       {/* SIGNAL ENGINE — dark: inside the system */}
       <section id="how-it-works" className="scroll-mt-28 section-dark px-6 py-24">
         <div className="mx-auto max-w-7xl">
           <p className="eyebrow text-oxblood-soft">The Growen Signal Engine</p>
-          <h2 className="mt-5 max-w-3xl text-4xl leading-tight text-ink-foreground sm:text-5xl">
-            Five stages. One job:
-            <br />
-            <span className="voice font-normal">turn signals into revenue.</span>
+          <h2 className="mt-5 max-w-5xl text-4xl leading-tight text-ink-foreground sm:text-5xl">
+            Five stages. One job: <span className="voice font-normal sm:whitespace-nowrap">turn signals into revenue.</span>
           </h2>
           <p className="mt-5 max-w-xl text-ink-muted">
             Every real signal gets a system action and a business outcome.
@@ -595,9 +626,10 @@ function Index() {
           <StageBoard />
         </div>
       </section>
+      <GlowingSeparator />
 
       {/* ILLUSTRATIVE IMPACT — light */}
-      <section className="bg-cream-deep px-6 py-24">
+      <section className="hidden" aria-hidden="true">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
@@ -640,6 +672,22 @@ function Index() {
       </section>
 
       <Marquee />
+
+      <GlowingSeparator />
+      <ApproachSection />
+      <GlowingSeparator />
+      <section className="hidden" aria-hidden="true">
+        <div className="mx-auto max-w-7xl">
+          <p className="eyebrow text-oxblood-soft">Our approach</p>
+          <h2 className="mt-5 max-w-5xl text-4xl leading-tight text-ink-foreground sm:text-5xl">
+            Audit. Build. Optimize. <span className="voice font-normal sm:whitespace-nowrap">In that order, every time.</span>
+          </h2>
+          <p className="mt-5 max-w-3xl leading-relaxed text-ink-muted">Every engagement follows the same three phases. We audit first, build what the audit tells us to, then optimize what we built.</p>
+          <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-ink-border bg-ink-border md:grid-cols-3">
+            {[["01", "Audit", "Map your stack, signals and hand-offs. Find the leaks worth fixing first.", "Signal-to-revenue blueprint"], ["02", "Build", "Connect systems, define scoring and ship the workflow your team needs.", "Working revenue infrastructure"], ["03", "Optimize", "Monitor what changed, tune the system and compound the gains.", "Ongoing improvement plan"]].map(([number, title, body, output]) => <article key={title} className="bg-ink p-7 sm:p-8"><p className="eyebrow text-oxblood-soft">{number}</p><h3 className="mt-3 text-2xl text-ink-foreground">{title}</h3><p className="mt-4 text-sm leading-relaxed text-ink-muted">{body}</p><p className="mt-7 border-t border-ink-border pt-4 text-sm font-bold text-ink-foreground">{output}</p></article>)}
+          </div>
+        </div>
+      </section>
 
       {/* CTA — oxblood */}
       <section className="hidden" aria-hidden="true">
