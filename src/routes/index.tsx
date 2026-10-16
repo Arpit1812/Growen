@@ -123,10 +123,10 @@ const GAP = [
 ];
 
 const INDUSTRIES = [
-  ["Developer Tools", "Product usage -> account intent -> sales action"],
-  ["Fleet Software", "Usage change -> account risk -> customer response"],
-  ["API-driven SaaS", "API adoption -> expansion signal -> owner alert"],
-  ["Transportation Management", "Operational shift -> buying signal -> routed action"],
+  ["Developer Tools", "Product usage -> Account identification -> Intent scoring -> Sales action"],
+  ["Fleet Software", "Usage change -> Account risk -> Customer response"],
+  ["API-driven SaaS", "API adoption -> Expansion signal -> Owner alert"],
+  ["Transportation Management", "Operational shift -> Buying signal -> Routed action"],
 ];
 
 function StageBoard() {
@@ -226,26 +226,34 @@ function BuiltForStrip() {
     <div id="industries" className="scroll-mt-28 relative z-30 border-t border-ink-border">
       <div className="mx-auto grid max-w-7xl grid-cols-2 items-center gap-x-4 gap-y-4 px-6 py-5 md:grid-cols-[auto_repeat(4,minmax(0,1fr))] md:gap-x-8">
         <span className="eyebrow col-span-2 whitespace-nowrap text-ink-muted md:col-span-1">Built for</span>
-        {INDUSTRIES.map(([name, journey], index) => (
-          <div key={name} className="group/industry relative min-w-0">
-            <button
-              type="button"
-              aria-describedby={`industry-preview-${index}`}
-              className="block min-h-8 w-full text-left"
-            >
-              <span className="eyebrow block text-pretty text-ink-foreground/70 transition-colors group-hover/industry:text-ink-foreground group-focus-visible/industry:text-ink-foreground">
-                {name}
+        {INDUSTRIES.map(([name, journey], index) => {
+          const alignment =
+            index === 0
+              ? "left-0"
+              : index === 3
+                ? "right-0 left-auto"
+                : "left-0 md:left-1/2 md:-translate-x-1/2";
+          return (
+            <div key={name} className="group/industry relative min-w-0">
+              <button
+                type="button"
+                aria-describedby={`industry-preview-${index}`}
+                className="block min-h-8 w-full text-left"
+              >
+                <span className="eyebrow block text-pretty text-ink-foreground/70 transition-colors group-hover/industry:text-ink-foreground group-focus-visible/industry:text-ink-foreground">
+                  {name}
+                </span>
+              </button>
+              <span
+                id={`industry-preview-${index}`}
+                role="tooltip"
+                className={`pointer-events-none absolute top-full z-50 mt-4 whitespace-nowrap rounded-xl border border-ink-border/80 bg-ink px-4 py-2.5 text-[11px] font-medium text-ink-foreground shadow-2xl transition-all duration-200 ease-out sm:text-xs shadow-[0_16px_36px_rgba(0,0,0,0.5)] -translate-y-1.5 opacity-0 group-hover/industry:pointer-events-auto group-hover/industry:translate-y-0 group-hover/industry:opacity-100 group-focus-within/industry:pointer-events-auto group-focus-within/industry:translate-y-0 group-focus-within/industry:opacity-100 ${alignment}`}
+              >
+                {journey}
               </span>
-            </button>
-            <span
-              id={`industry-preview-${index}`}
-              role="tooltip"
-              className="pointer-events-none absolute left-1/2 top-full z-40 mt-3 w-64 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-2 rounded-xl border border-ink-border bg-ink px-4 py-3 text-xs leading-relaxed text-ink-foreground opacity-0 shadow-xl transition-all duration-200 ease-out group-hover/industry:pointer-events-auto group-hover/industry:translate-y-0 group-hover/industry:opacity-100 group-focus-within/industry:pointer-events-auto group-focus-within/industry:translate-y-0 group-focus-within/industry:opacity-100"
-            >
-              {journey}
-            </span>
-          </div>
-        ))}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -273,6 +281,83 @@ function ApproachSection() {
       <p className="mt-10 text-center font-display text-lg font-bold text-ink-foreground sm:text-xl">Understand → Prioritize → Architect → Engineer → Compound</p>
     </div>
   </section>;
+}
+
+function WhichPathSection() {
+  return (
+    <section className="bg-[#383533] px-6 py-12 sm:py-16">
+      <div className="mx-auto max-w-7xl">
+        <div className="max-w-2xl">
+          <p className="eyebrow text-xs tracking-widest text-oxblood-soft sm:text-sm">Your starting point</p>
+          <h2 className="mt-2.5 font-display text-2xl font-extrabold leading-tight text-ink-foreground sm:text-3xl lg:text-4xl">
+            Which path is <span className="voice font-normal text-oxblood-soft">right for you?</span>
+          </h2>
+        </div>
+
+        <div className="mt-8 divide-y divide-ink-border border-y border-ink-border sm:mt-10">
+          {/* Path 1 */}
+          <div className="group flex flex-col justify-between gap-5 py-6 transition-colors sm:py-7 lg:flex-row lg:items-center">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-3">
+                <span className="eyebrow text-xs tracking-wider text-oxblood-soft">Choose Path 01</span>
+                <span className="h-1 w-1 rounded-full bg-ink-muted/40" />
+                <span className="text-xs uppercase tracking-wider text-ink-muted">Direct conversation</span>
+              </div>
+              <h3 className="mt-2.5 font-display text-xl font-extrabold leading-snug text-ink-foreground sm:text-2xl">
+                I already know something is wrong.
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-muted sm:text-base">
+                30-minute conversation · No commitment. Talk through your systems and bottlenecks.
+              </p>
+            </div>
+            <div className="shrink-0 pt-1 lg:pt-0">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-display text-sm font-bold text-primary-foreground transition-all hover:bg-oxblood-soft hover:translate-x-0.5"
+              >
+                Book a call <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Path 2 */}
+          <div className="group flex flex-col justify-between gap-5 py-6 transition-colors sm:py-7 lg:flex-row lg:items-center">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-3">
+                <span className="eyebrow text-xs tracking-wider text-oxblood-soft">Choose Path 02</span>
+                <span className="h-1 w-1 rounded-full bg-ink-muted/40" />
+                <span className="text-xs uppercase tracking-wider text-ink-muted">Diagnostic audit</span>
+              </div>
+              <h3 className="mt-2.5 font-display text-xl font-extrabold leading-snug text-ink-foreground sm:text-2xl">
+                I want Growen to find the gaps.
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-muted sm:text-base">
+                14-day diagnostic · Prioritized blueprint. We inspect your systems and tell you what to fix.
+              </p>
+            </div>
+            <div className="shrink-0 pt-1 lg:pt-0">
+              <Link
+                to="/audit"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-display text-sm font-bold text-primary-foreground transition-all hover:bg-oxblood-soft hover:translate-x-0.5"
+              >
+                Get the 14 Day Audit <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Closing Banner */}
+        <div className="mt-8 text-center sm:mt-10">
+          <p className="font-display text-base font-bold text-ink-foreground sm:text-lg lg:text-xl">
+            “We are not another tool.{" "}
+            <span className="voice font-normal text-oxblood-soft">
+              We are the team that connects the tools you already have.
+            </span>”
+          </p>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function Index() {
@@ -303,7 +388,7 @@ function Index() {
       <Header />
 
       {/* HERO — dark: inside the system */}
-      <section className="section-dark relative overflow-x-clip">
+      <section className="section-dark relative z-20 overflow-x-clip">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 py-24 lg:grid-cols-[1fr_1.05fr] lg:py-28">
           <div>
             <p className="eyebrow text-oxblood-soft">
@@ -379,6 +464,10 @@ function Index() {
 
         <BuiltForStrip />
       </section>
+
+      <GlowingSeparator />
+      <WhichPathSection />
+      <GlowingSeparator />
 
       {/* PROBLEM STATEMENT — light */}
       <section className="hidden" aria-hidden="true">
@@ -518,35 +607,167 @@ function Index() {
       </section>
 
       {/* THE GAP — light */}
-      <section ref={impactRef} className="bg-cream-deep px-6 py-24">
-        <div className="mx-auto max-w-7xl grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <p className="eyebrow text-oxblood">The gap</p>
-            <h2 className="mt-5 text-4xl leading-tight">
+      <section ref={impactRef} className="bg-cream-deep px-6 py-14 sm:py-16 lg:px-16 xl:px-24">
+        <div className="mx-auto w-full max-w-screen-2xl">
+          {/* Left-aligned Title & Subtext — matching reference */}
+          <div className="max-w-3xl">
+            <p className="eyebrow text-xs text-oxblood">The gap</p>
+            <h2 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-[2.6rem] md:whitespace-nowrap">
               The signal arrives.{" "}
-              <br />
-              <span className="voice font-bold text-oxblood">The action is missing.</span>
+              <span className="voice font-normal text-oxblood">The action is missing.</span>
             </h2>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
-              Four signals your company generated this week. Nobody acted on them. These aren't
-              hypotheticals.<br />
-              <span className="voice text-lg font-bold text-oxblood">This is a normal Tuesday.</span>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+              Four signals your company generated this week. Nobody acted on them. These aren't hypotheticals.{" "}
+              <span className="voice font-normal text-oxblood text-base sm:text-lg">This is a normal Tuesday.</span>
             </p>
           </div>
-          <div className="grid gap-x-12 gap-y-10 sm:grid-cols-2">
-            {GAP.map((g) => (
-              <div key={g.n} className="gap-card interactive-lift rounded-2xl border border-cream-deep/70 bg-cream-deep/45 p-6 shadow-[0_2px_8px_rgb(125_64_71_/_6%)]">
-                <p className="voice text-xl text-oxblood">{g.n}</p>
-                <h3 className="mt-3 text-lg">{g.title}</h3>
-                <ul className="mt-4 space-y-2 text-sm leading-relaxed text-muted-foreground">
-                  {g.points.map((point, pointIndex) => (
-                    <li key={point} className={`list-disc pl-5 marker:text-oxblood ${pointIndex === 2 ? "outcome-highlight" : ""}`}>
-                      {point}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+
+          {/* Horizontal Signal Flow Sequence Table */}
+          <div className="mt-6 overflow-x-auto pb-2 sm:mt-7">
+            {/* SVG filter for organic brush-stroke effect — defined once, referenced per row */}
+            <svg className="pointer-events-none absolute h-0 w-0" aria-hidden="true">
+              <defs>
+                <filter id="brush-blur" x="-15%" y="-40%" width="130%" height="180%">
+                  <feTurbulence
+                    type="turbulence"
+                    baseFrequency="0.04 0.07"
+                    numOctaves="3"
+                    seed="8"
+                    result="noise"
+                  />
+                  <feDisplacementMap
+                    in="SourceGraphic"
+                    in2="noise"
+                    scale="6"
+                    xChannelSelector="R"
+                    yChannelSelector="G"
+                    result="displaced"
+                  />
+                  <feGaussianBlur in="displaced" stdDeviation="2.5" />
+                </filter>
+              </defs>
+            </svg>
+            <div className="min-w-[48rem] divide-y divide-border/60 border-y border-border/60">
+              {GAP.map((g) => (
+                <div
+                  key={g.n}
+                  className="grid grid-cols-[1.6fr_auto_1fr_auto_0.9fr_auto_1.4fr] items-center gap-x-5 py-5 transition-colors hover:bg-cream/40"
+                >
+                  {/* Column 1: Number + Pipe + Title */}
+                  <div className="flex items-center gap-2.5 pr-2">
+                    <span className="voice text-xl font-normal leading-none text-oxblood sm:text-2xl">
+                      {g.n}
+                    </span>
+                    <span className="select-none text-base font-light leading-none text-border/80" aria-hidden="true">
+                      |
+                    </span>
+                    <h3 className="font-display text-sm font-extrabold leading-tight text-foreground sm:text-base">
+                      {g.title}
+                    </h3>
+                  </div>
+
+                  {/* Organic curved arrow 1 */}
+                  <svg
+                    className="h-4 w-7 shrink-0 text-oxblood"
+                    viewBox="0 0 32 18"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.35"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    {/* Gently curved body */}
+                    <path d="M 2 10 C 8 7, 18 7, 26 9" />
+                    {/* Forked arrowhead — two separate strokes, no fill */}
+                    <path d="M 21 5 L 26 9" />
+                    <path d="M 21 13 L 26 9" />
+                  </svg>
+
+                  {/* Column 2: Step 1 */}
+                  <p className="text-xs leading-snug text-foreground/90 sm:text-sm">
+                    {g.points[0]}
+                  </p>
+
+                  {/* Organic curved arrow 2 */}
+                  <svg
+                    className="h-4 w-7 shrink-0 text-oxblood"
+                    viewBox="0 0 32 18"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.35"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M 2 10 C 8 7, 18 7, 26 9" />
+                    <path d="M 21 5 L 26 9" />
+                    <path d="M 21 13 L 26 9" />
+                  </svg>
+
+                  {/* Column 3: Step 2 */}
+                  <p className="text-xs leading-snug text-foreground/90 sm:text-sm">
+                    {g.points[1]}
+                  </p>
+
+                  {/* Organic curved arrow 3 */}
+                  <svg
+                    className="h-4 w-7 shrink-0 text-oxblood"
+                    viewBox="0 0 32 18"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.35"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M 2 10 C 8 7, 18 7, 26 9" />
+                    <path d="M 21 5 L 26 9" />
+                    <path d="M 21 13 L 26 9" />
+                  </svg>
+
+                  {/* Column 4: Outcome — organic brush-stroke background */}
+                  <div className="relative pl-1">
+                    {/* SVG brush blob behind the text */}
+                    <svg
+                      className="pointer-events-none absolute inset-0 h-full w-full"
+                      viewBox="0 0 200 56"
+                      preserveAspectRatio="none"
+                      aria-hidden="true"
+                    >
+                      <ellipse
+                        cx="100"
+                        cy="28"
+                        rx="96"
+                        ry="22"
+                        fill="rgb(196 119 128 / 0.22)"
+                        style={{
+                          filter: "url(#brush-blur)",
+                          transform: "rotate(-1deg)",
+                          transformOrigin: "center",
+                        }}
+                      />
+                      {/* Slight second layer for organic, uneven feel */}
+                      <ellipse
+                        cx="98"
+                        cy="30"
+                        rx="88"
+                        ry="17"
+                        fill="rgb(185 100 112 / 0.12)"
+                        style={{
+                          filter: "url(#brush-blur)",
+                          transform: "rotate(0.5deg)",
+                          transformOrigin: "center",
+                        }}
+                      />
+                    </svg>
+                    <span className="relative text-xs font-medium leading-snug text-foreground sm:text-sm">
+                      {g.points[2]}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
