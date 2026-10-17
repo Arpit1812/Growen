@@ -24,12 +24,22 @@ export const Route = createFileRoute("/")({
         content:
           "Growen connects your product, customer and operating systems, automates the right actions, and turns more of your signals into revenue.",
       },
-      { property: "og:title", content: "Growen — Revenue Signal Infrastructure" },
+      { property: "og:url", content: "https://www.thegrowen.com/" },
+      { property: "og:title", content: "Growen — Revenue Signal Infrastructure for B2B Tech" },
       {
         property: "og:description",
         content:
           "We connect your systems, automate signal flow and prioritise the actions that produce revenue.",
       },
+      { name: "twitter:title", content: "Growen — Revenue Signal Infrastructure for B2B Tech" },
+      {
+        name: "twitter:description",
+        content:
+          "We connect your systems, automate signal flow and prioritise the actions that produce revenue.",
+      },
+    ],
+    links: [
+      { rel: "canonical", href: "https://www.thegrowen.com/" },
     ],
   }),
   component: Index,

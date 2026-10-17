@@ -11,11 +11,16 @@ export const Route = createFileRoute("/legal")({
         content:
           "How Growen handles your data under GDPR, plus the terms that govern our revenue infrastructure engagements.",
       },
+      { property: "og:url", content: "https://www.thegrowen.com/legal" },
       { property: "og:title", content: "Privacy & Terms — Growen" },
-      {
-        property: "og:description",
-        content: "GDPR-compliant data handling and engagement terms for Growen clients.",
-      },
+      { property: "og:description", content: "GDPR-compliant data handling and engagement terms for Growen clients." },
+      { name: "twitter:title", content: "Privacy & Terms — Growen" },
+      { name: "twitter:description", content: "GDPR-compliant data handling and engagement terms for Growen clients." },
+      // Legal/privacy pages should not consume crawl budget or appear in results
+      { name: "robots", content: "noindex, follow" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://www.thegrowen.com/legal" },
     ],
   }),
   component: Legal,

@@ -4,7 +4,27 @@ import { ArrowRight, Check } from "lucide-react";
 import { toast } from "sonner";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-export const Route = createFileRoute("/contact")({ component: Contact });
+export const Route = createFileRoute("/contact")({
+  head: () => ({
+    meta: [
+      { title: "Contact — Growen Revenue Signal Infrastructure" },
+      {
+        name: "description",
+        content:
+          "Tell us about your team and revenue motion. We'll follow up to see if Growen is the right fit.",
+      },
+      { property: "og:url", content: "https://www.thegrowen.com/contact" },
+      { property: "og:title", content: "Contact — Growen Revenue Signal Infrastructure" },
+      { property: "og:description", content: "Tell us about your team and revenue motion. We'll follow up to see if Growen is the right fit." },
+      { name: "twitter:title", content: "Contact — Growen Revenue Signal Infrastructure" },
+      { name: "twitter:description", content: "Tell us about your team and revenue motion. We'll follow up to see if Growen is the right fit." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://www.thegrowen.com/contact" },
+    ],
+  }),
+  component: Contact,
+});
 const ARR = ["<500k", "500k-2M", "2M-8M", "8M-20M", "20M+"];
 const MATURITY = [
   "Not sure",

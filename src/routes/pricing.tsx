@@ -19,11 +19,14 @@ export const Route = createFileRoute("/pricing")({
         content:
           "Starter, Growth and Scale: 50%, 75% or 100% signal coverage of the Growen Revenue Signal Engine, with stated price, timeline and ROI.",
       },
+      { property: "og:url", content: "https://www.thegrowen.com/pricing" },
       { property: "og:title", content: "Pricing — Growen Revenue Signal Engine" },
-      {
-        property: "og:description",
-        content: "Three productized tiers with stated price, timeline and step-up ROI.",
-      },
+      { property: "og:description", content: "Three productized tiers with stated price, timeline and step-up ROI." },
+      { name: "twitter:title", content: "Pricing — Growen Revenue Signal Engine" },
+      { name: "twitter:description", content: "Three productized tiers with stated price, timeline and step-up ROI." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://www.thegrowen.com/pricing" },
     ],
   }),
   component: Pricing,

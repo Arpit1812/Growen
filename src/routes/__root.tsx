@@ -78,20 +78,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      // Fallback title / description (overridden by each child route)
+      { title: "Growen — Revenue Signal Infrastructure for B2B Tech" },
+      {
+        name: "description",
+        content:
+          "Growen connects your product, customer and operating systems, automates the right actions, and turns more of your signals into revenue.",
+      },
+      // Open Graph defaults
+      { property: "og:site_name", content: "Growen" },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "en_US" },
+      // Twitter / X card defaults
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@thegrowen" },
+      { name: "twitter:creator", content: "@thegrowen" },
+      // Indexing
+      { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -99,6 +105,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&family=DM+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Growen",
+          url: "https://www.thegrowen.com",
+          logo: "https://www.thegrowen.com/favicon.ico",
+          sameAs: [],
+          contactPoint: {
+            "@type": "ContactPoint",
+            contactType: "sales",
+            url: "https://www.thegrowen.com/contact",
+          },
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,

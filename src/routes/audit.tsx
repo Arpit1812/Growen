@@ -22,6 +22,22 @@ export const Route = createFileRoute("/audit")({
         content:
           "Book a conversation about Growen's 14-Day Revenue Infrastructure Audit: a cross-functional review of your systems, signal flow, and next steps.",
       },
+      { property: "og:url", content: "https://www.thegrowen.com/audit" },
+      { property: "og:title", content: "Get the 14-Day Revenue Infrastructure Audit — Growen" },
+      {
+        property: "og:description",
+        content:
+          "A cross-functional review of your systems, signal flow, and next steps. Book a conversation.",
+      },
+      { name: "twitter:title", content: "Get the 14-Day Revenue Infrastructure Audit — Growen" },
+      {
+        name: "twitter:description",
+        content:
+          "A cross-functional review of your systems, signal flow, and next steps. Book a conversation.",
+      },
+    ],
+    links: [
+      { rel: "canonical", href: "https://www.thegrowen.com/audit" },
     ],
   }),
   component: Audit,
