@@ -49,7 +49,7 @@ const STAGES = [
   {
     id: "capture",
     tip: "Find important activity.",
-    subtitle: "Catch what your systems already know.",
+    subtitle: "Find important activity",
     name: "CAPTURE",
     signal: "A trial account invites four teammates in 48 hours.",
     action: "Turn activity into an account-level signal.",
@@ -58,7 +58,7 @@ const STAGES = [
   {
     id: "score",
     tip: "Decide what matters.",
-    subtitle: "Not every signal matters equally.",
+    subtitle: "Decide what matters",
     name: "SCORE",
     signal: "Usage jumps 3× while the champion reads your pricing page.",
     action: "Usage + firmographic score pushes it into high-intent — in real time, not on Monday.",
@@ -67,7 +67,7 @@ const STAGES = [
   {
     id: "route",
     tip: "Get it to the right person.",
-    subtitle: "Right signal. Right person. Right moment.",
+    subtitle: "Get it to the right person",
     name: "ROUTE",
     signal: "Nine users from the same company.",
     action: "Group the activity. Identify the account. Assign the owner.",
@@ -76,7 +76,7 @@ const STAGES = [
   {
     id: "engage",
     tip: "Trigger the next action.",
-    subtitle: "Act while intent is still high.",
+    subtitle: "Trigger the next action",
     name: "ENGAGE",
     signal: "Onboarding stalls at step two on a $40K account.",
     action: "A five-touch sequence fires automatically.",
@@ -85,7 +85,7 @@ const STAGES = [
   {
     id: "expand",
     tip: "Turn activity into growth.",
-    subtitle: "Don't wait for renewal to discover growth.",
+    subtitle: "Turn activity into growth",
     name: "EXPAND",
     signal: "Usage crosses the contracted limit 60 days before renewal.",
     action: "Expansion task with usage evidence lands on the AM's desk.",
@@ -133,10 +133,10 @@ const GAP = [
 ];
 
 const INDUSTRIES = [
-  ["Developer Tools", "Product usage -> Account identification -> Intent scoring -> Sales action"],
-  ["Fleet Software", "Usage change -> Account risk -> Customer response"],
-  ["API-driven SaaS", "API adoption -> Expansion signal -> Owner alert"],
-  ["Transportation Management", "Operational shift -> Buying signal -> Routed action"],
+  ["Developer Tools", "Product usage → Account identification → Intent scoring → Sales action"],
+  ["Fleet Software", "Operational event → Risk signal → Customer routing → CS action"],
+  ["API / Cloud SaaS", "Consumption → Threshold → Expansion signal → Sales action"],
+  ["Transportation Management", "Account activity → Opportunity → Workflow → Revenue"],
 ];
 
 function StageBoard() {
@@ -147,8 +147,8 @@ function StageBoard() {
   return (
     <div className="mt-14">
       {/* Stage rail */}
-      <div className="relative overflow-x-auto pb-2">
-        <div className="absolute left-0 right-0 top-[1.35rem] h-px bg-ink-border" />
+      <div className="relative overflow-x-auto pt-2 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none]">
+        <div className="absolute left-0 right-0 top-[1.85rem] h-px bg-ink-border" />
         <div className="relative grid min-w-[42rem] grid-cols-5">
           {STAGES.map((s, i) => {
             const isActive = active === s.id;
@@ -275,13 +275,18 @@ function ApproachSection() {
   return <section id="insights" className="section-dark px-6 py-20 sm:py-24">
     <div className="mx-auto max-w-7xl">
       <p className="eyebrow text-oxblood-soft">Our approach</p>
-      <h2 className="mt-5 max-w-4xl text-4xl leading-tight text-ink-foreground sm:text-5xl">
-        Audit. Build. Optimize. <span className="voice font-normal">In that order, every time.</span>
+      <h2 className="mt-5 max-w-none font-display text-lg xs:text-xl sm:text-3xl md:text-4xl lg:text-[2.65rem] xl:text-5xl font-extrabold leading-tight text-ink-foreground whitespace-nowrap tracking-tight">
+        Audit. Build. Optimize.{" "}
+        <span className="voice font-normal">In that order, every time.</span>
       </h2>
-      <p className="mt-5 max-w-3xl leading-relaxed text-ink-muted">
-        Every engagement follows the same three phases — because guessing is expensive, and skipping steps is how revenue systems turn into spaghetti.
-        <br />We audit first. We build what the audit tells us to. We optimize what we built.
-      </p>
+      <div className="mt-4 space-y-1.5">
+        <p className="max-w-none text-sm leading-relaxed text-ink-muted sm:text-base sm:whitespace-nowrap">
+          Every engagement follows the same three phases — because guessing is expensive, and shortcuts create fragile systems.
+        </p>
+        <p className="text-sm font-bold text-white sm:text-base sm:whitespace-nowrap">
+          We audit first. We build what the audit tells us to. We optimize what we built.
+        </p>
+      </div>
       <div className="mt-12 grid grid-cols-3 border-y border-ink-border">
         {APPROACH_PHASES.map((phase) => { const isActive = activePhaseId === phase.id; return <button key={phase.id} type="button" aria-pressed={isActive} onClick={() => setActivePhaseId(phase.id)} onMouseEnter={() => setActivePhaseId(phase.id)} onFocus={() => setActivePhaseId(phase.id)} className={`group relative px-3 py-5 text-left transition-colors sm:px-6 sm:py-6 ${isActive ? "text-ink-foreground" : "text-ink-muted hover:text-ink-foreground"}`}><span className="eyebrow block text-oxblood-soft">{phase.number}</span><span className="mt-2 block font-display text-sm font-extrabold sm:text-lg">{phase.label}</span><span className="mt-1 hidden text-xs leading-relaxed text-ink-muted sm:block">{phase.intro}</span><span className={`absolute inset-x-3 bottom-0 h-0.5 transition-colors sm:inset-x-6 ${isActive ? "bg-oxblood-soft" : "bg-transparent group-hover:bg-ink-border"}`} /></button>; })}
       </div>
@@ -399,35 +404,35 @@ function Index() {
 
       {/* HERO — dark: inside the system */}
       <section className="section-dark relative z-20 overflow-x-clip">
-        <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 py-24 lg:grid-cols-[1fr_1.05fr] lg:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 pt-6 pb-16 sm:pt-8 sm:pb-20 lg:grid-cols-[1fr_1.05fr] lg:gap-14 lg:pt-8 lg:pb-20">
           <div>
             <p className="eyebrow text-oxblood-soft">
               Revenue infrastructure · For B2B tech
             </p>
-            <h1 className="mt-6 text-5xl leading-[0.95] text-ink-foreground sm:text-6xl lg:text-7xl">
+            <h1 className="mt-4 text-5xl leading-[0.95] text-ink-foreground sm:mt-5 sm:text-6xl lg:text-7xl">
               Build the infrastructure that turns{" "}
               <span className="voice font-normal text-oxblood-soft">signals</span> into revenue.
             </h1>
-            <p className="mt-7 max-w-xl text-lg leading-relaxed text-ink-muted">
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-muted sm:mt-6">
               Your systems already generate the signals. We connect them to action — and revenue.
             </p>
-            <div className="mt-9 flex flex-col items-start gap-3">
-              <div className="flex flex-wrap items-start gap-3">
-                <div>
+            <div className="mt-7 flex flex-col items-start gap-3 sm:mt-8">
+              <div className="flex w-full items-start gap-3 sm:w-auto sm:gap-4">
+                <div className="flex-1 sm:w-52 sm:flex-initial">
                   <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 font-display font-bold text-primary-foreground transition-colors hover:bg-oxblood-soft"
-                >
-                  Book a call <ArrowRight className="h-4 w-4" />
+                    to="/contact"
+                    className="inline-flex h-12 w-full items-center justify-center gap-1.5 rounded-full bg-primary px-3 font-display text-xs font-bold text-primary-foreground shadow-sm transition-all hover:bg-oxblood-soft sm:gap-2 sm:px-5 sm:text-sm whitespace-nowrap"
+                  >
+                    Book a call <ArrowRight className="h-4 w-4 shrink-0" />
                   </Link>
                   <p className="mt-2 text-center text-xs text-ink-muted">30-minute conversation</p>
                 </div>
-                <div>
+                <div className="flex-1 sm:w-52 sm:flex-initial">
                   <Link
-                  to="/audit"
-                  className="inline-flex items-center gap-2 rounded-full border border-oxblood-soft/60 px-7 py-4 font-display font-bold text-ink-foreground transition-colors hover:bg-ink-foreground/10"
-                >
-                  Get the 14-Day Audit <ArrowRight className="h-4 w-4" />
+                    to="/audit"
+                    className="inline-flex h-12 w-full items-center justify-center gap-1.5 rounded-full border border-oxblood-soft/60 px-3 font-display text-xs font-bold text-ink-foreground transition-all hover:bg-ink-foreground/10 sm:gap-2 sm:px-5 sm:text-sm whitespace-nowrap"
+                  >
+                    Get the 14-Day Audit <ArrowRight className="h-4 w-4 shrink-0" />
                   </Link>
                   <p className="mt-2 text-center text-xs text-ink-muted">14-day diagnostic</p>
                 </div>
@@ -439,7 +444,7 @@ function Index() {
             </div>
           </div>
 
-          <div className="interactive-lift relative rounded-2xl border border-ink-border bg-ink-foreground/[0.04] p-2 shadow-2xl">
+          <div className="interactive-lift relative rounded-2xl border border-ink-border bg-ink-foreground/[0.04] p-2 shadow-2xl lg:-mt-10 lg:self-center xl:-mt-14">
             <img
               src={dashboard}
               alt="Growen revenue signal dashboard showing pipeline, at-risk revenue and signal trends"
@@ -542,12 +547,15 @@ function Index() {
             </div>
 
             <div className="self-center rounded-2xl border border-oxblood/15 bg-white/40 p-6 shadow-sm sm:p-8">
-              <p className="eyebrow text-oxblood">Signal leak</p>
+              <p className="eyebrow text-oxblood">Speed to lead</p>
               <p className="mt-5 text-4xl font-extrabold leading-none text-oxblood sm:text-5xl">
-                73%
+                7×
               </p>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                of the signals your stack produces are never seen by a human.
+                Contact a lead within an hour and you&apos;re nearly 7× more likely to qualify them than if you wait one more hour.
+              </p>
+              <p className="mt-3 font-display text-xs font-bold uppercase tracking-wider text-oxblood">
+                ~ Harvard Business Review
               </p>
             </div>
           </div>
@@ -574,35 +582,35 @@ function Index() {
             <Accordion
               type="single"
               collapsible
-              defaultValue="01 — YOUR STACK"
+              defaultValue="01 — YOUR EXISTING SYSTEMS"
               className="grid gap-4 sm:grid-cols-2"
             >
               {[
                 {
-                  title: "01 — YOUR STACK",
+                  title: "01 — YOUR EXISTING SYSTEMS",
                   meta: "Keep your tools. Fix the gaps.",
-                  body: "CRM. Product analytics. Billing. Support. Marketing. We connect what you already have before asking you to buy something new.",
+                  body: "CRM, product analytics, billing, support, and marketing. We connect what you already use before recommending anything new.",
                 },
                 {
-                  title: "02 — YOUR SIGNALS",
-                  meta: "This is revenue you already paid for.",
-                  body: "Usage spikes. New users. Champion changes. Buying intent. Account risk. We turn those signals into something your team can actually use.",
+                  title: "02 — YOUR CUSTOMER ACTIVITY",
+                  meta: "Turn activity into action.",
+                  body: "Usage, engagement, support tickets, and billing triggers become active revenue drivers.",
                 },
                 {
                   title: "03 — YOUR TEAM",
                   meta: "Your engineers build the product. We build the revenue layer.",
-                  body: "No unnecessary rebuilds. No endless manual workflows. Just the infrastructure your commercial teams need.",
+                  body: "Your developers stay focused on your core product roadmap while we handle the pipes.",
                 },
                 {
                   title: "04 — THE RESULT",
-                  meta: "Less chasing. More knowing.",
-                  body: "Know which account matters. Why it matters. Who should act. And what should happen next.",
+                  meta: "Less manual work. Faster action. More visibility.",
+                  body: "Less manual work. Faster action. More visibility.",
                 },
               ].map((item) => (
                 <AccordionItem key={item.title} value={item.title} className="interactive-lift rounded-2xl border border-border bg-card px-7">
-                  <AccordionTrigger className="py-6 text-lg font-display font-bold text-foreground hover:no-underline">
+                  <AccordionTrigger className="py-6 font-display font-bold text-foreground hover:no-underline">
                     <span className="min-w-0 pr-4 text-left">
-                      <span className="block">{item.title}</span>
+                      <span className="block text-sm whitespace-nowrap">{item.title}</span>
                       <span className="mt-2 block text-sm font-medium text-oxblood">{item.meta}</span>
                     </span>
                   </AccordionTrigger>
@@ -623,7 +631,7 @@ function Index() {
           <div className="max-w-3xl">
             <p className="eyebrow text-xs text-oxblood">The gap</p>
             <h2 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-[2.6rem] md:whitespace-nowrap">
-              The signal arrives.{" "}
+              The data arrives.{" "}
               <span className="voice font-normal text-oxblood">The action is missing.</span>
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
@@ -787,10 +795,10 @@ function Index() {
         <div className="mx-auto max-w-7xl">
           <p className="eyebrow text-oxblood">The transformation</p>
           <h2 className="mt-5 max-w-4xl text-5xl leading-[1.05] sm:text-6xl">
-            From scattered tools to a system that <span className="voice font-normal text-oxblood">compounds.</span>
+            From disconnected tools to a system that <span className="voice font-normal text-oxblood">compounds.</span>
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
-            Same stack. Same team. Completely different outcome.
+            Same tools. Same team. Better connected. Faster action.
           </p>
 
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
@@ -800,8 +808,8 @@ function Index() {
                 {[
                   ["Fragmented data", "Product events in one warehouse, deals in the CRM, tickets somewhere else."],
                   ["Manual workflows", "A rep exports a CSV every Monday to guess who to call."],
-                  ["Missed signals", "Upgrade intent and churn risk are discovered after the fact."],
-                  ["Slow action", "Days between a buying moment and the first human response."],
+                  ["Missed opportunities", "Upgrade intent and churn risk are discovered after the fact."],
+                  ["Slow follow-up", "Days between a buying moment and the first human response."],
                 ].map(([t, d]) => (
                   <li key={t} className="group flex items-start gap-4">
                     <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-oxblood/20 text-lg text-oxblood">×</span>
@@ -818,13 +826,13 @@ function Index() {
             </div>
 
             <div className="interactive-lift rounded-3xl border border-[#b69c96] bg-[#c5b1ab] p-8 text-foreground sm:p-12">
-              <p className="font-display text-lg font-extrabold uppercase tracking-[0.14em] text-oxblood sm:text-xl">After — with Growen</p>
+              <p className="font-display text-lg font-extrabold uppercase tracking-[0.14em] text-oxblood sm:text-xl">With Growen</p>
               <ol className="mt-8 space-y-2">
                 {[
                   ["Connected systems", "One account record joining product usage, billing, CRM and support."],
-                  ["Automated signal flow", "Events stream in and score themselves against your ICP in real time."],
-                  ["Prioritised action", "A ranked daily queue: who to contact, why, and with what evidence."],
-                  ["Revenue impact", "Faster response, earlier expansion, fewer silent churns — measured on a dashboard."],
+                  ["Automated workflows", "Events stream in and score themselves against your ICP in real time."],
+                  ["Prioritized opportunities", "A ranked daily queue: who to contact, why, and with what evidence."],
+                  ["Faster action", "Faster response, earlier expansion, fewer silent churns — measured on a dashboard."],
                 ].map(([t, d]) => (
                   <li key={t} className="group flex items-start gap-4">
                     <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-oxblood text-ink-foreground"><Check className="h-5 w-5" /></span>
@@ -970,7 +978,7 @@ function Index() {
             </div>
             <Link
               to="/contact"
-              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-ink px-7 py-4 font-display font-bold text-ink-foreground transition-transform hover:-translate-y-0.5 lg:w-1/2 lg:justify-center"
+              className="inline-flex h-12 w-full sm:w-52 shrink-0 items-center justify-center gap-2 rounded-full bg-ink px-6 font-display text-sm font-bold text-ink-foreground shadow-md transition-all hover:-translate-y-0.5"
             >
               Book a call <ArrowUpRight className="h-4 w-4" />
             </Link>

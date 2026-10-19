@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Fragment } from "react";
-import { Check, Minus, CircleDot } from "lucide-react";
+import { Check, Minus, CircleDot, ArrowRight } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { GlowingSeparator } from "@/components/site/GlowingSeparator";
 import {
   Accordion,
   AccordionContent,
@@ -89,24 +90,60 @@ const TIERS = [
   },
 ];
 
-const RETAINERS: Record<string, { price: string; intro: string; bestFor: string; items: string[] }> = {
+const RETAINERS: Record<
+  string,
+  { price: string; intro: string; hours: string; bestFor: string; items: string[] }
+> = {
   Starter: {
     price: "$500–$800 / month",
     intro: "For keeping the foundation healthy.",
+    hours: "10–12 hours / month",
     bestFor: "Stable systems that need ongoing maintenance and small improvements.",
-    items: ["10–12 hours/month of system administration", "Monthly performance review", "Scoring-model review", "Up to 2 minor automation adjustments/month", "CRM hygiene check", "Email / Slack support", "2-business-day response SLA"],
+    items: [
+      "10–12 hours/month of system administration",
+      "Monthly performance review",
+      "Scoring-model review",
+      "Up to 2 minor automation adjustments/month",
+      "CRM hygiene check",
+      "Email / Slack support",
+      "2-business-day response SLA",
+    ],
   },
   Growth: {
     price: "$1,200–$1,500 / month",
     intro: "For teams actively improving their revenue engine.",
+    hours: "15–20 hours / month",
     bestFor: "Teams continuously optimizing signals, scoring and workflows.",
-    items: ["15–20 hours/month of revenue-systems engineering", "Scoring + enrichment review", "Weekly enrichment refresh for active accounts", "Monthly sequence / messaging experiment", "Quarterly ICP / persona refinement", "Monthly reporting review", "Quarterly strategy session", "Priority support", "1-business-day response SLA"],
+    items: [
+      "15–20 hours/month of revenue-systems engineering",
+      "Scoring + enrichment review",
+      "Weekly enrichment refresh for active accounts",
+      "Monthly sequence / messaging experiment",
+      "Quarterly ICP / persona refinement",
+      "Monthly reporting review",
+      "Quarterly strategy session",
+      "Priority support",
+      "1-business-day response SLA",
+    ],
   },
   Scale: {
     price: "$1,500–$2,500 / month",
     intro: "For companies treating revenue infrastructure as an ongoing engineering function.",
+    hours: "30+ hours / month",
     bestFor: "Complex revenue systems that need continuous engineering and optimization.",
-    items: ["30 hours/month of dedicated systems engineering", "Full revenue-system health monitoring", "Data pipeline and integration monitoring", "AI-agent quality monitoring", "Scoring drift monitoring", "Forecast recalibration", "Buying-committee data refresh", "Ongoing AI-agent tuning", "Dedicated Slack channel", "Same-business-day response", "Quarterly Executive Business Review"],
+    items: [
+      "30 hours/month of dedicated systems engineering",
+      "Full revenue-system health monitoring",
+      "Data pipeline and integration monitoring",
+      "AI-agent quality monitoring",
+      "Scoring drift monitoring",
+      "Forecast recalibration",
+      "Buying-committee data refresh",
+      "Ongoing AI-agent tuning",
+      "Dedicated Slack channel",
+      "Same-business-day response",
+      "Quarterly Executive Business Review",
+    ],
   },
 };
 
@@ -167,16 +204,15 @@ function Pricing() {
 
       <section className="section-dark px-6 py-24">
         <div className="mx-auto max-w-7xl">
-          <p className="eyebrow text-oxblood-soft">Engagement tiers</p>
+          <p className="eyebrow text-oxblood-soft">Engagement Tiers</p>
           <h1 className="mt-6 max-w-3xl text-5xl leading-[0.98] text-ink-foreground sm:text-6xl">
-            Choose how much of the engine{" "}
-            <span className="voice font-normal">you install.</span>
+            Choose how much of the system{" "}
+            <span className="voice font-normal">we build for you</span>
           </h1>
           <p className="mt-6 max-w-xl leading-relaxed text-ink-muted">
             Same architecture. Three depths. Start with the signals that matter. Expand when the
             system proves its value.
           </p>
-          <p className="mt-4 max-w-xl text-sm text-ink-foreground/70">Signal coverage refers to how much of your revenue workflow Growen connects and automates.</p>
         </div>
       </section>
 
@@ -252,7 +288,11 @@ function Pricing() {
               </Accordion>
 
               <div className="mt-auto pt-8">
-                <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-display text-3xl font-extrabold text-oxblood-soft">
+                <p
+                  className={`flex flex-wrap items-baseline gap-x-3 gap-y-1 font-display text-3xl font-extrabold ${
+                    t.popular ? "text-oxblood-soft" : "text-oxblood"
+                  }`}
+                >
                   <span className="text-base font-bold">{t.priceLabel}</span>
                   <span>{t.price}</span>
                 </p>
@@ -274,47 +314,88 @@ function Pricing() {
             </div>
           ))}
         </div>
-        <p className="mx-auto mt-8 max-w-7xl text-sm text-muted-foreground">
-          Final scope depends on systems, signal volume and implementation complexity.
-        </p>
-        <p className="mx-auto mt-8 max-w-7xl text-sm text-muted-foreground">
-          <strong className="font-bold text-black">Signal coverage ≠ tasks automated.</strong>
-          <br />
-          It describes how much of the Growen Signal Engine is
-          installed and running across your revenue system.
-        </p>
-      </section>
-
-      <section className="section-dark px-6 py-24">
-        <div className="mx-auto max-w-7xl">
-          <p className="eyebrow text-oxblood-soft">Ongoing Systems Retainers</p>
-          <h2 className="mt-5 max-w-3xl text-4xl leading-tight text-ink-foreground sm:text-5xl">
-            Keep your revenue <span className="voice font-normal">compounding.</span>
-          </h2>
-          <p className="mt-6 max-w-2xl leading-relaxed text-ink-muted">
-            Code rots. APIs change. Conversion models drift. Your revenue workflows don&apos;t stop changing after launch. We continuously monitor, improve, and maintain the systems we&apos;ve built as your business evolves.
+        <div className="mx-auto mt-8 max-w-7xl space-y-2 text-sm text-muted-foreground">
+          <p>Final scope depends on systems, signal volume and implementation complexity.</p>
+          <p>
+            Signal coverage refers to how much of your revenue workflow Growen connects and automates.
           </p>
-          <Accordion type="multiple" className="mt-12 grid items-start gap-6 md:grid-cols-3">
-            {Object.entries(RETAINERS).map(([name, retainer]) => (
-              <AccordionItem key={name} value={name} className="interactive-lift self-start rounded-2xl border border-ink-border bg-ink px-8 text-ink-foreground">
-                <AccordionTrigger className="items-start py-7 text-left hover:no-underline">
-                  <span className="pr-4">
-                    <span className="eyebrow block text-oxblood-soft">{name} retainer</span>
-                    <span className="mt-4 block font-display text-2xl font-extrabold">{retainer.price}</span>
-                    <span className="mt-3 block text-sm font-normal leading-relaxed text-ink-muted">{retainer.intro}</span>
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="pb-7 text-ink-muted">
-                  <ul className="space-y-3 text-sm leading-relaxed">
-                    {retainer.items.map((item) => <li key={item} className="flex gap-3"><Check className="mt-0.5 h-4 w-4 shrink-0 text-signal" />{item}</li>)}
-                  </ul>
-                  <p className="mt-6 border-t border-ink-border pt-5 text-sm leading-relaxed"><strong className="text-ink-foreground">Best for:</strong> {retainer.bestFor}</p>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
         </div>
       </section>
+
+      <GlowingSeparator />
+
+      <section className="bg-[#383533] px-6 py-12 text-ink-foreground sm:py-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-2xl">
+            <p className="eyebrow text-xs tracking-widest text-oxblood-soft sm:text-sm">
+              Not sure which tier you need?
+            </p>
+            <h2 className="mt-2.5 font-display text-2xl font-extrabold leading-tight text-ink-foreground sm:text-3xl lg:text-4xl">
+              Start with a{" "}
+              <span className="voice font-normal text-oxblood-soft">$100 Revenue Audit.</span>
+            </h2>
+          </div>
+
+          <div className="mt-8 border-y border-ink-border py-7 sm:mt-10 sm:py-8">
+            <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
+              <div className="max-w-3xl">
+                <div className="flex items-center gap-3">
+                  <span className="eyebrow text-xs tracking-wider text-oxblood-soft">Diagnostic audit</span>
+                  <span className="h-1 w-1 rounded-full bg-ink-muted/40" />
+                  <span className="text-xs uppercase tracking-wider text-ink-muted">Evaluate current systems</span>
+                </div>
+                <h3 className="mt-2.5 font-display text-xl font-extrabold leading-snug text-ink-foreground sm:text-2xl">
+                  We&apos;ll evaluate your current systems and tell you which tier makes sense.
+                </h3>
+                <p className="mt-2.5 text-sm leading-relaxed text-ink-muted sm:text-base">
+                  In 14 days, we&apos;ll review your current systems, identify the biggest gaps, and give you a prioritized blueprint for what to fix first.
+                </p>
+                <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-ink-muted sm:text-sm">
+                  <span className="flex items-center gap-1.5 text-ink-foreground">
+                    <span className="h-1.5 w-1.5 rounded-full bg-signal" />
+                    14 days
+                  </span>
+                  <span>·</span>
+                  <span className="flex items-center gap-1.5 text-ink-foreground">
+                    <span className="h-1.5 w-1.5 rounded-full bg-signal" />
+                    $100
+                  </span>
+                  <span>·</span>
+                  <span className="flex items-center gap-1.5 text-ink-foreground">
+                    <span className="h-1.5 w-1.5 rounded-full bg-signal" />
+                    Review call included
+                  </span>
+                  <span>·</span>
+                  <span className="font-semibold text-oxblood-soft">
+                    100% credited toward any tier
+                  </span>
+                </div>
+              </div>
+
+              <div className="shrink-0 pt-1 lg:pt-0">
+                <Link
+                  to="/audit"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 font-display text-sm font-bold text-primary-foreground shadow-lg transition-all hover:translate-x-0.5 hover:bg-oxblood-soft"
+                >
+                  Get the 14 Day Audit <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Closing reassurance banner */}
+          <div className="mt-8 text-center sm:mt-10">
+            <p className="font-display text-base font-bold text-ink-foreground sm:text-lg">
+              &ldquo;The $100 is credited toward any tier you choose.{" "}
+              <span className="voice font-normal text-oxblood-soft">
+                The blueprint and scores are yours either way.
+              </span>&rdquo;
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <GlowingSeparator />
 
       <section className="bg-cream-deep px-6 py-24">
         <div className="mx-auto max-w-4xl">
@@ -349,6 +430,70 @@ function Pricing() {
               <Minus className="h-4 w-4 text-[#a43f3f]" /> Not at this tier
             </span>
           </div>
+        </div>
+      </section>
+
+      <section className="section-dark px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <p className="eyebrow text-oxblood-soft">Ongoing Systems Retainers</p>
+          <h2 className="mt-5 max-w-3xl text-4xl leading-tight text-ink-foreground sm:text-5xl">
+            Keep your revenue <span className="voice font-normal">compounding.</span>
+          </h2>
+          <p className="mt-6 max-w-2xl leading-relaxed text-ink-muted">
+            Code rots. APIs change. Conversion models drift. Your revenue workflows don&apos;t stop changing after launch. We continuously monitor, improve, and maintain the systems we&apos;ve built as your business evolves.
+          </p>
+          <Accordion type="multiple" className="mt-12 grid items-start gap-6 md:grid-cols-3">
+            {Object.entries(RETAINERS).map(([name, retainer]) => (
+              <AccordionItem
+                key={name}
+                value={name}
+                className="interactive-lift self-start rounded-2xl border border-ink-border bg-ink p-7 text-ink-foreground sm:p-8"
+              >
+                <div>
+                  <p className="eyebrow text-oxblood-soft">{name} retainer</p>
+                  <p className="mt-3 font-display text-2xl font-extrabold sm:text-3xl">{retainer.price}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-muted">{retainer.intro}</p>
+
+                  <div className="mt-5 border-t border-ink-border/80 pt-4">
+                    <p className="eyebrow text-[11px] tracking-wider text-ink-muted">
+                      Monthly Engineering Hours
+                    </p>
+                    <p className="mt-1 font-display text-base font-bold text-ink-foreground sm:text-lg">
+                      {retainer.hours}
+                    </p>
+                  </div>
+
+                  <div className="mt-4 border-t border-ink-border/80 pt-4">
+                    <p className="eyebrow text-[11px] tracking-wider text-ink-muted">
+                      Best for
+                    </p>
+                    <p className="mt-1 text-sm leading-relaxed text-ink-muted">
+                      {retainer.bestFor}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-6 border-t border-ink-border pt-3">
+                  <AccordionTrigger className="group/trigger flex w-full items-center justify-between py-2 text-left hover:no-underline [&>svg]:hidden">
+                    <span className="font-display text-sm font-extrabold uppercase tracking-wider text-oxblood-soft transition-colors group-hover/trigger:text-ink-foreground sm:text-base">
+                      <span className="group-data-[state=open]/trigger:hidden">View deliverables ↓</span>
+                      <span className="hidden group-data-[state=open]/trigger:inline">Hide deliverables ↑</span>
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent className="pt-2 text-ink-muted">
+                    <ul className="space-y-3 border-t border-ink-border/40 pt-4 text-sm leading-relaxed">
+                      {retainer.items.map((item) => (
+                        <li key={item} className="flex gap-3">
+                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-signal" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </AccordionContent>
+                </div>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 

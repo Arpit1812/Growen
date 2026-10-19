@@ -115,10 +115,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           name: "Growen",
           url: "https://www.thegrowen.com",
           logo: "https://www.thegrowen.com/favicon.ico",
+          email: "support@thegrowen.com",
           sameAs: [],
           contactPoint: {
             "@type": "ContactPoint",
-            contactType: "sales",
+            contactType: "customer support",
+            email: "support@thegrowen.com",
             url: "https://www.thegrowen.com/contact",
           },
         }),

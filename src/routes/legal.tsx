@@ -54,8 +54,11 @@ function Legal() {
               <li>· Data is stored inside the EU and retained for 24 months from last contact.</li>
               <li>· We never sell data or share it with advertising networks.</li>
               <li>
-                · You may request access, correction, export or erasure at any time via our contact
-                form; we respond within 30 days.
+                · You may request access, correction, export or erasure at any time via{" "}
+                <a href="mailto:support@thegrowen.com" className="underline underline-offset-4 hover:text-foreground">
+                  support@thegrowen.com
+                </a>{" "}
+                or our contact form; we respond within 30 days.
               </li>
               <li>
                 · Client engagements are covered by a Data Processing Agreement with standard

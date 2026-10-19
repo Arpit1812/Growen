@@ -106,6 +106,7 @@ function Contact() {
     label: string,
     required = false,
     type = "text",
+    placeholder?: string,
   ) => (
     <label className="block">
       <span className={`eyebrow ${errors[key] ? "text-red-700" : ""}`}>
@@ -115,10 +116,11 @@ function Contact() {
       <input
         required={false}
         type={type}
+        placeholder={placeholder}
         aria-invalid={Boolean(errors[key])}
         value={(data[key] as string) || ""}
         onChange={(e) => set(key, e.target.value)}
-        className={`mt-2 w-full rounded-xl border bg-card px-4 py-3.5 outline-none focus:border-oxblood ${errors[key] ? "border-red-700" : "border-border"}`}
+        className={`mt-2 w-full rounded-xl border bg-card px-4 py-3.5 outline-none placeholder:text-muted-foreground/60 focus:border-oxblood ${errors[key] ? "border-red-700" : "border-border"}`}
       />
       {errors[key] && <p className="mt-2 text-xs font-medium text-red-700">{errors[key]}</p>}
     </label>
@@ -199,6 +201,15 @@ function Contact() {
                 </li>
               ))}
             </ul>
+            <div className="mt-10 border-t border-ink-border pt-6">
+              <p className="eyebrow text-xs text-ink-muted">Prefer direct email?</p>
+              <a
+                href="mailto:support@thegrowen.com"
+                className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-oxblood-soft transition-colors hover:text-ink-foreground underline underline-offset-4"
+              >
+                support@thegrowen.com
+              </a>
+            </div>
           </div>
         </section>
         <section className="bg-cream-deep px-6 py-16 lg:h-full lg:overflow-hidden lg:px-14 lg:py-24">
@@ -221,8 +232,15 @@ function Contact() {
                   "Link to your product / website",
                   true,
                   "url",
+                  "thegrowen.com",
                 )}
-                {field("work_email", "Work Email", true, "email")}
+                {field(
+                  "work_email",
+                  "Work Email",
+                  true,
+                  "email",
+                  "support@thegrowen.com",
+                )}
                 {choose(
                   "employees",
                   ["1-10", "11-25", "26-50", "51-100", "100+"],

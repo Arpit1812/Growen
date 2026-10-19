@@ -55,6 +55,12 @@ export function Header() {
               </Link>
             ))}
             <Link
+              to="/audit"
+              className={`font-medium text-black transition-colors hover:text-foreground ${scrolled ? "text-base" : "text-lg"}`}
+            >
+              Audit
+            </Link>
+            <Link
               to="/pricing"
               className={`font-medium text-black transition-colors hover:text-foreground ${scrolled ? "text-base" : "text-lg"}`}
             >
@@ -63,9 +69,7 @@ export function Header() {
           </nav>
           <Link
             to="/contact"
-            className={`rounded-full bg-primary font-display font-bold text-primary-foreground transition-all hover:bg-oxblood-soft ${
-              scrolled ? "px-5 py-2.5 text-sm" : "px-6 py-3 text-sm"
-            }`}
+            className="inline-flex h-12 w-44 sm:w-52 items-center justify-center rounded-full bg-primary px-6 font-display text-sm font-bold text-primary-foreground shadow-sm transition-all hover:bg-oxblood-soft"
           >
             Book a call
           </Link>

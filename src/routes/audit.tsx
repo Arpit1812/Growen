@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Check } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -11,7 +11,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const CALENDLY_URL = "https://calendly.com/arpitdogra418/30min?hide_event_type_details=1";
+const CALENDLY_URL =
+  "https://calendly.com/hello-growenteam/30min?background_color=f1ece6&text_color=000000&primary_color=8f414d";
 
 export const Route = createFileRoute("/audit")({
   head: () => ({
@@ -38,6 +39,12 @@ export const Route = createFileRoute("/audit")({
     ],
     links: [
       { rel: "canonical", href: "https://www.thegrowen.com/audit" },
+    ],
+    scripts: [
+      {
+        src: "https://assets.calendly.com/assets/external/widget.js",
+        async: true,
+      },
     ],
   }),
   component: Audit,
@@ -154,7 +161,15 @@ function AuditDiagnosticSection() {
       <p className="mt-12 eyebrow text-oxblood-soft">What you get</p>
       <div className="mt-5 grid gap-px overflow-hidden rounded-2xl border border-ink-border bg-ink-border md:grid-cols-2">
         {deliverables.map(([number, title, body]) => <article key={title} className="bg-ink p-7 sm:p-8"><p className="eyebrow text-oxblood-soft">{number}</p><h3 className="mt-3 text-2xl text-ink-foreground">{title}</h3><p className="mt-4 leading-relaxed text-ink-muted">{body}</p></article>)}
-        <aside className="bg-oxblood/25 p-7 sm:p-8"><p className="eyebrow text-ink-foreground/70">The credit</p><p className="mt-3 text-xl font-bold leading-relaxed text-ink-foreground">The $100 is credited toward any tier you choose. The scores are yours either way.</p></aside>
+        <aside className="bg-oxblood/25 p-7 sm:p-8">
+          <p className="eyebrow text-ink-foreground/70">The credit</p>
+          <p className="mt-3 text-lg font-bold leading-snug text-ink-foreground sm:text-xl">
+            If you move forward with Growen implementation, the full $100 is credited toward your project.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-ink-foreground/80 sm:text-base">
+            If you don&apos;t, the audit, findings and blueprint are still yours.
+          </p>
+        </aside>
       </div>
       <div className="mt-20 border-t border-ink-border pt-12">
         <p className="eyebrow text-oxblood-soft">How mature is your revenue infrastructure?</p>
@@ -173,6 +188,23 @@ function Audit() {
   const [activePhaseId, setActivePhaseId] = useState(APPROACH_PHASES[0]!.id);
   const activePhase = APPROACH_PHASES.find((phase) => phase.id === activePhaseId)!;
 
+  useEffect(() => {
+    const scriptId = "calendly-widget-script";
+    let script = document.getElementById(scriptId) as HTMLScriptElement | null;
+    if (!script) {
+      script = document.createElement("script");
+      script.id = scriptId;
+      script.src = "https://assets.calendly.com/assets/external/widget.js";
+      script.async = true;
+      document.body.appendChild(script);
+      script.onload = () => {
+        (window as unknown as { Calendly?: { initInlineWidgets?: () => void } }).Calendly?.initInlineWidgets?.();
+      };
+    } else {
+      (window as unknown as { Calendly?: { initInlineWidgets?: () => void } }).Calendly?.initInlineWidgets?.();
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-cream">
       <Header />
@@ -185,11 +217,11 @@ function Audit() {
                 Choose a time to talk
               </h2>
               <div className="mt-3 overflow-hidden rounded-2xl border border-cream-deep bg-white shadow-sm">
-                <iframe
-                  title="Book a conversation about the 14-Day Audit"
-                  src={CALENDLY_URL}
-                  className="block h-[700px] w-full min-w-[320px] border-0"
-                  loading="lazy"
+                {/* Calendly inline widget */}
+                <div
+                  className="calendly-inline-widget"
+                  data-url={CALENDLY_URL}
+                  style={{ minWidth: "320px", height: "700px" }}
                 />
               </div>
             </div>
@@ -244,14 +276,18 @@ function Audit() {
         {false && <section className="section-dark px-6 py-20 sm:py-24">
           <div className="mx-auto max-w-7xl">
             <p className="eyebrow text-oxblood-soft">Our approach</p>
-            <h2 className="mt-5 max-w-4xl text-4xl leading-tight text-ink-foreground sm:text-5xl">
-              Audit. Build. Optimize. <span className="voice font-normal">In that order, every time.</span>
+            <h2 className="mt-5 max-w-none font-display text-lg xs:text-xl sm:text-3xl md:text-4xl lg:text-[2.65rem] xl:text-5xl font-extrabold leading-tight text-ink-foreground whitespace-nowrap tracking-tight">
+              Audit. Build. Optimize.{" "}
+              <span className="voice font-normal">In that order, every time.</span>
             </h2>
-            <p className="mt-5 max-w-3xl leading-relaxed text-ink-muted">
-              Every engagement follows the same three phases — because guessing is expensive, and skipping steps is how revenue systems turn into spaghetti.
-              <br />
-              We audit first. We build what the audit tells us to. We optimize what we built.
-            </p>
+            <div className="mt-4 space-y-1.5">
+              <p className="max-w-none text-sm leading-relaxed text-ink-muted sm:text-base sm:whitespace-nowrap">
+                Every engagement follows the same three phases — because guessing is expensive, and shortcuts create fragile systems.
+              </p>
+              <p className="text-sm font-bold text-white sm:text-base sm:whitespace-nowrap">
+                We audit first. We build what the audit tells us to. We optimize what we built.
+              </p>
+            </div>
 
             <div className="mt-12 grid grid-cols-3 border-y border-ink-border">
               {APPROACH_PHASES.map((phase) => {
