@@ -29,6 +29,11 @@
 - [x] Refine link treatments, Signal Engine heading, and Before/After card density/readability.
 - [x] Hide Illustrative Impact and restore the Our Approach section on the homepage.
 - [x] Add the 14-Day Revenue Infrastructure Audit diagnostic, scoring and benchmark section to `/audit`.
+- [x] Add the five-section free Revenue Infrastructure Assessment at `/assessment`.
+- [x] Add deterministic directional scoring, coverage rules, preview results, and the paid-audit CTA.
+- [x] Treat every “Not sure” assessment response as a completed zero-score response.
+- [x] Add the 24-hour browser-side assessment expiry record and gated full-report request interface.
+- [ ] Connect Gmail OAuth/service credentials and a server-side PDF generator for live report email delivery.
 
 ## Notes
 
