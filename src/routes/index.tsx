@@ -275,7 +275,7 @@ function ApproachSection() {
   return <section id="insights" className="section-dark px-6 py-20 sm:py-24">
     <div className="mx-auto max-w-7xl">
       <p className="eyebrow text-oxblood-soft">Our approach</p>
-      <h2 className="mt-5 max-w-none font-display text-lg xs:text-xl sm:text-3xl md:text-4xl lg:text-[2.65rem] xl:text-5xl font-extrabold leading-tight text-ink-foreground whitespace-nowrap tracking-tight">
+      <h2 className="mt-5 max-w-none font-display text-lg xs:text-xl sm:text-3xl md:text-4xl lg:text-[2.65rem] xl:text-5xl font-extrabold leading-tight text-ink-foreground whitespace-normal lg:whitespace-nowrap tracking-tight">
         Audit. Build. Optimize.{" "}
         <span className="voice font-normal">In that order, every time.</span>
       </h2>
@@ -300,35 +300,34 @@ function ApproachSection() {
 
 function WhichPathSection() {
   return (
-    <section className="bg-[#383533] px-6 py-12 sm:py-16">
-      <div className="mx-auto max-w-7xl">
+    <section className="bg-oxblood px-6 py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
-          <p className="eyebrow text-xs tracking-widest text-oxblood-soft sm:text-sm">Your starting point</p>
-          <h2 className="mt-2.5 font-display text-2xl font-extrabold leading-tight text-ink-foreground sm:text-3xl lg:text-4xl">
-            Which path is <span className="voice font-normal text-oxblood-soft">right for you?</span>
+          <p className="hidden">Your starting point</p>
+          <h2 className="font-display text-4xl font-extrabold leading-[1.02] text-ink-foreground sm:text-5xl lg:text-6xl">
+            Which path is <span className="voice font-normal">right for you?</span>
           </h2>
         </div>
 
-        <div className="mt-8 divide-y divide-ink-border border-y border-ink-border sm:mt-10">
+        <div className="mt-9 grid gap-5 lg:mt-11 lg:grid-cols-2 lg:gap-6">
           {/* Path 1 */}
-          <div className="group flex flex-col justify-between gap-5 py-6 transition-colors sm:py-7 lg:flex-row lg:items-center">
+          <div className="group flex flex-col rounded-[1.75rem] bg-ink p-6 text-ink-foreground shadow-[0_18px_32px_rgb(30_25_24_/_16%)] transition-colors sm:p-7">
             <div className="max-w-2xl">
-              <div className="flex items-center gap-3">
-                <span className="eyebrow text-xs tracking-wider text-oxblood-soft">Choose Path 01</span>
-                <span className="h-1 w-1 rounded-full bg-ink-muted/40" />
-                <span className="text-xs uppercase tracking-wider text-ink-muted">Direct conversation</span>
+              <div className="flex items-start justify-between gap-3">
+                <span className="eyebrow text-xs text-ink-foreground/70">01 / Direct conversation</span>
+                <span className="shrink-0 rounded-full border border-ink-foreground/40 px-3 py-1 text-xs text-ink-foreground/90">30 min conversation</span>
               </div>
-              <h3 className="mt-2.5 font-display text-xl font-extrabold leading-snug text-ink-foreground sm:text-2xl">
+              <h3 className="mt-7 font-display text-2xl font-extrabold leading-tight text-ink-foreground sm:text-3xl">
                 I already know something is wrong.
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-muted sm:text-base">
-                30-minute conversation · No commitment. Talk through your systems and bottlenecks.
+              <p className="mt-2 text-sm leading-relaxed text-ink-foreground/65 sm:text-base">
+                Talk through your systems and bottlenecks.
               </p>
             </div>
-            <div className="shrink-0 pt-1 lg:pt-0">
+            <div className="mt-6">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-display text-sm font-bold text-primary-foreground transition-all hover:bg-oxblood-soft hover:translate-x-0.5"
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 font-display text-sm font-bold text-primary-foreground transition-colors hover:bg-oxblood-soft"
               >
                 Book a call <ArrowRight className="h-4 w-4" />
               </Link>
@@ -336,33 +335,32 @@ function WhichPathSection() {
           </div>
 
           {/* Path 2 */}
-          <div className="group flex flex-col justify-between gap-5 py-6 transition-colors sm:py-7 lg:flex-row lg:items-center">
+          <div className="group flex flex-col rounded-[1.75rem] bg-ink p-6 text-ink-foreground shadow-[0_18px_32px_rgb(30_25_24_/_16%)] transition-colors sm:p-7">
             <div className="max-w-2xl">
-              <div className="flex items-center gap-3">
-                <span className="eyebrow text-xs tracking-wider text-oxblood-soft">Choose Path 02</span>
-                <span className="h-1 w-1 rounded-full bg-ink-muted/40" />
-                <span className="text-xs uppercase tracking-wider text-ink-muted">Diagnostic audit</span>
+              <div className="flex items-start justify-between gap-3">
+                <span className="eyebrow text-xs text-ink-foreground/70">02 / Diagnostic audit</span>
+                <span className="shrink-0 rounded-full border border-ink-foreground/40 px-3 py-1 text-xs text-ink-foreground/90">14-day, $100 audit</span>
               </div>
-              <h3 className="mt-2.5 font-display text-xl font-extrabold leading-snug text-ink-foreground sm:text-2xl">
+              <h3 className="mt-7 font-display text-2xl font-extrabold leading-tight text-ink-foreground sm:text-3xl">
                 I want Growen to find the gaps.
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-muted sm:text-base">
-                14-day diagnostic · Prioritized blueprint. We inspect your systems and tell you what to fix.
+              <p className="mt-2 text-sm leading-relaxed text-ink-foreground/65 sm:text-base">
+                We inspect your systems and tell you what to fix.
               </p>
             </div>
-            <div className="shrink-0 pt-1 lg:pt-0">
+            <div className="mt-6">
               <Link
                 to="/audit"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-display text-sm font-bold text-primary-foreground transition-all hover:bg-oxblood-soft hover:translate-x-0.5"
+                className="flex w-full items-center justify-center gap-2 rounded-full border border-ink-foreground/80 px-6 py-3.5 font-display text-sm font-bold text-ink-foreground transition-colors hover:bg-ink-foreground hover:text-ink"
               >
-                Get the 14 Day Audit <ArrowRight className="h-4 w-4" />
+                Get the 14-Day Audit <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           </div>
         </div>
 
         {/* Closing Banner */}
-        <div className="mt-8 text-center sm:mt-10">
+        <div className="hidden">
           <p className="font-display text-base font-bold text-ink-foreground sm:text-lg lg:text-xl">
             “We are not another tool.{" "}
             <span className="voice font-normal text-oxblood-soft">
@@ -399,7 +397,7 @@ function Index() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen overflow-x-clip bg-cream">
       <Header />
 
       {/* HERO — dark: inside the system */}
@@ -480,9 +478,6 @@ function Index() {
         <BuiltForStrip />
       </section>
 
-      <GlowingSeparator />
-      <WhichPathSection />
-      <GlowingSeparator />
 
       {/* PROBLEM STATEMENT — light */}
       <section className="hidden" aria-hidden="true">
@@ -634,9 +629,9 @@ function Index() {
               The data arrives.{" "}
               <span className="voice font-normal text-oxblood">The action is missing.</span>
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            <p className="mt-3 max-w-none text-sm leading-relaxed text-muted-foreground sm:text-base">
               Four signals your company generated this week. Nobody acted on them. These aren't hypotheticals.{" "}
-              <span className="voice font-normal text-oxblood text-base sm:text-lg">This is a normal Tuesday.</span>
+              <span className="voice whitespace-nowrap font-normal text-oxblood text-base sm:text-lg">This is a normal Tuesday.</span>
             </p>
           </div>
 
@@ -967,25 +962,8 @@ function Index() {
         </div>
       </section>
 
-      <section className="bg-primary px-6 py-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <h2 className="max-w-3xl text-4xl leading-tight text-primary-foreground sm:text-5xl">
-                Ready to stop <span className="voice font-normal">leaking revenue?</span>
-              </h2>
-              <p className="mt-5 max-w-xl text-primary-foreground/80">Start with a focused <strong className="text-primary-foreground">Revenue Infra Audit</strong>. We map your signal sources, score the gaps between systems, identify revenue leaks, and give you a prioritised blueprint with the right tier, timeline and next actions.</p>
-            </div>
-            <Link
-              to="/contact"
-              className="inline-flex h-12 w-full sm:w-52 shrink-0 items-center justify-center gap-2 rounded-full bg-ink px-6 font-display text-sm font-bold text-ink-foreground shadow-md transition-all hover:-translate-y-0.5"
-            >
-              Book a call <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
+      <GlowingSeparator />
+      <WhichPathSection />
       <Footer />
     </div>
   );

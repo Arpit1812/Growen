@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { Check } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import {
@@ -345,6 +345,24 @@ function Audit() {
           className="h-0.5 w-full bg-oxblood shadow-[0_0_10px_2px_rgba(143,65,77,0.24),0_0_28px_8px_rgba(143,65,77,0.12)]"
         />
       </main>
+      <section className="bg-primary px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h2 className="max-w-3xl text-4xl leading-tight text-primary-foreground sm:text-5xl">
+                Ready to stop <span className="voice font-normal">leaking revenue?</span>
+              </h2>
+              <p className="mt-5 max-w-xl text-primary-foreground/80">Start with a focused <strong className="text-primary-foreground">Revenue Infra Audit</strong>. We map your signal sources, score the gaps between systems, identify revenue leaks, and give you a prioritised blueprint with the right tier, timeline and next actions.</p>
+            </div>
+            <Link
+              to="/contact"
+              className="inline-flex h-12 w-full sm:w-52 shrink-0 items-center justify-center gap-2 rounded-full bg-ink px-6 font-display text-sm font-bold text-ink-foreground shadow-md transition-all hover:-translate-y-0.5"
+            >
+              Book a call <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
       <Footer />
     </div>
   );

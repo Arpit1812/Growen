@@ -173,11 +173,16 @@ const GROUPS: { group: string; rows: [string, Level, Level, Level][] }[] = [
     group: "Engagement & automation",
     rows: [
       ["5-touch automated follow-up sequences", "full", "full", "full"],
-      ["AI-assisted outreach drafting", "none", "full", "full"],
       ["Referral program automation", "none", "partial", "full"],
+      ["Commercial ops automation (CPQ)", "none", "none", "full"],
+    ],
+  },
+  {
+    group: "AI & Intelligence",
+    rows: [
+      ["AI-assisted outreach drafting", "none", "partial", "full"],
       ["AI SDR / autonomous outbound agent", "none", "none", "full"],
       ["Conversation intelligence", "none", "none", "full"],
-      ["Commercial ops automation (CPQ)", "none", "none", "full"],
     ],
   },
 ];

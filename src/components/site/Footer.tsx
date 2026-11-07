@@ -39,6 +39,11 @@ export function Footer() {
                 </Link>
               </li>
             </ul>
+            <p className="eyebrow mt-8 text-ink-muted">
+              <Link to="/assessment" className="hover:text-ink-foreground">
+                Take a Free Assessment today
+              </Link>
+            </p>
           </div>
 
           <div>

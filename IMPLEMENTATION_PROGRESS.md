@@ -32,6 +32,8 @@
 - [x] Add the five-section free Revenue Infrastructure Assessment at `/assessment`.
 - [x] Add deterministic directional scoring, coverage rules, preview results, and the paid-audit CTA.
 - [x] Treat every “Not sure” assessment response as a completed zero-score response.
+- [x] Restyle the homepage “Which path is right for you?” section as the rosewood two-card decision layout.
+- [x] Move the “Which path is right for you?” section to the final homepage position, directly above the footer.
 - [x] Add the 24-hour browser-side assessment expiry record and gated full-report request interface.
 - [ ] Connect Gmail OAuth/service credentials and a server-side PDF generator for live report email delivery.
 
