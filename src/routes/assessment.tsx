@@ -69,6 +69,7 @@ function Assessment() {
   const [requestState, setRequestState] = useState<
     "idle" | "sending" | "sent" | "error"
   >("idle");
+  const [requestError, setRequestError] = useState("");
   const qs = items.filter((item) => item.stage === stages[section]);
   const done = qs.every((q) => q.id in answers);
   const summary = calculate(answers);
@@ -83,11 +84,23 @@ function Assessment() {
         body: JSON.stringify({ answers, email: email.trim() }),
       });
       if (!response.ok) {
+        const result: unknown = await response.json().catch(() => null);
+        const message =
+          result &&
+          typeof result === "object" &&
+          "error" in result &&
+          typeof result.error === "string"
+            ? result.error
+            : "Your report request failed. Please try again.";
+        setRequestError(message);
         setRequestState("error");
         return;
       }
       setRequestState("sent");
     } catch {
+      setRequestError(
+        "We couldn’t reach the report service. Please try again shortly.",
+      );
       setRequestState("error");
     }
   };
@@ -296,6 +309,7 @@ function Assessment() {
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);
+                      setRequestError("");
                       setRequestState("idle");
                     }}
                     placeholder="Work email"
@@ -324,8 +338,7 @@ function Assessment() {
                   )}
                   {requestState === "error" && (
                     <p className="mt-3 text-sm text-destructive" role="alert">
-                      We couldn’t send your report. Please check your email and
-                      try again.
+                      {requestError}
                     </p>
                   )}
                   <div className="mt-10 border-t border-border pt-6">
