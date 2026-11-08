@@ -15,6 +15,8 @@ import { Route as AuditRouteImport } from './routes/audit'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as LegalRouteImport } from './routes/legal'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as ApiReportsRouteImport } from './routes/api.reports'
+import { Route as ApiReportDownloadTokenRouteImport } from './routes/api.report-download.$token'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +48,16 @@ const PricingRoute = PricingRouteImport.update({
   path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiReportsRoute = ApiReportsRouteImport.update({
+  id: '/api/reports',
+  path: '/api/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiReportDownloadTokenRoute = ApiReportDownloadTokenRouteImport.update({
+  id: '/api/report-download/$token',
+  path: '/api/report-download/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +66,8 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/legal': typeof LegalRoute
   '/pricing': typeof PricingRoute
+  '/api/reports': typeof ApiReportsRoute
+  '/api/report-download/$token': typeof ApiReportDownloadTokenRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +76,8 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/legal': typeof LegalRoute
   '/pricing': typeof PricingRoute
+  '/api/reports': typeof ApiReportsRoute
+  '/api/report-download/$token': typeof ApiReportDownloadTokenRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,12 +87,30 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/legal': typeof LegalRoute
   '/pricing': typeof PricingRoute
+  '/api/reports': typeof ApiReportsRoute
+  '/api/report-download/$token': typeof ApiReportDownloadTokenRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/assessment' | '/audit' | '/contact' | '/legal' | '/pricing'
+  fullPaths:
+    | '/'
+    | '/assessment'
+    | '/audit'
+    | '/contact'
+    | '/legal'
+    | '/pricing'
+    | '/api/reports'
+    | '/api/report-download/$token'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/assessment' | '/audit' | '/contact' | '/legal' | '/pricing'
+  to:
+    | '/'
+    | '/assessment'
+    | '/audit'
+    | '/contact'
+    | '/legal'
+    | '/pricing'
+    | '/api/reports'
+    | '/api/report-download/$token'
   id:
     | '__root__'
     | '/'
@@ -85,6 +119,8 @@ export interface FileRouteTypes {
     | '/contact'
     | '/legal'
     | '/pricing'
+    | '/api/reports'
+    | '/api/report-download/$token'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -94,6 +130,8 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   LegalRoute: typeof LegalRoute
   PricingRoute: typeof PricingRoute
+  ApiReportsRoute: typeof ApiReportsRoute
+  ApiReportDownloadTokenRoute: typeof ApiReportDownloadTokenRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -140,6 +178,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/reports': {
+      id: '/api/reports'
+      path: '/api/reports'
+      fullPath: '/api/reports'
+      preLoaderRoute: typeof ApiReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/report-download/$token': {
+      id: '/api/report-download/$token'
+      path: '/api/report-download/$token'
+      fullPath: '/api/report-download/$token'
+      preLoaderRoute: typeof ApiReportDownloadTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -150,6 +202,8 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   LegalRoute: LegalRoute,
   PricingRoute: PricingRoute,
+  ApiReportsRoute: ApiReportsRoute,
+  ApiReportDownloadTokenRoute: ApiReportDownloadTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
