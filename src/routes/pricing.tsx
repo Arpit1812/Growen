@@ -173,7 +173,9 @@ const GROUPS: { group: string; rows: [string, Level, Level, Level][] }[] = [
     group: "Engagement & automation",
     rows: [
       ["5-touch automated follow-up sequences", "full", "full", "full"],
+      ["Real-time alert routing & webhook handoffs", "partial", "full", "full"],
       ["Referral program automation", "none", "partial", "full"],
+      ["Lifecycle churn & re-engagement workflows", "none", "partial", "full"],
       ["Commercial ops automation (CPQ)", "none", "none", "full"],
     ],
   },
@@ -181,8 +183,10 @@ const GROUPS: { group: string; rows: [string, Level, Level, Level][] }[] = [
     group: "AI & Intelligence",
     rows: [
       ["AI-assisted outreach drafting", "none", "partial", "full"],
-      ["AI SDR / autonomous outbound agent", "none", "none", "full"],
+      ["Signal summarization & account briefs", "none", "partial", "full"],
       ["Conversation intelligence", "none", "none", "full"],
+      ["Predictive churn & win-probability models", "none", "none", "full"],
+      ["AI SDR / autonomous outbound agent", "none", "none", "full"],
     ],
   },
 ];

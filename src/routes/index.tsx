@@ -174,20 +174,22 @@ function StageBoard() {
                     <span className="absolute -inset-1 animate-ping rounded-full border-2 border-oxblood-soft/80" />
                   )}
                 </span>
-                <span
-                  className={`mt-4 block font-display text-sm font-extrabold tracking-[0.16em] transition-colors ${
-                    isActive ? "scale-[1.08] text-ink-foreground" : "text-ink-muted group-hover:text-ink-foreground"
-                  }`}
-                >
-                  {s.name}
-                </span>
-                <span
-                  className={`mt-2 block max-w-[13rem] text-xs leading-snug text-ink-muted transition-opacity duration-300 ${
-                    isActive ? "opacity-100" : "opacity-0 group-hover:opacity-60"
-                  }`}
-                >
-                  {s.subtitle}
-                </span>
+                <div className="mt-4 flex flex-col items-start text-left">
+                  <span
+                    className={`font-display text-sm font-extrabold tracking-[0.16em] transition-colors ${
+                      isActive ? "text-oxblood-soft" : "text-ink-muted group-hover:text-ink-foreground"
+                    }`}
+                  >
+                    {s.name}
+                  </span>
+                  <span
+                    className={`mt-1.5 block max-w-[12rem] text-xs leading-snug transition-colors ${
+                      isActive ? "font-medium text-ink-foreground" : "text-ink-muted/80 group-hover:text-ink-muted"
+                    }`}
+                  >
+                    {s.subtitle}
+                  </span>
+                </div>
               </button>
             );
           })}
@@ -359,6 +361,16 @@ function WhichPathSection() {
           </div>
         </div>
 
+        {/* Self-Assessment Link Below Cards */}
+        <div className="mt-8 text-center sm:text-left">
+          <Link
+            to="/assessment"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-muted transition-colors hover:text-oxblood-soft"
+          >
+            Not ready for a full audit? Run our 3-minute self-assessment →
+          </Link>
+        </div>
+
         {/* Closing Banner */}
         <div className="hidden">
           <p className="font-display text-base font-bold text-ink-foreground sm:text-lg lg:text-xl">
@@ -376,6 +388,41 @@ function WhichPathSection() {
 function Index() {
   const impactRef = useRef<HTMLElement>(null);
   const [impactProgress, setImpactProgress] = useState(0);
+  const [openCards, setOpenCards] = useState<string[]>([
+    "01 — YOUR EXISTING SYSTEMS",
+    "02 — YOUR CUSTOMER ACTIVITY",
+  ]);
+
+  const handleCardToggle = (newValues: string[]) => {
+    const pair1 = ["01 — YOUR EXISTING SYSTEMS", "02 — YOUR CUSTOMER ACTIVITY"];
+    const pair2 = ["03 — YOUR TEAM", "04 — THE RESULT"];
+
+    const p1Prev = pair1.filter((k) => openCards.includes(k)).length;
+    const p1New = pair1.filter((k) => newValues.includes(k)).length;
+
+    const p2Prev = pair2.filter((k) => openCards.includes(k)).length;
+    const p2New = pair2.filter((k) => newValues.includes(k)).length;
+
+    const next: string[] = [];
+
+    // Pair 1: if was open (2) and one was clicked to close (now 1), both close.
+    // If was closed (0) and one was clicked to open (now 1), both open.
+    // If neither was clicked, preserve open state.
+    if (p1Prev === 0 && p1New > 0) {
+      next.push(...pair1);
+    } else if (p1Prev === 2 && p1New === 2) {
+      next.push(...pair1);
+    }
+
+    // Pair 2
+    if (p2Prev === 0 && p2New > 0) {
+      next.push(...pair2);
+    } else if (p2Prev === 2 && p2New === 2) {
+      next.push(...pair2);
+    }
+
+    setOpenCards(next);
+  };
 
   useEffect(() => {
     const element = impactRef.current;
@@ -543,13 +590,15 @@ function Index() {
 
             <div className="self-center rounded-2xl border border-oxblood/15 bg-white/40 p-6 shadow-sm sm:p-8">
               <p className="eyebrow text-oxblood">Speed to lead</p>
-              <p className="mt-5 text-4xl font-extrabold leading-none text-oxblood sm:text-5xl">
-                7×
-              </p>
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                Contact a lead within an hour and you&apos;re nearly 7× more likely to qualify them than if you wait one more hour.
-              </p>
-              <p className="mt-3 font-display text-xs font-bold uppercase tracking-wider text-oxblood">
+              <div className="mt-4 flex items-center gap-5 sm:gap-6">
+                <p className="font-display text-5xl font-extrabold leading-none text-oxblood sm:text-6xl shrink-0">
+                  7×
+                </p>
+                <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
+                  Contact a lead within an hour and you&apos;re nearly 7× more likely to qualify them than if you wait one more hour.
+                </p>
+              </div>
+              <p className="mt-6 border-t border-oxblood/10 pt-3 font-display text-xs font-bold uppercase tracking-wider text-oxblood">
                 ~ Harvard Business Review
               </p>
             </div>
@@ -575,9 +624,9 @@ function Index() {
             </div>
 
             <Accordion
-              type="single"
-              collapsible
-              defaultValue="01 — YOUR EXISTING SYSTEMS"
+              type="multiple"
+              value={openCards}
+              onValueChange={handleCardToggle}
               className="grid gap-4 sm:grid-cols-2"
             >
               {[
@@ -599,18 +648,22 @@ function Index() {
                 {
                   title: "04 — THE RESULT",
                   meta: "Less manual work. Faster action. More visibility.",
-                  body: "Less manual work. Faster action. More visibility.",
+                  body: "Your team spends less time chasing information and more time closing revenue.",
                 },
               ].map((item) => (
-                <AccordionItem key={item.title} value={item.title} className="interactive-lift rounded-2xl border border-border bg-card px-7">
-                  <AccordionTrigger className="py-6 font-display font-bold text-foreground hover:no-underline">
+                <AccordionItem
+                  key={item.title}
+                  value={item.title}
+                  className="interactive-lift rounded-2xl border border-border bg-card px-7 transition-all"
+                >
+                  <AccordionTrigger className="pt-6 pb-2.5 font-display font-bold text-foreground hover:no-underline">
                     <span className="min-w-0 pr-4 text-left">
                       <span className="block text-sm whitespace-nowrap">{item.title}</span>
-                      <span className="mt-2 block text-sm font-medium text-oxblood">{item.meta}</span>
+                      <span className="mt-1.5 block text-sm font-medium text-oxblood">{item.meta}</span>
                     </span>
                   </AccordionTrigger>
-                  <AccordionContent className="pb-6">
-                    <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+                  <AccordionContent className="pb-6 pt-0">
+                    <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">{item.body}</p>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -660,11 +713,11 @@ function Index() {
                 </filter>
               </defs>
             </svg>
-            <div className="min-w-[48rem] divide-y divide-border/60 border-y border-border/60">
+            <div className="min-w-[54rem] divide-y divide-border/60 border-y border-border/60">
               {GAP.map((g) => (
                 <div
                   key={g.n}
-                  className="grid grid-cols-[1.6fr_auto_1fr_auto_0.9fr_auto_1.4fr] items-center gap-x-5 py-5 transition-colors hover:bg-cream/40"
+                  className="grid grid-cols-[1.5fr_auto_1.1fr_auto_1.1fr_auto_1.5fr] items-center gap-x-5 py-5 transition-colors hover:bg-cream/40"
                 >
                   {/* Column 1: Number + Pipe + Title */}
                   <div className="flex items-center gap-2.5 pr-2">
@@ -698,7 +751,7 @@ function Index() {
                   </svg>
 
                   {/* Column 2: Step 1 */}
-                  <p className="text-xs leading-snug text-foreground/90 sm:text-sm">
+                  <p className="text-sm font-medium leading-snug text-foreground/90 sm:text-base">
                     {g.points[0]}
                   </p>
 
@@ -719,7 +772,7 @@ function Index() {
                   </svg>
 
                   {/* Column 3: Step 2 */}
-                  <p className="text-xs leading-snug text-foreground/90 sm:text-sm">
+                  <p className="text-sm font-medium leading-snug text-foreground/90 sm:text-base">
                     {g.points[1]}
                   </p>
 
@@ -774,7 +827,7 @@ function Index() {
                         }}
                       />
                     </svg>
-                    <span className="relative text-xs font-medium leading-snug text-foreground sm:text-sm">
+                    <span className="relative text-sm font-semibold leading-snug text-foreground sm:text-base">
                       {g.points[2]}
                     </span>
                   </div>
@@ -806,15 +859,17 @@ function Index() {
                   ["Missed opportunities", "Upgrade intent and churn risk are discovered after the fact."],
                   ["Slow follow-up", "Days between a buying moment and the first human response."],
                 ].map(([t, d]) => (
-                  <li key={t} className="group flex items-start gap-4">
-                    <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-oxblood/20 text-lg text-oxblood">×</span>
+                  <li key={t} className="group flex items-start gap-3.5">
+                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-oxblood/30 text-sm font-bold leading-none text-oxblood">
+                      ×
+                    </span>
                     <div className="min-w-0 flex-1">
                       <p className="font-display text-lg font-bold">{t}</p>
                       <p className="mt-2 max-h-0 max-w-md overflow-hidden text-sm leading-relaxed text-muted-foreground opacity-0 transition-all duration-200 group-hover:max-h-24 group-hover:opacity-100 group-hover:translate-y-0">
                         {d}
                       </p>
                     </div>
-                    <span className="ml-auto mt-2 text-muted-foreground/60">→</span>
+                    <span className="ml-auto mt-0.5 text-muted-foreground/60">→</span>
                   </li>
                 ))}
               </ol>
@@ -829,15 +884,17 @@ function Index() {
                   ["Prioritized opportunities", "A ranked daily queue: who to contact, why, and with what evidence."],
                   ["Faster action", "Faster response, earlier expansion, fewer silent churns — measured on a dashboard."],
                 ].map(([t, d]) => (
-                  <li key={t} className="group flex items-start gap-4">
-                    <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-oxblood text-ink-foreground"><Check className="h-5 w-5" /></span>
+                  <li key={t} className="group flex items-start gap-3.5">
+                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-oxblood text-white shadow-sm leading-none">
+                      <Check className="h-3.5 w-3.5 stroke-[2.5]" />
+                    </span>
                     <div className="min-w-0 flex-1">
                       <p className="font-display text-lg font-bold">{t}</p>
                       <p className="mt-2 max-h-0 max-w-md overflow-hidden text-sm leading-relaxed text-foreground opacity-0 transition-all duration-200 group-hover:max-h-24 group-hover:opacity-100 group-hover:translate-y-0">
                         {d}
                       </p>
                     </div>
-                    <span className="ml-auto mt-2 text-ink-muted">→</span>
+                    <span className="ml-auto mt-0.5 text-ink-muted">→</span>
                   </li>
                 ))}
               </ol>

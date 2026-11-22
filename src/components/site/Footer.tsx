@@ -38,12 +38,12 @@ export function Footer() {
                   Request Audit
                 </Link>
               </li>
+              <li>
+                <Link to="/assessment" className="hover:text-ink-foreground">
+                  Take a Free Assessment today
+                </Link>
+              </li>
             </ul>
-            <p className="eyebrow mt-8 text-ink-muted">
-              <Link to="/assessment" className="hover:text-ink-foreground">
-                Take a Free Assessment today
-              </Link>
-            </p>
           </div>
 
           <div>

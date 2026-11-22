@@ -219,7 +219,7 @@ function Contact() {
                   <p className="eyebrow text-oxblood">Form intro</p>
                   <h2 className="mt-3 text-3xl">Let&apos;s see what&apos;s happening inside your system.</h2>
                   <p className="mt-3 leading-relaxed text-muted-foreground">
-                    Start with a few quick details. We&apos;ll take it from there.
+                    Start with a few quick details. We&apos;ll tell you whether a deeper audit is worth doing.
                   </p>
                 </div>
                 <div className="grid gap-5 sm:grid-cols-2">

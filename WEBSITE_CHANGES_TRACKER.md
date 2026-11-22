@@ -130,3 +130,22 @@ Status key: `Done` = implemented and validated; `In progress` = currently being 
 - [x] **5. Pre-Footer Dual-Option Section**
   - [x] Option A (Primary Audit CTA): *"Ready to find where your revenue signals stall?"* with 20-min scoping call sub-text and *"Get the 14-Day Audit"* button triggering Calendly.
   - [x] Option B (Free Assessment Alternative): *"Not ready for a Call or a 14-Day Audit?"* with 3-minute assessment sub-text and *"Take the Free Assessment"* button linking to `/assessment`.
+
+## 10. Website Polish: Homepage, Pricing, Contact & Footer
+- [x] **1. "What We Do" (4 Core Cards)**
+  - [x] Add body text to Card 4 (The Result): *“Your team spends less time chasing information and more time closing revenue."* below *"Less manual work. Faster action. More visibility."*.
+  - [x] Tighten spacing inside expanded cards: remove awkward blank gap between subtitle and body text when opened.
+  - [x] Paired card expansion: clicking a card opens its horizontal pair (Cards 1 & 2 pair, Cards 3 & 4 pair) so both cards stay clean and even in height.
+- [x] **2. "The Core Problem", "The Gap" & "The Transformation"**
+  - [x] The Core Problem: Move the 7× supporting sentence to the right side of the giant 7× stat number, keeping `~ Harvard Business Review` along the bottom.
+  - [x] The Transformation: Line up bullet icons directly with the first line of text inside Before & After cards.
+  - [x] The Gap: Bump up font size in columns 2, 3, and 4 so signal flow is bigger and easier to read.
+- [x] **3. The Growen Signal Engine**
+  - [x] Fix stage alignment: line up each of the 5 stage names directly with its short subtext right next to/below it.
+- [x] **4. Pricing Page (Capability Comparison Table)**
+  - [x] Balance section lengths: add 2 rows to *Engagement & Automation* and 2 rows to *AI & Intelligence* so every section has the exact same row count.
+- [x] **5. Contact Us Form**
+  - [x] Update right-side helper text to: *"Start with a few quick details. We'll tell you whether a deeper audit is worth doing."*.
+- [x] **6. "Which Path Is Right For You?" & Footer**
+  - [x] Add self-assessment link below the two decision cards: *"Not ready for a full audit? Run our 3-minute self-assessment →"* linking to `/assessment`.
+  - [x] Fix footer link styling: change *"Take a Free Assessment today"* from sub-heading style to normal body/link text.
