@@ -68,6 +68,12 @@ export function Header() {
             >
               Pricing
             </Link>
+            <Link
+              to="/assessment"
+              className="rounded-full bg-oxblood/10 px-4 py-1.5 font-display text-sm font-bold text-oxblood transition-colors hover:bg-oxblood hover:text-primary-foreground"
+            >
+              Free Assessment
+            </Link>
           </nav>
           <Link
             to="/contact"
@@ -116,6 +122,15 @@ export function Header() {
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Pricing
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/assessment"
+                    className="block rounded-lg px-3 py-2.5 text-sm font-bold text-oxblood hover:bg-cream-deep"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Free Assessment
                   </Link>
                 </li>
               </ul>

@@ -77,3 +77,56 @@ Status key: `Done` = implemented and validated; `In progress` = currently being 
 - [x] Migrate the homepage Our Approach process into a third Audit section with three horizontal phase selectors and phase-specific cards; remove the former homepage process block. — Done
 - [x] Add homepage “Get 14-Day Audit” CTA linking to `/audit`. — Done
 - [x] Rename audit-request CTAs to “Book a call”. — Done; existing booking links continue to `/contact`.
+
+## 8. Free Assessment & Pre-Footer Updates
+- [x] **1. Landing Screen (Before Starting)**
+  - [x] Navbar: "Free Assessment" styled button in desktop nav and mobile drawer.
+  - [x] Hero Header, Sub-text, and 3 Quick Highlights (3 min, 10-Point Technical Diagnostic, 200+ Benchmark).
+  - [x] Hero CTA ("Start Free Assessment") with micro-text ("Free. No commitment. No technical setup required.").
+  - [x] New Section: "What does the assessment evaluate?" (5 stages: CAPTURE, SCORE, ROUTE, ENGAGE, EXPAND with focus notes).
+  - [x] New Section: "How it works" (3 simple steps: Answer questions, Get results, Understand what to improve).
+  - [x] New Section: "What You Get" (Scorecard, Opportunity Area, Recommended Next Steps, snapshot micro-text).
+  - [x] Hide all landing sections as soon as the quiz starts for a distraction-free experience.
+- [x] **2. Quiz Screen & Interaction Overhaul**
+  - [x] Horizontal 5-stage stepper (`01 CAPTURE` to `05 EXPAND`) with oxblood active bar and section/question counters.
+  - [x] 1 Question Per Screen (Zero vertical scrolling).
+  - [x] Instant selection with brand highlight, checkmark badge, and 300ms auto-advance.
+  - [x] Keyboard shortcut support (A, B, C, D) to select and advance.
+  - [x] Separate "Not sure or Skip question" subtle text link below choice stack.
+  - [x] Smooth auto-scroll to top on question transition and Back/Next navigation.
+- [x] **3. Results / Snapshot Page Upgrades**
+  - [x] Heading: "Where your pipeline is leaking today." (with voice accent italic text) and architectural baseline subtext.
+  - [x] Revenue Maturity Meter: Visual 5-level scale (Disconnected, Reactive, Automated, Intelligent, Compounding).
+  - [x] Constructive low-score phrasing (e.g. Stage 2: Reactive (Foundation Stage) — High optimization potential).
+  - [x] Visual spotlight for both Strongest and Weakest stage (including `PRIMARY BOTTLENECK` floating badge and status tags `Critical Gap`, `Partial`, `Functional`).
+  - [x] New Section: "Your biggest opportunity" with core takeaway, dynamic 2-sentence score-based diagnosis, and recommended first action.
+- [x] **4. Full PDF Report Opt-In & Audit Bridge**
+  - [x] "Get your stage-by-stage action plan" diagnostic report card with 5 bullet deliverables, work email capture, document visual mockup, and inline confirmation state (no browser alerts).
+  - [x] Deep-Dive Audit Bridge card ($100 · 14-Day Audit credited toward implementation + "Explore the 14-Day Audit" CTA) and one-line audit verification link.
+- [x] **5. Frequently Asked Questions (FAQ)**
+  - [x] Interactive 5-item FAQ accordion on the Free Assessment landing screen.
+- [x] **6. Pre-Footer Closing Banner (Dual-CTA)**
+  - [x] Compact closing band above the main footer on `/assessment` (landing and snapshot screens) with dual actions: "Get the $100 Audit" + "Book a Call".
+
+## 9. Audit Page Updates (`/audit`)
+- [x] **1. Hero Section (Flip Left & Right Sides)**
+  - [x] Swap sides: Audit info on the left, Calendly booking on the right.
+  - [x] Left side: Eyebrow `14-DAY REVENUE INFRASTRUCTURE AUDIT`, headline *"Find where revenue signals get lost — and what to do next."*, supporting text, 5 key bullets, and $100 framing (paid only after scoping call, 100% credited toward implementation).
+  - [x] Right side: Step Tag (`STEP 1: 20-MIN SCOPING CALL · NO PAYMENT TODAY`), Calendly event heading *"20-Min Audit Scoping Call"*, and inline Calendly widget.
+- [x] **2. What Is Included Section**
+  - [x] Eyebrow/Heading: "What Is Included" with sub-text: *"We examine the systems and workflows behind your customer and revenue operations."*
+  - [x] 5 Inspection Areas: System connectivity, Customer signal coverage, Data and workflow quality, Revenue handoffs, Automation and expansion opportunities.
+- [x] **3. What You'll Get Section**
+  - [x] Heading: "What You'll Get" with sub-text: *"A clear picture of where your revenue infrastructure stands — and a practical plan for improving it."*
+  - [x] 5 Deliverables: System Map, Signal & Leak Register, Opportunity Prioritization, Revenue Infrastructure Blueprint, Execution Roadmap, plus The Credit callout.
+- [x] **3B. Sub-Section: The 14-Day Process Timeline**
+  - [x] 4-step horizontal process timeline directly below deliverables:
+    - Days 1–3 — Discover
+    - Days 4–7 — Investigate
+    - Days 8–11 — Prioritize
+    - Days 12–14 — Deliver
+- [x] **4. Frequently Asked Questions (FAQ)**
+  - [x] 7-question accordion addressing audience, discovery call before payment, requirements, access scope, $100 credit, post-14-day next steps, and diagnostic vs. implementation nature.
+- [x] **5. Pre-Footer Dual-Option Section**
+  - [x] Option A (Primary Audit CTA): *"Ready to find where your revenue signals stall?"* with 20-min scoping call sub-text and *"Get the 14-Day Audit"* button triggering Calendly.
+  - [x] Option B (Free Assessment Alternative): *"Not ready for a Call or a 14-Day Audit?"* with 3-minute assessment sub-text and *"Take the Free Assessment"* button linking to `/assessment`.
